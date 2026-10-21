@@ -9,28 +9,30 @@ interface DiagramItem {
 
 interface DiagramViewerProps {
     diagrams: DiagramItem[];
-    accent: string;
+    accent?: string;
 }
 
-export default function DiagramViewer({ diagrams, accent }: DiagramViewerProps) {
+export default function DiagramViewer({ diagrams }: DiagramViewerProps) {
     const [active, setActive] = useState(0);
 
     if (!diagrams.length) return null;
     const current = diagrams[active];
 
     return (
-        <div className="glass-panel rounded-[2rem] overflow-hidden">
-            <div className="flex flex-wrap gap-2 p-5 border-b border-white/[0.06]">
+        <div className="panel overflow-hidden">
+            <div role="tablist" aria-label="Diagrams" className="flex flex-wrap gap-2 border-b rule p-4">
                 {diagrams.map((d, i) => (
                     <button
                         key={d.src}
+                        type="button"
+                        role="tab"
+                        aria-selected={i === active}
                         onClick={() => setActive(i)}
-                        className={`px-3.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.1em] transition-all duration-300 border ${
+                        className={`min-h-9 rounded-md border px-3.5 text-sm font-medium transition-colors ${
                             i === active
-                                ? "text-white border-transparent"
-                                : "text-gray-500 border-white/[0.08] hover:text-gray-300 hover:border-white/20"
+                                ? "border-accent bg-accent-wash text-accent-deep"
+                                : "border-line text-mute hover:border-accent hover:text-accent"
                         }`}
-                        style={i === active ? { background: accent } : undefined}
                     >
                         {d.label}
                     </button>
@@ -41,15 +43,13 @@ export default function DiagramViewer({ diagrams, accent }: DiagramViewerProps) 
                 href={current.src}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block relative w-full bg-white/[0.02] p-6 sm:p-10 max-h-[70vh] overflow-auto"
+                className="block max-h-[70vh] overflow-auto bg-black/40 p-6 sm:p-10"
             >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={current.src} alt={current.label} className="w-full h-auto mx-auto" />
+                <img src={current.src} alt={current.label} className="mx-auto h-auto w-full" />
             </a>
 
-            <p className="text-center text-gray-600 text-[10px] font-medium px-8 py-5">
-                Click the diagram to open it full size
-            </p>
+            <p className="meta px-6 py-4 text-center">Select the diagram to open it full size.</p>
         </div>
     );
 }
