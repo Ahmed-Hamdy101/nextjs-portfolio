@@ -1,20 +1,12 @@
 import { useState, useMemo } from "react";
-import { motion, Variants } from "framer-motion";
-import { fadeIn } from "../lib/variants";
 import {
     HiMiniCalendarDays,
     HiMiniClock,
-    HiMiniCheckCircle,
     HiMiniVideoCamera,
     HiMiniArrowTopRightOnSquare,
 } from "react-icons/hi2";
 
-// ── helpers ────────────────────────────────────────────────────────────────────
-
-const todayStr = () => {
-    const d = new Date();
-    return d.toISOString().split("T")[0];
-};
+const todayStr = () => new Date().toISOString().split("T")[0];
 
 const maxDateStr = (days = 60) => {
     const d = new Date();
@@ -41,8 +33,6 @@ const TIME_SLOTS = Array.from({ length: 23 }, (_, i) => {
     return { value, label };
 });
 
-// ── types ─────────────────────────────────────────────────────────────────────
-
 type Step = "form" | "success";
 
 interface FormState {
@@ -63,26 +53,20 @@ interface SuccessState {
     duration: string;
 }
 
+const EMPTY: FormState = { name: "", email: "", date: "", time: "", duration: "30", note: "" };
+
 export default function ScheduleForm() {
     const [step, setStep] = useState<Step>("form");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [successData, setSuccessData] = useState<SuccessState | null>(null);
+    const [form, setForm] = useState<FormState>(EMPTY);
 
-    const [form, setForm] = useState<FormState>({
-        name: "",
-        email: "",
-        date: "",
-        time: "",
-        duration: "30",
-        note: "",
-    });
+    const set =
+        (field: keyof FormState) =>
+        (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+            setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
-    const set = (field: keyof FormState) => (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-    ) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
-
-    // Formatted labels for success screen
     const dateLabel = useMemo(() => {
         if (!form.date) return "";
         return new Date(`${form.date}T12:00:00`).toLocaleDateString("en-US", {
@@ -115,7 +99,6 @@ export default function ScheduleForm() {
                     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
                 }),
             });
-
             const data = await res.json();
 
             if (!res.ok || !data.success) {
@@ -131,249 +114,131 @@ export default function ScheduleForm() {
                 duration: form.duration,
             });
             setStep("success");
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Scheduling failed.");
         } finally {
             setIsSubmitting(false);
         }
     };
 
+    if (step === "success" && successData) {
+        return (
+            <div className="panel grid gap-6 p-6 text-ink sm:p-8" role="status">
+                <div className="grid gap-1">
+                    <h3 className="h3">Meeting confirmed</h3>
+                    <p className="text-mute">A calendar invite and confirmation email are on their way to your inbox.</p>
+                </div>
+
+                <ul className="grid gap-3 rounded-md border border-line p-4">
+                    <li className="grid grid-cols-[1.5rem_1fr] items-center gap-2">
+                        <HiMiniCalendarDays className="text-accent" aria-hidden="true" />
+                        <span>{dateLabel}</span>
+                    </li>
+                    <li className="grid grid-cols-[1.5rem_1fr] items-center gap-2">
+                        <HiMiniClock className="text-accent" aria-hidden="true" />
+                        <span>{timeLabel} · {successData.duration} minutes</span>
+                    </li>
+                    {successData.meetLink && (
+                        <li className="grid grid-cols-[1.5rem_1fr] items-center gap-2">
+                            <HiMiniVideoCamera className="text-accent" aria-hidden="true" />
+                            <a href={successData.meetLink} target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-4">
+                                Join Google Meet
+                            </a>
+                        </li>
+                    )}
+                </ul>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                    {successData.calendarLink && (
+                        <a href={successData.calendarLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                            <HiMiniArrowTopRightOnSquare aria-hidden="true" />
+                            View in calendar
+                        </a>
+                    )}
+                    <button
+                        type="button"
+                        className="btn btn-quiet"
+                        onClick={() => {
+                            setStep("form");
+                            setForm(EMPTY);
+                            setSuccessData(null);
+                        }}
+                    >
+                        Schedule another
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className="w-full">
-            {step === "form" && (
-                <motion.div
-                    variants={fadeIn("up", 0.1) as unknown as Variants}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true }}
-                    className="glass-panel rounded-[2rem] p-8 lg:p-12 shadow-2xl relative overflow-hidden"
-                >
-                    <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-red-500/10 via-purple-600/10 to-transparent blur-3xl pointer-events-none" />
-                    
-                    <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
-                        {error && (
-                            <div className="p-4 rounded-xl text-xs font-black uppercase tracking-wider bg-red-500/10 border border-red-500/20 text-red-400">
-                                {error}
-                            </div>
-                        )}
+        <form className="panel grid gap-5 p-6 text-ink sm:p-8" onSubmit={handleSubmit}>
+            {error && <p className="notice notice-error" role="alert">{error}</p>}
 
-                        {/* Name + Email */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div className="group">
-                                <label className="block mb-2 text-xs font-black uppercase tracking-[0.15em] text-gray-400 group-focus-within:text-red-400 transition-colors duration-300">
-                                    Full Name
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={form.name}
-                                    onChange={set("name")}
-                                    placeholder="Your name"
-                                    className="w-full px-5 py-4 bg-white/[0.02] border border-white/10 rounded-xl focus:outline-none focus:border-red-500/60 focus:ring-1 focus:ring-red-500/30 text-white placeholder-gray-600 transition-all duration-300 text-sm font-light focus:bg-white/[0.04]"
-                                />
-                            </div>
-                            <div className="group">
-                                <label className="block mb-2 text-xs font-black uppercase tracking-[0.15em] text-gray-400 group-focus-within:text-red-400 transition-colors duration-300">
-                                    Email Address
-                                </label>
-                                <input
-                                    type="email"
-                                    required
-                                    value={form.email}
-                                    onChange={set("email")}
-                                    placeholder="your@email.com"
-                                    className="w-full px-5 py-4 bg-white/[0.02] border border-white/10 rounded-xl focus:outline-none focus:border-red-500/60 focus:ring-1 focus:ring-red-500/30 text-white placeholder-gray-600 transition-all duration-300 text-sm font-light focus:bg-white/[0.04]"
-                                />
-                            </div>
-                        </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+                <div className="field">
+                    <label htmlFor="sf-name">Full name</label>
+                    <input id="sf-name" className="input" type="text" required value={form.name} onChange={set("name")} placeholder="Your name" autoComplete="name" />
+                </div>
+                <div className="field">
+                    <label htmlFor="sf-email">Email</label>
+                    <input id="sf-email" className="input" type="email" required value={form.email} onChange={set("email")} placeholder="you@company.com" autoComplete="email" />
+                </div>
+            </div>
 
-                        {/* Date */}
-                        <div className="group">
-                            <label className="block mb-2 text-xs font-black uppercase tracking-[0.15em] text-gray-400 group-focus-within:text-red-400 transition-colors duration-300">
-                                Preferred Date
-                            </label>
-                            <input
-                                type="date"
-                                required
-                                value={form.date}
-                                onChange={set("date")}
-                                min={todayStr()}
-                                max={maxDateStr(60)}
-                                className="w-full px-5 py-4 bg-white/[0.02] border border-white/10 rounded-xl focus:outline-none focus:border-red-500/60 focus:ring-1 focus:ring-red-500/30 text-white transition-all duration-300 text-sm font-light [color-scheme:dark] focus:bg-white/[0.04]"
-                            />
-                        </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+                <div className="field">
+                    <label htmlFor="sf-date">Preferred date</label>
+                    <input id="sf-date" className="input" type="date" required value={form.date} onChange={set("date")} min={todayStr()} max={maxDateStr(60)} />
+                </div>
+                <div className="field">
+                    <label htmlFor="sf-time">Time slot</label>
+                    <select id="sf-time" className="input" required value={form.time} onChange={set("time")}>
+                        <option value="" disabled>Select a time</option>
+                        {TIME_SLOTS.map((slot) => (
+                            <option key={slot.value} value={slot.value}>{slot.label}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
 
-                        {/* Time + Duration */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div className="group">
-                                <label className="block mb-2 text-xs font-black uppercase tracking-[0.15em] text-gray-400 group-focus-within:text-red-400 transition-colors duration-300">
-                                    Time Slot
-                                </label>
-                                <div className="relative">
-                                    <select
-                                        required
-                                        value={form.time}
-                                        onChange={set("time")}
-                                        className="w-full px-5 py-4 bg-white/[0.02] border border-white/10 rounded-xl focus:outline-none focus:border-red-500/60 focus:ring-1 focus:ring-red-500/30 text-white transition-all duration-300 text-sm font-light appearance-none cursor-pointer focus:bg-white/[0.04]"
-                                    >
-                                        <option value="" disabled className="bg-[#09090b]">
-                                            Select a time…
-                                        </option>
-                                        {TIME_SLOTS.map((slot) => (
-                                            <option
-                                                key={slot.value}
-                                                value={slot.value}
-                                                className="bg-[#09090b]"
-                                            >
-                                                {slot.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500 text-xs">▼</div>
-                                </div>
-                            </div>
-
-                            <div className="group">
-                                <label className="block mb-2 text-xs font-black uppercase tracking-[0.15em] text-gray-400 group-focus-within:text-red-400 transition-colors duration-300">
-                                    Duration
-                                </label>
-                                <div className="grid grid-cols-4 gap-2">
-                                    {DURATIONS.map((d) => (
-                                        <button
-                                            key={d.value}
-                                            type="button"
-                                            onClick={() =>
-                                                setForm((prev) => ({ ...prev, duration: d.value }))
-                                            }
-                                            className={`py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wider transition-all duration-300 border ${
-                                                form.duration === d.value
-                                                    ? "bg-gradient-to-r from-red-500/20 to-purple-600/20 border-red-500/40 text-red-400"
-                                                    : "bg-white/[0.02] border-white/10 text-gray-400 hover:text-gray-200 hover:border-white/20"
-                                            }`}
-                                        >
-                                            {d.label}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Note */}
-                        <div className="group">
-                            <label className="block mb-2 text-xs font-black uppercase tracking-[0.15em] text-gray-400 group-focus-within:text-red-400 transition-colors duration-300">
-                                Agenda / Note{" "}
-                                <span className="normal-case text-gray-600 font-normal ml-1">
-                                    (optional)
-                                </span>
-                            </label>
-                            <textarea
-                                rows={3}
-                                value={form.note}
-                                onChange={set("note")}
-                                placeholder="What would you like to discuss?"
-                                className="w-full px-5 py-4 bg-white/[0.02] border border-white/10 rounded-xl focus:outline-none focus:border-red-500/60 focus:ring-1 focus:ring-red-500/30 text-white placeholder-gray-600 resize-none transition-all duration-300 text-sm font-light leading-relaxed focus:bg-white/[0.04]"
-                            />
-                        </div>
-
-                        {/* Timezone note */}
-                        <p className="text-gray-600 text-[10px] tracking-wide text-center">
-                            Times shown in your local timezone. A Google Meet link will be
-                            generated automatically.
-                        </p>
-
-                        {/* Submit */}
-                        <motion.button
-                            whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                            whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                            type="submit"
-                            disabled={isSubmitting}
-                            className={`w-full flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-red-500 to-purple-600 hover:from-red-600 hover:to-purple-700 text-white rounded-xl font-black uppercase tracking-[0.15em] text-sm shadow-lg shadow-red-500/20 hover:shadow-red-500/40 transition-all duration-500 ${
-                                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
-                        >
-                            <HiMiniCalendarDays className={`text-lg ${isSubmitting ? "animate-pulse" : ""}`} />
-                            {isSubmitting ? "Scheduling…" : "Confirm Meeting"}
-                        </motion.button>
-                    </form>
-                </motion.div>
-            )}
-
-            {step === "success" && successData && (
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4 }}
-                    className="glass-panel rounded-[2rem] p-8 lg:p-12 shadow-2xl text-center relative overflow-hidden"
-                >
-                    <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-green-500/10 to-transparent blur-3xl pointer-events-none" />
-                    
-                    <div className="relative z-10">
-                        <div className="flex justify-center mb-6">
-                            <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-600/20 border border-green-500/30">
-                                <HiMiniCheckCircle className="text-green-400 text-4xl" />
-                            </span>
-                        </div>
-
-                        <h2 className="text-2xl font-black uppercase tracking-tight mb-2">
-                            Meeting Confirmed!
-                        </h2>
-                        <p className="text-gray-400 text-sm mb-8 font-light">
-                            A calendar invite and confirmation email have been sent to your inbox.
-                        </p>
-
-                        {/* Summary */}
-                        <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-6 mb-8 text-left space-y-3">
-                            <div className="flex items-center gap-3 text-sm">
-                                <HiMiniCalendarDays className="text-red-400 text-lg flex-shrink-0" />
-                                <span className="text-gray-300 font-light">{dateLabel}</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-sm">
-                                <HiMiniClock className="text-purple-400 text-lg flex-shrink-0" />
-                                <span className="text-gray-300 font-light">
-                                    {timeLabel} &nbsp;·&nbsp; {successData.duration} minutes
-                                </span>
-                            </div>
-                            {successData.meetLink && (
-                                <div className="flex items-center gap-3 text-sm">
-                                    <HiMiniVideoCamera className="text-blue-400 text-lg flex-shrink-0" />
-                                    <a
-                                        href={successData.meetLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-400 hover:text-blue-300 transition-colors duration-200 underline underline-offset-2 truncate font-mono"
-                                    >
-                                        Join Google Meet
-                                    </a>
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row gap-3">
-                            {successData.calendarLink && (
-                                <a
-                                    href={successData.calendarLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-red-500 to-purple-600 text-white rounded-xl font-black uppercase tracking-[0.12em] text-xs shadow-lg shadow-red-500/20 hover:shadow-red-500/40 transition-all duration-300"
-                                >
-                                    <HiMiniArrowTopRightOnSquare />
-                                    View in Calendar
-                                </a>
-                            )}
+            <fieldset className="field">
+                <legend className="mb-1.5 text-sm font-semibold">Duration</legend>
+                <div className="grid grid-cols-4 gap-2">
+                    {DURATIONS.map((d) => {
+                        const selected = form.duration === d.value;
+                        return (
                             <button
-                                onClick={() => {
-                                    setStep("form");
-                                    setForm({ name: "", email: "", date: "", time: "", duration: "30", note: "" });
-                                    setSuccessData(null);
-                                }}
-                                className="flex-1 px-6 py-4 bg-white/[0.02] border border-white/10 text-gray-400 hover:text-gray-200 hover:border-white/20 rounded-xl font-black uppercase tracking-[0.12em] text-xs transition-all duration-300"
+                                key={d.value}
+                                type="button"
+                                aria-pressed={selected}
+                                onClick={() => setForm((prev) => ({ ...prev, duration: d.value }))}
+                                className={`min-h-11 rounded-md border text-sm font-medium transition-colors ${
+                                    selected
+                                        ? "border-accent bg-accent-wash text-accent-deep"
+                                        : "border-line bg-sheet text-mute hover:border-accent hover:text-accent"
+                                }`}
                             >
-                                Schedule Another
+                                {d.label}
                             </button>
-                        </div>
-                    </div>
-                </motion.div>
-            )}
-        </div>
+                        );
+                    })}
+                </div>
+            </fieldset>
+
+            <div className="field">
+                <label htmlFor="sf-note">
+                    Agenda <span className="font-normal text-mute">(optional)</span>
+                </label>
+                <textarea id="sf-note" className="input" rows={3} value={form.note} onChange={set("note")} placeholder="What would you like to discuss?" />
+            </div>
+
+            <p className="text-sm text-mute">Times use your local timezone. A Google Meet link is generated automatically.</p>
+
+            <button type="submit" disabled={isSubmitting} className="btn btn-primary min-h-12">
+                <HiMiniCalendarDays aria-hidden="true" />
+                {isSubmitting ? "Scheduling…" : "Confirm meeting"}
+            </button>
+        </form>
     );
 }
