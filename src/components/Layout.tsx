@@ -1,44 +1,43 @@
 import React, { ReactNode } from "react";
-import dynamic from "next/dynamic";
-import DockNav from "./DockNav";
-import Logo from "./Logo";
-
-// Canvas particle system — client-only, deferred so it never blocks page paint
-const ParticularContainer = dynamic(() => import("./ParticularContainer"), {
-    ssr: false,
-    loading: () => null,
-});
+import Dock from "./Dock";
+import Navbar from "./Navbar";
 
 interface LayoutProps {
     children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
-    return (
-        <div className="relative w-full min-h-screen bg-[#020204] text-slate-100 overflow-hidden font-sans">
-            {/* Particle canvas — deferred, never blocks paint */}
-            <ParticularContainer />
+const Layout: React.FC<LayoutProps> = ({ children }) => (
+    <div className="grid min-h-screen grid-cols-[minmax(0,1fr)] grid-rows-[1fr_auto] bg-paper text-ink">
+        <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-deep"
+        >
+            Skip to content
+        </a>
 
-            {/* Grid overlay — single instance */}
-            <div className="fixed inset-0 grid-mesh opacity-20 z-0 pointer-events-none" aria-hidden="true" />
+        <Navbar />
 
-            {/* Static ambient blobs — no animation, no repaints */}
-            <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
-                <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-br from-red-500/[0.05] to-transparent blur-[120px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-tl from-indigo-500/[0.05] to-transparent blur-[120px]" />
+        <main id="main-content" className="min-w-0" style={{ paddingTop: "var(--header-h)" }}>
+            {children}
+        </main>
+
+        <footer className="band-ink pb-28 md:pb-32">
+            <div className="wrap grid gap-6 py-10 md:grid-cols-[1fr_auto_auto] md:items-center md:gap-10">
+                <p className="text-[0.9375rem]">
+                    <span className="font-semibold">Ahmed Hamdy</span>
+                    <span className="text-mute"> · Full-stack engineer · Cairo, Egypt</span>
+                </p>
+                <nav aria-label="Social links" className="grid grid-flow-col justify-start gap-5 text-[0.9375rem]">
+                    <a className="link" href="https://github.com/Ahmed-Hamdy101" target="_blank" rel="noreferrer">GitHub</a>
+                    <a className="link" href="https://www.linkedin.com/in/ahmed-hamdy-ah/" target="_blank" rel="noreferrer">LinkedIn</a>
+                    <a className="link" href="https://wa.me/201141640812" target="_blank" rel="noreferrer">WhatsApp</a>
+                </nav>
+                <p className="meta">© {new Date().getFullYear()} Ahmed Hamdy</p>
             </div>
+        </footer>
 
-            <header className="fixed top-6 left-6 z-50">
-                <Logo />
-            </header>
-
-            <DockNav />
-
-            <main className="relative z-10 w-full min-h-screen pb-24 lg:pb-0">
-                {children}
-            </main>
-        </div>
-    );
-};
+        <Dock />
+    </div>
+);
 
 export default Layout;
