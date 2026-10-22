@@ -4,42 +4,34 @@ import SEOHead from "@/components/SEOHead";
 
 const OUTCOMES = [
     {
-        id: "alkayan",
-        client: "Al Kayan Engineering",
-        sector: "Construction and real estate",
-        site: "alkayan-co.com",
-        headline: "75% fewer security vulnerabilities",
-        body: "Built the real estate CMS from scratch with role-based access control, strict input validation and CSRF protection. The property listing operation runs on it in production.",
-    },
-    {
         id: "et-gco",
         client: "ET GCO Tours",
-        sector: "Tourism platform",
+        sector: "Tourism booking platform",
         site: "egypt-tour-guide.com",
-        headline: "100% Lighthouse SEO, 98% Accessibility",
-        body: "Delivered a bilingual PWA with a booking workflow that loads in under 2.5 seconds LCP, backed by Redis caching and SSR/SSG.",
+        headline: "Lighthouse SEO 100, Accessibility 98",
+        body: "Owns the platform end to end: Next.js 15, Express and PostgreSQL. LCP stays under 2.5 seconds with Redis caching, SSR/SSG and Gzip. Online payment is being added to the booking flow.",
     },
     {
-        id: "padel",
-        client: "Padel Nuestro",
-        sector: "Sports and retail",
-        site: "West Cairo",
-        headline: "IT for a 100-person office",
-        body: "Maintained network and IT infrastructure, ERP, VPN, licensing and hardware support, and deployed CCTV, DVR and NVR security systems end to end.",
+        id: "alkayan",
+        client: "Alkayan Construction & Engineering",
+        sector: "Corporate platform",
+        site: "alkayan-co.com",
+        headline: "Lighthouse performance from 50 to 80+",
+        body: "Measured on staging in the v2.0 rebuild (deployment pending), using strategic indexes and a file-based caching layer. Security was hardened with CSRF tokens, input validation, removed hard-coded credentials and a closed .env exposure.",
     },
     {
-        id: "racket",
-        client: "Egypt Racket Sport",
-        sector: "E-commerce and SEO",
-        site: "WordPress / WooCommerce",
-        headline: "Faster pages, better search visibility",
-        body: "Improved Core Web Vitals through caching and image optimisation, and did on-page SEO work on product pages.",
+        id: "erp-vpn",
+        client: "Al Kayan ERP VPN",
+        sector: "Desktop tooling, in progress",
+        site: "Rust · Tauri 2 · WireGuard",
+        headline: "ERP reachable only over a private VPN",
+        body: "Windows hub and client apps manage a WireGuard tunnel, with firewall rules that limit access to the internal ERP stock system to the VPN subnet.",
     },
 ] as const;
 
 const SECTIONS: readonly DotSection[] = [
     { id: "overview", label: "Overview" },
-    ...OUTCOMES.map((o) => ({ id: o.id, label: o.client })),
+    ...OUTCOMES.map((o) => ({ id: o.id, label: o.client.split(" ").slice(0, 2).join(" ") })),
 ];
 
 export default function OutcomesPage() {
@@ -47,14 +39,14 @@ export default function OutcomesPage() {
         <>
             <SEOHead
                 title="Outcomes | Ahmed Hamdy, Full-Stack Engineer"
-                description="Measured results from Ahmed Hamdy's engagements: security, performance, SEO and IT infrastructure outcomes for four clients."
+                description="Measured results from Ahmed Hamdy's work: Lighthouse scores on ET GCO Tours, performance gains on the Al Kayan rebuild, and a private VPN for an internal ERP."
                 path="/testimonials"
             />
             <SectionDots sections={SECTIONS} />
 
             <header id="overview" data-section className="wrap grid gap-4 pb-8 pt-16">
                 <h1 className="h1">Outcomes</h1>
-                <p className="lede">What changed for each client after the work shipped.</p>
+                <p className="lede">What changed after the work shipped.</p>
             </header>
 
             {OUTCOMES.map((item) => (
