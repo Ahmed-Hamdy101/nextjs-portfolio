@@ -9,7 +9,7 @@ import SEOHead from "@/components/SEOHead";
 const SECTIONS: readonly DotSection[] = [
     { id: "intro", label: "Introduction" },
     { id: "experience", label: "Experience" },
-    { id: "credentials", label: "Education and training" },
+    { id: "credentials", label: "Education and more" },
 ];
 
 const EXPERIENCE = [
@@ -17,71 +17,45 @@ const EXPERIENCE = [
         role: "Full Stack Developer",
         company: "ET GCO Tours",
         period: "Dec 2025 – Present",
+        note: "Remote, part-time",
         points: [
-            "Architected a decoupled Next.js 15, Express and TypeScript app with unique booking codes, customer management and real-time inventory.",
-            "Delivered LCP under 2.5s and Lighthouse scores of 100% SEO, 81% Performance and 98% Accessibility through Redis caching, SSR/SSG and Gzip.",
-            "Built an accessible, mobile-first UI with Radix UI, GSAP and Framer Motion. Deployed on Vercel and a DigitalOcean Droplet.",
-        ],
-    },
-    {
-        role: "WordPress / SEO Specialist",
-        company: "Egypt Racket Sport",
-        period: "Nov 2025 – Jan 2026",
-        points: [
-            "Managed and optimised WordPress product pages with technical SEO and Core Web Vitals improvements.",
-            "Ran ongoing performance tuning and maintenance that improved site speed and search visibility.",
+            "Own a production tour-booking platform end to end: Next.js 15 frontend, Express/TypeScript API and PostgreSQL, with booking workflows, real-time inventory, REST APIs and admin tools.",
+            "Designed a normalized PostgreSQL schema with Drizzle ORM (chosen over Prisma for speed): strategic indexes, migrations and connection pooling.",
+            "LCP under 2.5s with Lighthouse SEO 100 and Accessibility 98, using Redis caching, SSR/SSG and Gzip.",
+            "Frontend on Vercel, API on DigitalOcean behind a reverse proxy with custom domains and SSL/TLS. Building online payment into the booking flow (in progress).",
+            "Rate limiting, CSRF protection, SQL-injection prevention, unit tests and bilingual support.",
         ],
     },
     {
         role: "Full Stack Developer",
-        company: "Al Kayan Construction & Engineering (Nova v2.0)",
-        period: "Sep 2025 – Present",
+        company: "Alkayan Construction & Engineering Consultancy",
+        period: "Jan 2021 – Present",
+        note: "Maadi, Egypt · part-time contract (monthly)",
         points: [
-            "Designed a custom PHP MVC framework from scratch using the front-controller pattern, with no Laravel and no CMS.",
-            "Built a reusable OOP component system and a front end with MDBootstrap, GSAP 3D cards and a Three.js WebGL hero.",
-            "Hardened security with CSRF tokens, full-stack input validation, removed hard-coded credentials and closed .env exposure.",
-        ],
-    },
-    {
-        role: "Full Stack Developer",
-        company: "Al Kayan Construction (Legacy and Real Estate CMS)",
-        period: "Jan 2021 – Sep 2025",
-        points: [
-            "Architected and deployed the production web platform for Al Kayan Construction, with multi-category project portfolios and career management.",
-            "Built an admin CMS with role-based access control, strict input validation and CSRF protection.",
-            "Managed production deployment end to end: cloud hosting, DNS routing and SSL configuration.",
-        ],
-    },
-    {
-        role: "IT Support Specialist",
-        company: "Padel Nuestro",
-        period: "Sep 2023 – Mar 2026",
-        points: [
-            "Maintained network and IT infrastructure for a 100-person office, resolving 10+ issues monthly.",
-            "Deployed and managed CCTV, DVR and NVR systems for security monitoring.",
-            "Administered Windows Server 2019, ERP systems, VPN access, licensing, and hardware and printer support.",
+            "Built the company's live production site: multi-category project portfolio, careers module with CV upload, and an Admin CMS with role-based access control.",
+            "Completed the v2.0 rebuild (deployment pending): routing, JSON APIs, a reusable PHP component system across 10+ templates, GSAP animations and a Three.js hero.",
+            "Raised the Lighthouse performance score from 50 to 80+ in the v2.0 rebuild (staging) with strategic indexes and a file-based caching layer.",
+            "Hardened security: CSRF tokens, full-stack input validation, removed hard-coded credentials, closed .env exposure, fixed error leakage.",
+            "Building an internal ERP stock system (in progress), accessed over my own Rust/Tauri WireGuard VPN.",
         ],
     },
 ];
 
 const CREDENTIALS = [
     {
-        title: "Bachelor of Engineering, Computer Science",
-        meta: "Culture & Science City, Giza · 2020",
-        body: "Faculty of Computer Science and Information Systems. Graduation project: Doctor Prescription Electronic System (Android and web).",
-        tags: ["Data structures", "Algorithms", "OOP", "Software engineering", "Networks"],
+        title: "B.Sc. Computer Science",
+        meta: "Higher Institute for Computer Science and Information Systems, Giza · 2020",
+        body: "Bachelor's degree in Computer Science.",
     },
     {
-        title: "Udacity Advanced Full Stack Nanodegree",
-        meta: "2022",
-        body: "Node.js, Express, PostgreSQL, React, AWS (EC2, S3, RDS), Docker, CI/CD, security, and unit and integration testing.",
-        tags: ["Microservices", "CI/CD", "AWS", "Docker", "Testing"],
+        title: "Advanced Full Stack Web Development Nanodegree",
+        meta: "Udacity / FWD · 2022",
+        body: "Node.js, Express, PostgreSQL, React, AWS (EC2, S3, RDS), Docker and CI/CD.",
     },
     {
-        title: "Clean architecture and SOLID",
-        meta: "Applied across 10+ production projects",
-        body: "DRY and SOLID principles with Swagger/OpenAPI documentation. CI/CD automation on AWS Elastic Beanstalk with CircleCI.",
-        tags: ["SOLID", "OpenAPI", "Elastic Beanstalk", "CircleCI"],
+        title: "Languages and learning",
+        meta: "Arabic (native), English (professional working proficiency)",
+        body: "Currently learning NestJS and Go.",
     },
 ];
 
@@ -92,7 +66,7 @@ export default function AboutPage() {
         <>
             <SEOHead
                 title="About | Ahmed Hamdy, Full-Stack Engineer"
-                description="Ahmed Hamdy is a full-stack engineer with 5+ years of experience building scalable web applications and cloud infrastructure with Next.js, Laravel and AWS."
+                description="Ahmed Hamdy is a full stack engineer in Giza, Egypt, shipping production web platforms with TypeScript, Node.js, Next.js and PostgreSQL. Open to full-time remote roles."
                 path="/about"
             />
             <SectionDots sections={SECTIONS} />
@@ -100,15 +74,17 @@ export default function AboutPage() {
             <section id="intro" data-section className="section">
                 <div className="wrap grid gap-12 lg:grid-cols-12 lg:items-center">
                     <div className="grid gap-7 lg:col-span-7">
-                        <h1 className="h1">Full-stack engineer based in Giza, Egypt.</h1>
+                        <h1 className="h1">Full stack engineer in Giza, Egypt.</h1>
                         <div className="grid gap-4 lede">
                             <p>
-                                I&apos;m Ahmed Hamdy. I design and ship web applications, REST APIs and cloud-hosted systems
-                                across the whole stack.
+                                I&apos;m Ahmed Hamdy. I ship production web platforms in TypeScript, Node.js, Next.js and
+                                PostgreSQL, and I&apos;m open to full-time remote roles.
                             </p>
                             <p>
-                                From real estate platforms and ERP systems to AI-powered products and tourism PWAs, I focus on
-                                high-performance architecture with Node.js, Bun, Laravel, Next.js and AWS.
+                                I currently own a production booking platform end to end (Next.js 15, Express, Drizzle,
+                                Redis) and lead the security hardening and rebuild of a corporate platform. I lean
+                                backend, with Laravel and PHP as a second stack, plus desktop (Rust and Tauri) and
+                                Python projects.
                             </p>
                         </div>
                         <div className="grid gap-3 sm:grid-flow-col sm:justify-start">
@@ -120,8 +96,8 @@ export default function AboutPage() {
                             <Link href="/projects" className="btn btn-quiet">All projects</Link>
                         </div>
                         <p className="border-t rule pt-6 font-medium">
-                            Five years in production. Cut security vulnerabilities by 75% on the Al Kayan CMS and kept
-                            ET GCO Tours under a 2.5 second largest contentful paint.
+                            ET GCO Tours loads with LCP under 2.5 seconds and scores 100 on Lighthouse SEO. On the Al Kayan
+                            v2.0 rebuild, Lighthouse performance went from 50 to 80+ on staging.
                         </p>
                     </div>
 
@@ -137,7 +113,7 @@ export default function AboutPage() {
                 <div className="wrap grid gap-10">
                     <header className="grid gap-3">
                         <h2 className="h2">Experience</h2>
-                        <Link href="/work" className="link w-max">Full professional journey</Link>
+                        <Link href="/work" className="link w-max">Full work history</Link>
                     </header>
                     <ol className="grid">
                         {EXPERIENCE.map((job) => (
@@ -146,6 +122,7 @@ export default function AboutPage() {
                                 <div className="grid content-start gap-1 md:col-span-3">
                                     <h3 className="h3">{job.role}</h3>
                                     <p className="muted">{job.company}</p>
+                                    <p className="meta">{job.note}</p>
                                 </div>
                                 <ul className="grid gap-2 md:col-span-6">
                                     {job.points.map((point) => (
@@ -154,20 +131,25 @@ export default function AboutPage() {
                                 </ul>
                             </li>
                         ))}
+                        <li className="grid gap-2 border-t rule py-7 md:grid-cols-12 md:gap-8">
+                            <p className="meta md:col-span-3">Earlier</p>
+                            <p className="muted md:col-span-9">
+                                IT Support Specialist, Padel Nuestro (2023–2026). WordPress and technical SEO, Egypt Racket Sport (2025–2026).
+                            </p>
+                        </li>
                     </ol>
                 </div>
             </section>
 
             <section id="credentials" data-section className="section border-t border-line">
                 <div className="wrap grid gap-10">
-                    <h2 className="h2">Education and training</h2>
+                    <h2 className="h2">Education and more</h2>
                     <div className="grid gap-6 lg:grid-cols-3">
                         {CREDENTIALS.map((item) => (
                             <article key={item.title} className="grid content-start gap-3 border-t rule pt-6">
                                 <h3 className="h3">{item.title}</h3>
                                 <p className="meta">{item.meta}</p>
                                 <p className="muted">{item.body}</p>
-                                <p className="meta">{item.tags.join(", ")}</p>
                             </article>
                         ))}
                     </div>
