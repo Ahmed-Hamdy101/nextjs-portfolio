@@ -8,7 +8,6 @@ interface Job {
     role: string;
     duration: string;
     type: string;
-    note?: string;
     description: string;
     skills: string[];
 }
@@ -20,61 +19,38 @@ const JOBS: Job[] = [
         companyLink: "https://egypt-tour-guide.com",
         role: "Full Stack Developer",
         duration: "Dec 2025 – Present",
-        type: "Remote",
+        type: "Remote · part-time",
         description:
-            "Architected a type-safe, decoupled Next.js 15, Express and TypeScript app powering a complete tour booking platform with unique booking codes, customer management and real-time inventory. Normalised the PostgreSQL schema with Drizzle ORM, strategic indexes, migrations and connection pooling. Delivered LCP under 2.5s and Lighthouse scores of 100% SEO, 81% Performance and 98% Accessibility through Redis caching, SSR/SSG and Gzip. Built an accessible, mobile-first interface with Radix UI, GSAP and Framer Motion. Front end on Vercel, back end on a DigitalOcean Droplet (migrated from Oracle Cloud) behind a reverse proxy with strict SSL/TLS.",
-        skills: ["Next.js 15", "TypeScript", "Express", "PostgreSQL", "Drizzle ORM", "Redis", "Radix UI", "GSAP", "DigitalOcean", "Vercel"],
+            "Own a production tour-booking platform end to end: Next.js 15 frontend, Express/TypeScript API and PostgreSQL, with booking workflows, real-time inventory, REST APIs and admin tools. Designed a normalized PostgreSQL schema with Drizzle ORM (chosen over Prisma for speed), with strategic indexes, migrations and connection pooling. Achieved LCP under 2.5s with Lighthouse SEO 100 and Accessibility 98 using Redis caching, SSR/SSG and Gzip. Deployed the frontend on Vercel and the API on DigitalOcean behind a reverse proxy with custom domains and SSL/TLS. Implemented rate limiting, CSRF protection, SQL-injection prevention, unit tests and bilingual support. Building online payment into the booking flow (in progress).",
+        skills: ["Next.js 15", "TypeScript", "Express", "PostgreSQL", "Drizzle ORM", "Redis", "Vercel", "DigitalOcean"],
     },
     {
-        id: "racket-sport",
-        company: "Egypt Racket Sport",
-        companyLink: "https://egyptracketstore.com",
-        role: "WordPress / SEO Specialist",
-        duration: "Nov 2025 – Jan 2026",
-        type: "Remote",
-        description:
-            "Managed and optimised WordPress product pages with technical SEO, improved Core Web Vitals and UI enhancements. Ran ongoing performance tuning, troubleshooting and maintenance that improved site speed and search visibility.",
-        skills: ["WordPress", "SEO", "Core Web Vitals", "Performance tuning"],
-    },
-    {
-        id: "alkayan-nova",
-        company: "Al Kayan Construction & Engineering (Nova v2.0)",
-        companyLink: "https://ahmedhamdy101.is-a.dev/projects/alkayan-nova",
-        role: "Full Stack Developer",
-        duration: "Sep 2025 – Present",
-        type: "On-site · Maadi",
-        note: "Custom PHP MVC rebuild",
-        description:
-            "Designed a custom PHP MVC framework from scratch (front-controller pattern, no Laravel, no CMS) handling routing, JSON APIs and page rendering. Architected a reusable OOP component system, with static layout classes exposing navbar, footer, hero and section blocks as composable methods, keeping markup DRY across 10+ page templates. Built a front end with MDBootstrap, GSAP-driven 3D card animations and a Three.js WebGL hero scene, with light and dark themes persisted in localStorage. Hardened security with CSRF tokens on every form, full-stack input validation, removed hard-coded credentials, closed .env exposure and fixed error-message leakage.",
-        skills: ["PHP", "Custom MVC", "MDBootstrap", "Three.js", "GSAP", "WebGL", "CSRF"],
-    },
-    {
-        id: "alkayan-cms",
-        company: "Al Kayan Construction (Legacy and Real Estate CMS)",
+        id: "alkayan",
+        company: "Alkayan Construction & Engineering Consultancy",
         companyLink: "https://www.alkayan-co.com",
         role: "Full Stack Developer",
-        duration: "Jan 2021 – Sep 2025",
-        type: "On-site · Maadi",
+        duration: "Jan 2021 – Present",
+        type: "Maadi, Egypt · part-time contract (monthly)",
         description:
-            "Architected and deployed the official production web platform for Al Kayan Construction, with multi-category project portfolios and career management. Built an admin CMS with role-based access control, strict input validation and CSRF protection. Managed production deployment end to end, including cloud hosting, DNS routing and SSL configuration.",
-        skills: ["Laravel", "PHP", "MySQL", "RBAC", "CSRF", "Namecheap", "GoDaddy"],
+            "Built the company's live production site: a multi-category project portfolio, a careers module with CV upload, and an Admin CMS with role-based access control. Completed the v2.0 rebuild (deployment pending): routing, JSON APIs, a reusable PHP component system across 10+ templates, GSAP animations and a Three.js hero. Raised the Lighthouse performance score from 50 to 80+ in the v2.0 rebuild (staging) with strategic indexes and a file-based caching layer. Hardened security with CSRF tokens, full-stack input validation, removed hard-coded credentials, closed .env exposure and fixed error leakage. Building an internal ERP stock system (in progress), accessed over my own Rust/Tauri WireGuard VPN.",
+        skills: ["PHP", "Laravel", "MySQL", "RBAC", "GSAP", "Three.js", "CSRF", "Rust", "Tauri", "WireGuard"],
     },
     {
-        id: "padel-nuestro",
-        company: "Padel Nuestro",
+        id: "earlier",
+        company: "Earlier roles",
         companyLink: null,
-        role: "IT Support Specialist",
-        duration: "Sep 2023 – Mar 2026",
-        type: "West Cairo",
+        role: "IT support and WordPress",
+        duration: "2023 – 2026",
+        type: "Padel Nuestro · Egypt Racket Sport",
         description:
-            "Maintained network and IT infrastructure for a 100-person office, resolving 10+ issues monthly. Deployed and managed CCTV, DVR and NVR systems for security monitoring. Administered Windows Server 2019, ERP systems, VPN access, software licensing, and hardware and printer support.",
-        skills: ["Networking", "CCTV / NVR", "Windows Server", "ERP", "VPN", "IT support"],
+            "IT Support Specialist at Padel Nuestro (2023–2026). WordPress and technical SEO at Egypt Racket Sport (2025–2026).",
+        skills: ["IT support", "WordPress", "Technical SEO"],
     },
 ];
 
 const SECTIONS: readonly DotSection[] = [
-    { id: "journey", label: "Journey" },
-    ...JOBS.map((j) => ({ id: j.id, label: j.company.split(" (")[0] })),
+    { id: "journey", label: "Overview" },
+    ...JOBS.map((j) => ({ id: j.id, label: j.company.split(" ")[0] === "Alkayan" ? "Alkayan" : j.company })),
 ];
 
 export default function WorkPage() {
@@ -82,14 +58,14 @@ export default function WorkPage() {
         <>
             <SEOHead
                 title="Work | Ahmed Hamdy, Full-Stack Engineer"
-                description="Professional history of Ahmed Hamdy: five years of full-stack engineering, IT infrastructure and system architecture."
+                description="Work history of Ahmed Hamdy: ET GCO Tours (Dec 2025 to present) and Alkayan Construction & Engineering Consultancy (Jan 2021 to present), plus earlier IT and WordPress roles."
                 path="/work"
             />
             <SectionDots sections={SECTIONS} />
 
             <header id="journey" data-section className="wrap grid gap-4 pb-8 pt-16">
                 <h1 className="h1">Work history</h1>
-                <p className="lede">Five years of full-stack engineering, IT operations and system architecture.</p>
+                <p className="lede">Production web platforms since 2021, from booking systems to corporate sites and ERP tooling.</p>
             </header>
 
             {JOBS.map((job) => (
@@ -110,7 +86,6 @@ export default function WorkPage() {
                             ) : (
                                 <p className="font-medium">{job.company}</p>
                             )}
-                            {job.note && <p className="meta">{job.note}</p>}
                         </div>
                         <div className="grid content-start gap-6 lg:col-span-8">
                             <p className="muted max-w-3xl">{job.description}</p>
