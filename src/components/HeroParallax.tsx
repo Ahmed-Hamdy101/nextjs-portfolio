@@ -46,7 +46,7 @@ export default function HeroParallax({ items, header }: { items: ParallaxItem[];
     return (
         <div
             ref={ref}
-            className="relative grid h-[260vh] grid-cols-[minmax(0,1fr)] content-start overflow-hidden pb-40 pt-8 antialiased [perspective:1000px] [transform-style:preserve-3d]"
+            className="relative grid h-[260vh] grid-cols-[minmax(0,1fr)] -mt-[var(--header-h)] content-start overflow-hidden pb-40 pt-[calc(var(--header-h)+2rem)] antialiased [perspective:1000px] [transform-style:preserve-3d]"
         >
             {header}
             <motion.div style={{ rotateX, rotateZ, translateY, opacity }} className="grid min-w-0 gap-16">
