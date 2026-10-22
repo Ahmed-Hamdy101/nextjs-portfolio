@@ -17,7 +17,7 @@ const WORK_MENU = [
     {
         href: "/work",
         title: "Work history",
-        body: "Five years of full-stack engineering, IT operations and architecture.",
+        body: "Production work since 2021: booking platforms, corporate sites and ERP tooling.",
     },
     {
         href: "/skills",
