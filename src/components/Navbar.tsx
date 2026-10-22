@@ -77,7 +77,7 @@ export default function Navbar() {
             <div
                 className={`pointer-events-auto relative mx-auto grid grid-cols-[auto_1fr_auto] items-center gap-6 rounded-[2rem] border px-5 transition-[width,margin,height,background-color,border-color,backdrop-filter] duration-300 ease-out ${
                     scrolled
-                        ? "mt-3 h-[3.75rem] border-line bg-transparent"
+                        ? "mt-3 h-[3.75rem] border-line bg-deep/90 backdrop-blur-md"
                         : "mt-0 h-[var(--header-h)] border-transparent bg-transparent"
                 }`}
                 style={{ width: scrolled ? "min(62rem, 100% - 2rem)" : "min(72rem, 100% - 2.5rem)" }}
