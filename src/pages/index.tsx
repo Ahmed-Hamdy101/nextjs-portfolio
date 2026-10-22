@@ -36,7 +36,7 @@ const SOCIALS = [
 ];
 
 const STATEMENT =
-    "I build web products end to end: the interface, the API, the data and the servers they run on. Five years shipped across tourism, construction and e-commerce.";
+    "I build web products end to end: the interface, the API, the data and the servers they run on. I own a live booking platform and lead the security hardening and rebuild of a corporate platform.";
 
 const STACK_ROW_ONE = ["Next.js", "React", "TypeScript", "Node.js", "Bun", "Fastify", "Laravel"];
 const STACK_ROW_TWO = ["PostgreSQL", "Redis", "Docker", "AWS", "NGINX", "Tailwind", "Drizzle"];
@@ -44,23 +44,23 @@ const STACK_ROW_TWO = ["PostgreSQL", "Redis", "Docker", "AWS", "NGINX", "Tailwin
 const LAYERS: Layer[] = [
     {
         name: "Interface",
-        tools: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+        tools: ["Next.js 15", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
         body: "Server-rendered and cached for fast first paint, with accessibility and SEO treated as requirements.",
     },
     {
         name: "API",
         tools: ["Node.js", "Express", "Fastify", "Bun", "Laravel"],
-        body: "Typed REST APIs with layered domain code, JWT authentication and role-based access control.",
+        body: "Typed REST APIs with JWT / OAuth2 authentication, role-based access control and rate limiting.",
     },
     {
         name: "Data",
-        tools: ["PostgreSQL", "MySQL", "Redis", "Drizzle", "Prisma"],
-        body: "Relational schemas with foreign keys and composite indexes, Redis in front of hot queries, migrations that need no downtime.",
+        tools: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Drizzle", "Prisma"],
+        body: "Normalized PostgreSQL schemas with strategic indexes, migrations and connection pooling, and Redis in front of hot reads.",
     },
     {
         name: "Delivery",
-        tools: ["Docker", "NGINX", "AWS", "DigitalOcean", "CI/CD"],
-        body: "Containerised services behind NGINX, TLS automation and pipelines that deploy on merge.",
+        tools: ["Docker", "NGINX", "Vercel", "DigitalOcean", "AWS", "CI/CD"],
+        body: "Frontend on Vercel and API on DigitalOcean behind a reverse proxy, with custom domains, SSL/TLS, Docker and CI/CD pipelines.",
     },
 ];
 
@@ -82,8 +82,8 @@ const structuredData = {
             "@id": `${SITE_ORIGIN}/#person`,
             name: "Ahmed Hamdy",
             url: `${SITE_ORIGIN}/about`,
-            jobTitle: "Senior Full-stack Engineer",
-            address: { "@type": "PostalAddress", addressLocality: "Cairo", addressCountry: "EG" },
+            jobTitle: "Full Stack Engineer",
+            address: { "@type": "PostalAddress", addressLocality: "Giza", addressCountry: "EG" },
             sameAs: [
                 "https://github.com/Ahmed-Hamdy101",
                 "https://www.linkedin.com/in/ahmed-hamdy-ah/",
@@ -109,7 +109,7 @@ export default function HomePage() {
         <>
             <SEOHead
                 title="Ahmed Hamdy | Full-Stack Engineer"
-                description="Ahmed Hamdy is a Cairo-based full-stack engineer building web products, APIs and cloud systems with TypeScript, Node.js, Laravel, Next.js and AWS."
+                description="Ahmed Hamdy is a full stack engineer in Giza, Egypt, shipping production web platforms with TypeScript, Node.js, Next.js and PostgreSQL. Open to full-time remote roles."
                 path="/"
                 structuredData={structuredData}
             />
@@ -124,8 +124,8 @@ export default function HomePage() {
                         <div className="wrap relative z-10 grid gap-8 pb-10 pt-16 md:pt-24">
                             <h1 className="display max-w-5xl">Full-stack engineer. Database to deploy.</h1>
                             <p className="lede">
-                                I&apos;m Ahmed Hamdy in Cairo. I build and run web applications, APIs and cloud
-                                infrastructure for tourism, construction and e-commerce teams.
+                                I&apos;m Ahmed Hamdy in Giza, Egypt. I ship production web platforms in TypeScript,
+                                Node.js, Next.js and PostgreSQL, and I&apos;m open to full-time remote roles.
                             </p>
                             <div className="grid gap-3 sm:grid-flow-col sm:justify-start">
                                 <Link href="/projects" className="btn btn-primary">See case studies</Link>
@@ -199,23 +199,23 @@ export default function HomePage() {
                             <div className="grid content-between gap-10">
                                 <p className="text-[clamp(5rem,12vw,9rem)] font-bold leading-[0.85] tracking-[-0.05em] text-accent">100%</p>
                                 <div className="grid gap-2">
-                                    <p className="text-2xl font-semibold tracking-tight">Lighthouse SEO, 98% accessibility, LCP under 2.5 seconds</p>
-                                    <p className="text-mute">ET GCO Tours, a bilingual booking platform built on Next.js with Redis caching.</p>
+                                    <p className="text-2xl font-semibold tracking-tight">Lighthouse SEO 100, accessibility 98, LCP under 2.5 seconds</p>
+                                    <p className="text-mute">ET GCO Tours: bilingual booking platform on Next.js 15 with Redis caching, SSR/SSG and Gzip.</p>
                                 </div>
                             </div>
                         </SpotlightCard>
 
                         <SpotlightCard className="p-8 lg:col-span-3">
                             <div className="grid content-between gap-6">
-                                <p className="text-5xl font-bold tracking-[-0.04em]">75% fewer vulnerabilities</p>
-                                <p className="text-mute">Al Kayan CMS: custom PHP MVC with CSRF protection, strict validation and role-based access control.</p>
+                                <p className="text-5xl font-bold tracking-[-0.04em]">Lighthouse 50 to 80+</p>
+                                <p className="text-mute">Al Kayan v2.0 rebuild, measured on staging: strategic indexes and a file-based caching layer.</p>
                             </div>
                         </SpotlightCard>
 
                         <SpotlightCard className="p-8 lg:col-span-2">
                             <div className="grid content-between gap-6">
-                                <p className="text-3xl font-bold tracking-[-0.03em]">100-person office</p>
-                                <p className="text-mute">Padel Nuestro: network, ERP, VPN and CCTV, kept running.</p>
+                                <p className="text-3xl font-bold tracking-[-0.03em]">ERP over a private VPN</p>
+                                <p className="text-mute">Rust and Tauri apps managing a WireGuard tunnel for Al Kayan&apos;s internal ERP.</p>
                             </div>
                         </SpotlightCard>
 
