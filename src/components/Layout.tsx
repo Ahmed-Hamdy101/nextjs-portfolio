@@ -25,7 +25,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
             <div className="wrap grid gap-6 py-10 md:grid-cols-[1fr_auto_auto] md:items-center md:gap-10">
                 <p className="text-[0.9375rem]">
                     <span className="font-semibold">Ahmed Hamdy</span>
-                    <span className="text-mute"> · Full-stack engineer · Cairo, Egypt</span>
+                    <span className="text-mute"> · Full stack engineer · Giza, Egypt</span>
                 </p>
                 <nav aria-label="Social links" className="grid grid-flow-col justify-start gap-5 text-[0.9375rem]">
                     <a className="link" href="https://github.com/Ahmed-Hamdy101" target="_blank" rel="noreferrer">GitHub</a>
