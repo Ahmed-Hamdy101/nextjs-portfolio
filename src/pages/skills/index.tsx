@@ -3,34 +3,52 @@ import SEOHead from "@/components/SEOHead";
 
 const CATEGORIES = [
     {
-        id: "frontend",
-        title: "Frontend",
-        summary: "Interfaces that load fast, stay accessible and hold up on mobile.",
-        skills: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "shadcn/ui", "Magic UI", "GSAP", "HTML and CSS", "UX and UI design", "GIS maps"],
+        id: "languages",
+        title: "Languages",
+        summary: "TypeScript first, with PHP for Laravel work and Rust for desktop tooling.",
+        skills: ["TypeScript", "JavaScript", "PHP", "SQL", "Python", "Rust"],
     },
     {
         id: "backend",
-        title: "Backend and data",
-        summary: "Typed APIs, relational data models and the caching in front of them.",
-        skills: ["Node.js", "Bun", "Express", "Fastify", "PHP and Laravel", "PostgreSQL", "MySQL", "MongoDB", "Redis", "Drizzle", "Prisma", "Jest", "Jasmine", "Python", "Go"],
+        title: "Backend",
+        summary: "Typed REST APIs with token-based auth and role-based access control.",
+        skills: ["Node.js", "Express", "Fastify", "Bun", "Laravel", "REST APIs", "JWT / OAuth2", "RBAC"],
     },
     {
-        id: "cms",
-        title: "CMS and commerce",
-        summary: "Content platforms and storefronts, tuned for search and speed.",
-        skills: ["WordPress", "WooCommerce", "Swagger / OpenAPI", "NGINX"],
+        id: "frontend",
+        title: "Frontend",
+        summary: "Server-rendered React interfaces that stay fast and accessible.",
+        skills: ["Next.js 15", "React", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
     },
     {
-        id: "devops",
-        title: "Cloud and delivery",
-        summary: "Production hosting, containers and pipelines.",
-        skills: ["AWS (EC2, S3, RDS)", "DigitalOcean", "Oracle Cloud", "Docker", "Linux and SSH", "Git and CI/CD", "GitHub", "Vercel", "Decoupled architecture", "Namecheap", "GoDaddy"],
+        id: "databases",
+        title: "Databases",
+        summary: "Relational schemas with strategic indexes, and Redis in front of hot reads.",
+        skills: ["PostgreSQL", "MySQL", "MongoDB", "Drizzle ORM", "Prisma", "Redis"],
     },
     {
-        id: "tools",
-        title: "Design and tooling",
-        summary: "Design software and desktop toolchains used alongside the web stack.",
-        skills: ["Figma", "Adobe XD", "Adobe Illustrator", "Adobe Photoshop", "Qt and C++", "Visual Studio and C#", "VS Code"],
+        id: "desktop",
+        title: "Desktop",
+        summary: "Windows apps built with Tauri, managing a WireGuard tunnel.",
+        skills: ["Tauri (Rust)", "WireGuard"],
+    },
+    {
+        id: "ai",
+        title: "AI integration",
+        summary: "LLM-backed services behind typed, rate-limited endpoints.",
+        skills: ["OpenAI / Claude API integration", "Fastify AI services (ts-ai-api)"],
+    },
+    {
+        id: "infra",
+        title: "Infrastructure and testing",
+        summary: "Production hosting, containers, pipelines and test suites.",
+        skills: ["Docker", "NGINX", "CI/CD", "Vercel", "DigitalOcean", "AWS (EC2, S3, RDS)", "Jest", "Jasmine", "PHPUnit"],
+    },
+    {
+        id: "learning",
+        title: "Currently learning",
+        summary: "Where I'm spending study time right now.",
+        skills: ["NestJS", "Go"],
     },
 ] as const;
 
@@ -41,14 +59,14 @@ export default function SkillsPage() {
         <>
             <SEOHead
                 title="Skills | Ahmed Hamdy, Full-Stack Engineer"
-                description="Technical skills of Ahmed Hamdy across frontend, backend, data, cloud and delivery, built over 5+ years of production work."
+                description="Technical skills of Ahmed Hamdy: TypeScript, Node.js, Next.js, Laravel, PostgreSQL, Redis, Docker, AWS and Rust/Tauri desktop tooling."
                 path="/skills"
             />
             <SectionDots sections={SECTIONS} />
 
             <header className="wrap grid gap-4 pb-6 pt-16">
                 <h1 className="h1">Skills</h1>
-                <p className="lede">Five years of shipping production systems across the full stack.</p>
+                <p className="lede">The stack behind the production platforms listed on this site.</p>
             </header>
 
             {CATEGORIES.map((category) => (
@@ -56,7 +74,7 @@ export default function SkillsPage() {
                     key={category.id}
                     id={category.id}
                     data-section
-                    className="border-t border-line py-14 lg:min-h-[55svh] lg:content-center lg:grid"
+                    className="border-t border-line py-14 lg:grid lg:min-h-[45svh] lg:content-center"
                 >
                     <div className="wrap grid gap-8 lg:grid-cols-12">
                         <div className="grid content-start gap-3 lg:col-span-4">
