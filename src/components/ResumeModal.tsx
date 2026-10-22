@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { HiMiniXMark, HiMiniEnvelope, HiMiniMapPin, HiMiniPhone, HiMiniPrinter } from "react-icons/hi2";
+import { HiMiniXMark, HiMiniEnvelope, HiMiniMapPin, HiMiniPhone, HiMiniPrinter, HiMiniGlobeAlt } from "react-icons/hi2";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 interface ResumeModalProps {
@@ -8,12 +8,14 @@ interface ResumeModalProps {
 }
 
 const SKILLS = [
-    { label: "Core stack", value: "Node.js, Express, Fastify, Bun, Laravel, Next.js 15, React, TypeScript, PHP" },
-    { label: "Frontend", value: "Tailwind CSS, shadcn/ui, Radix UI, Framer Motion, GSAP, Three.js" },
-    { label: "Backend and APIs", value: "RESTful APIs, JWT / OAuth2, microservices, decoupled and monolithic architecture" },
-    { label: "Cloud and DevOps", value: "AWS (EC2, S3, RDS, Lambda), Docker, NGINX, CI/CD, Redis" },
-    { label: "Databases and ORMs", value: "PostgreSQL, MySQL, MongoDB, Drizzle, Prisma" },
-    { label: "AI and testing", value: "OpenAI / Claude LLM integration, RAG pipelines, Jest, PHPUnit, Jasmine" },
+    { label: "Languages", value: "TypeScript, JavaScript, PHP, SQL, Python, Rust" },
+    { label: "Backend", value: "Node.js, Express, Fastify, Bun, Laravel, REST APIs, JWT / OAuth2, RBAC" },
+    { label: "Frontend", value: "Next.js 15, React, Tailwind CSS, shadcn/ui, Framer Motion" },
+    { label: "Databases", value: "PostgreSQL, MySQL, MongoDB, Drizzle ORM, Prisma, Redis" },
+    { label: "Desktop", value: "Tauri (Rust), WireGuard" },
+    { label: "AI integration", value: "OpenAI / Claude API integration, Fastify AI services (ts-ai-api)" },
+    { label: "Infra and testing", value: "Docker, NGINX, CI/CD, Vercel, DigitalOcean, AWS (EC2, S3, RDS), Jest, Jasmine, PHPUnit" },
+    { label: "Currently learning", value: "NestJS, Go" },
 ];
 
 const EXPERIENCE = [
@@ -21,71 +23,36 @@ const EXPERIENCE = [
         role: "Full Stack Developer",
         company: "ET GCO Tours",
         link: "https://egypt-tour-guide.com",
-        duration: "Dec 2025 – Present · Remote",
+        duration: "Dec 2025 – Present · Remote, part-time",
         points: [
-            "Architected a type-safe, decoupled Next.js 15, Express and TypeScript application powering a complete tour booking platform with unique booking codes, customer management and real-time inventory.",
-            "Designed a normalised PostgreSQL schema with Drizzle ORM, strategic indexes, migrations and connection pooling for production-scale traffic.",
-            "Delivered LCP under 2.5s and Lighthouse scores of 100% SEO, 81% Performance and 98% Accessibility through Redis caching, SSR/SSG and Gzip compression.",
-            "Built an accessible, mobile-first interface using Radix UI, GSAP, Framer Motion and Tailwind CSS.",
-            "Managed deployment: front end on Vercel, back end migrated from Oracle Cloud to a DigitalOcean Droplet with reverse proxy, custom domains and strict SSL/TLS.",
-        ],
-    },
-    {
-        role: "WordPress / SEO Specialist",
-        company: "Egypt Racket Sport",
-        link: "https://egyptracketstore.com",
-        duration: "Nov 2025 – Jan 2026 · Remote",
-        points: [
-            "Managed and optimised WordPress product pages with technical SEO, improved Core Web Vitals and UI enhancements.",
-            "Ran ongoing performance tuning, troubleshooting and maintenance that improved site speed and search visibility.",
+            "Own a production tour-booking platform end-to-end: Next.js 15 frontend, Express/TypeScript API and PostgreSQL, with booking workflows, real-time inventory, REST APIs and admin tools.",
+            "Designed a normalized PostgreSQL schema with Drizzle ORM (chosen over Prisma for speed): strategic indexes, migrations and connection pooling.",
+            "Achieved LCP under 2.5s with Lighthouse SEO 100 and Accessibility 98 using Redis caching, SSR/SSG and Gzip.",
+            "Deployed the frontend on Vercel and the API on DigitalOcean behind a reverse proxy with custom domains and SSL/TLS.",
+            "Building online payment into the booking flow (in progress).",
+            "Implemented rate limiting, CSRF protection, SQL-injection prevention, unit tests and bilingual support.",
         ],
     },
     {
         role: "Full Stack Developer",
-        company: "Al Kayan Construction & Engineering (Nova v2.0)",
-        link: "https://ahmedhamdy101.is-a.dev/projects/alkayan-nova",
-        duration: "Sep 2025 – Present · Maadi, Egypt",
-        points: [
-            "Architected a reusable OOP component system (PHP static layout classes) exposing shared UI blocks as composable methods, keeping markup DRY across 10+ page templates.",
-            "Built a front end using MDBootstrap, GSAP-driven 3D card animations and a Three.js WebGL hero scene, with light and dark themes persisted in localStorage.",
-            "Designed a custom PHP MVC framework from scratch using a front-controller pattern, handling routing, JSON APIs and page rendering, with no Laravel and no CMS.",
-            "Hardened security: CSRF tokens on all forms, full-stack input validation, removed hard-coded credentials, closed .env exposure and fixed error leakage.",
-        ],
-    },
-    {
-        role: "Full Stack Developer",
-        company: "Al Kayan Construction (Legacy and Real Estate CMS)",
+        company: "Alkayan Construction & Engineering Consultancy",
         link: "https://www.alkayan-co.com",
-        duration: "Jan 2021 – Sep 2025 · Maadi, Egypt",
+        duration: "Jan 2021 – Present · Maadi, Egypt, part-time contract (monthly)",
         points: [
-            "Architected and deployed the production web platform for Al Kayan Construction, with multi-category project portfolios and career management.",
-            "Built an admin CMS with role-based access control, strict input validation and CSRF protection.",
-            "Managed production deployment end to end, including cloud hosting, DNS routing and SSL configuration.",
-        ],
-    },
-    {
-        role: "IT Support Specialist",
-        company: "Padel Nuestro",
-        link: undefined,
-        duration: "Sep 2023 – Mar 2026 · West Cairo, Egypt",
-        points: [
-            "Maintained network and IT infrastructure for a 100-person office, resolving 10+ issues monthly.",
-            "Deployed and managed CCTV, DVR and NVR systems for security monitoring.",
-            "Administered Windows Server 2019, ERP systems, VPN access, software licensing, and hardware and printer support.",
+            "Built the company's live production site: multi-category project portfolio, careers module with CV upload, and an Admin CMS with role-based access control.",
+            "Completed the v2.0 rebuild (deployment pending): routing, JSON APIs, a reusable PHP component system across 10+ templates, GSAP animations and a Three.js hero.",
+            "Raised the Lighthouse performance score from 50 to 80+ in the v2.0 rebuild (staging) with strategic indexes and a file-based caching layer.",
+            "Hardened security: CSRF tokens, full-stack input validation, removed hard-coded credentials, closed .env exposure and fixed error leakage.",
+            "Building an internal ERP stock system (in progress), accessed over my own Rust/Tauri WireGuard VPN.",
         ],
     },
 ];
 
 const PROJECTS = [
-    { name: "ETGCO Tours", url: "egypt-tour-guide.com", desc: "Bilingual (DE/EN) PWA tourism app built with Next.js 15, TypeScript and Redis, with sub-2s load times." },
-    { name: "Laravel REST API (admin backend)", url: "github.com/Ahmed-Hamdy101/laravel-rest-api", desc: "Laravel REST API with Passport OAuth2/JWT auth, RBAC, full order lifecycle management and streaming CSV exports." },
-    { name: "AWS fullstack deployment", url: "github.com/Ahmed-Hamdy101/aws-fullstack-deployment", desc: "Full-stack AWS application with custom cloud infrastructure, backend services and CI/CD production deployment." },
-    { name: "Logger Suite ERP", url: "ahmedhamdy101.is-a.dev/projects/logger-suite-erp", desc: "Multi-tenant SaaS ERP combining a Next.js 15 front end with a Laravel REST backend, Admin/Editor/User RBAC and Redis caching." },
-    { name: "Node.js Storefront API", url: "github.com/Ahmed-Hamdy101/nodejs-store-front-api", desc: "TypeScript/Express e-commerce REST API with PostgreSQL, JWT authentication, migration workflows and Jasmine tests." },
-    { name: "TypeScript AI API", url: "github.com/Ahmed-Hamdy101/ts-ai-api", desc: "Fastify REST API in TypeScript integrated with OpenAI for intelligent assistant capabilities." },
-    { name: "Al Kayan Construction Nova", url: "github.com/Ahmed-Hamdy101/alkayan-nova-showcase", desc: "Construction platform built with PHP/MVC, Three.js and GSAP visuals, IndexedDB caching and SEO optimisation." },
-    { name: "AutoFix", url: "github.com/Ahmed-Hamdy101/autofix-service-platform-demo", desc: "Multi-role dashboards for mechanics, admins and customers, with AI-assisted vehicle diagnostics." },
-    { name: "GIS Dashboard Map", url: "github.com/Ahmed-Hamdy101/gis-dashboard", desc: "Multilingual GIS dashboard for exploring buildings on a Cesium 3D map." },
+    { name: "Al Kayan ERP VPN", url: "", desc: "Windows hub and client desktop apps (Rust, Tauri 2) managing a WireGuard tunnel: hub setup, peer management, live status and firewall rules limiting ERP access to the VPN subnet." },
+    { name: "Logger Suite ERP", url: "ahmedhamdy101.is-a.dev/projects/logger-suite-erp", desc: "Multi-tenant SaaS (Next.js 15 + Laravel), RBAC, Redis." },
+    { name: "TypeScript AI API", url: "github.com/Ahmed-Hamdy101/ts-ai-api", desc: "Fastify REST API with OpenAI integration." },
+    { name: "AWS Fullstack Deployment", url: "github.com/Ahmed-Hamdy101/aws-fullstack-deployment", desc: "EC2/S3/RDS, Docker, CI/CD pipeline." },
 ];
 
 const CvHeading = ({ children }: { children: React.ReactNode }) => (
@@ -130,30 +97,31 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
                     <header className="grid gap-6 border-b rule print-cv-border pb-7 md:grid-cols-[1fr_auto]">
                         <div className="grid gap-1">
                             <h1 className="text-4xl font-semibold tracking-tight print-cv-text-dark">Ahmed Hamdy</h1>
-                            <p className="text-lg font-medium text-accent">Senior Full Stack Engineer and IT Support</p>
-                            <p className="meta print-cv-text-muted">Node.js · Laravel · Next.js · TypeScript · AWS · AI integration</p>
+                            <p className="text-lg font-medium text-accent">Full Stack Engineer · Node.js / TypeScript</p>
+                            <p className="meta print-cv-text-muted">Open to full-time remote</p>
                         </div>
                         <ul className="grid content-start gap-2 text-sm print-cv-text-muted">
-                            <li className="icon-link"><HiMiniMapPin aria-hidden="true" /> 6th of October, Giza, Egypt</li>
+                            <li className="icon-link"><HiMiniMapPin aria-hidden="true" /> Giza, Egypt</li>
                             <li className="icon-link"><HiMiniPhone aria-hidden="true" /> +20 114 164 0812</li>
                             <li><a className="icon-link" href="mailto:ahmedhamdy.mh95@gmail.com"><HiMiniEnvelope aria-hidden="true" /> ahmedhamdy.mh95@gmail.com</a></li>
-                            <li><a className="icon-link" href="https://github.com/Ahmed-Hamdy101" target="_blank" rel="noreferrer"><FaGithub aria-hidden="true" /> github.com/Ahmed-Hamdy101</a></li>
                             <li><a className="icon-link" href="https://linkedin.com/in/ahmed-hamdy-ah" target="_blank" rel="noreferrer"><FaLinkedin aria-hidden="true" /> linkedin.com/in/ahmed-hamdy-ah</a></li>
+                            <li><a className="icon-link" href="https://github.com/Ahmed-Hamdy101" target="_blank" rel="noreferrer"><FaGithub aria-hidden="true" /> github.com/Ahmed-Hamdy101</a></li>
+                            <li><a className="icon-link" href="https://ahmedhamdy101.is-a.dev" target="_blank" rel="noreferrer"><HiMiniGlobeAlt aria-hidden="true" /> ahmedhamdy101.is-a.dev</a></li>
                         </ul>
                     </header>
 
                     <section className="grid gap-3">
-                        <CvHeading>Professional summary</CvHeading>
+                        <CvHeading>Summary</CvHeading>
                         <p className="text-sm leading-relaxed print-cv-text-muted">
-                            Full-stack engineer with 5+ years of experience building and deploying production web applications and APIs.
-                            Deep expertise in Node.js, Laravel, Next.js 15, TypeScript and AWS. Track record of high-performance systems
-                            (LCP under 2.5s, strong Lighthouse scores), secure architectures and AI-powered features (LLM integrations and
-                            RAG pipelines). Live products across tourism, construction, real estate and e-commerce.
+                            Full stack engineer shipping production web platforms in TypeScript, Node.js, Next.js and PostgreSQL.
+                            Currently own a production booking platform end-to-end (Next.js 15, Express, Drizzle, Redis) and lead
+                            the security hardening and rebuild of a corporate platform. Backend-leaning, with Laravel/PHP as a
+                            second stack and delivered desktop (Rust/Tauri) and Python projects.
                         </p>
                     </section>
 
                     <section className="grid gap-3">
-                        <CvHeading>Technical skills</CvHeading>
+                        <CvHeading>Skills</CvHeading>
                         <dl className="grid gap-3 md:grid-cols-2">
                             {SKILLS.map(({ label, value }) => (
                                 <div key={label} className="rounded-md border border-line print-cv-border print-cv-bg-light p-3 text-xs">
@@ -165,17 +133,13 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
                     </section>
 
                     <section className="grid gap-5">
-                        <CvHeading>Professional experience</CvHeading>
+                        <CvHeading>Experience</CvHeading>
                         {EXPERIENCE.map((exp) => (
                             <article key={exp.company + exp.duration} className="grid gap-2">
                                 <div className="grid gap-1 sm:grid-cols-[1fr_auto] sm:gap-4">
                                     <h3 className="text-sm font-semibold print-cv-text-dark">
                                         {exp.role} ·{" "}
-                                        {exp.link ? (
-                                            <a href={exp.link} target="_blank" rel="noreferrer" className="link">{exp.company}</a>
-                                        ) : (
-                                            exp.company
-                                        )}
+                                        <a href={exp.link} target="_blank" rel="noreferrer" className="link">{exp.company}</a>
                                     </h3>
                                     <p className="meta print-cv-text-muted">{exp.duration}</p>
                                 </div>
@@ -189,15 +153,21 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
                                 </ul>
                             </article>
                         ))}
+                        <p className="text-xs leading-relaxed text-mute print-cv-text-muted">
+                            <strong className="font-semibold text-ink print-cv-text-dark">Earlier:</strong> IT Support Specialist,
+                            Padel Nuestro (2023–2026); WordPress and technical SEO, Egypt Racket Sport (2025–2026).
+                        </p>
                     </section>
 
                     <section className="grid gap-3">
-                        <CvHeading>Key projects</CvHeading>
+                        <CvHeading>Selected projects</CvHeading>
                         <div className="grid gap-3 md:grid-cols-2">
                             {PROJECTS.map(({ name, url, desc }) => (
                                 <article key={name} className="grid content-start gap-1 rounded-md border border-line print-cv-border print-cv-bg-light p-3">
                                     <h3 className="text-xs font-semibold print-cv-text-dark">{name}</h3>
-                                    <a href={`https://${url}`} target="_blank" rel="noreferrer" className="link break-all text-xs">{url}</a>
+                                    {url && (
+                                        <a href={`https://${url}`} target="_blank" rel="noreferrer" className="link break-all text-xs">{url}</a>
+                                    )}
                                     <p className="text-xs leading-relaxed text-mute print-cv-text-muted">{desc}</p>
                                 </article>
                             ))}
@@ -205,28 +175,30 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
                     </section>
 
                     <section className="grid gap-3">
-                        <CvHeading>Education and certifications</CvHeading>
+                        <CvHeading>Education and certification</CvHeading>
                         <div className="grid gap-4 text-xs text-mute print-cv-text-muted">
                             <p className="grid gap-0.5 sm:grid-cols-[1fr_auto] sm:gap-4">
                                 <span>
-                                    <strong className="font-semibold text-ink print-cv-text-dark">Bachelor of Engineering, Computer Science</strong><br />
-                                    Culture &amp; Science City, Faculty of CS &amp; Information Systems, Giza, Egypt<br />
-                                    Graduation project: Doctor Prescription Electronic System (Android and web)
+                                    <strong className="font-semibold text-ink print-cv-text-dark">B.Sc. Computer Science</strong><br />
+                                    Higher Institute for Computer Science and Information Systems, Giza
                                 </span>
                                 <span className="font-medium">2020</span>
                             </p>
                             <p className="grid gap-0.5 sm:grid-cols-[1fr_auto] sm:gap-4">
                                 <span>
                                     <strong className="font-semibold text-ink print-cv-text-dark">Advanced Full Stack Web Development Nanodegree</strong><br />
-                                    Udacity / FWD: Node.js, Express, PostgreSQL, React, AWS (EC2, S3, RDS), Docker, CI/CD, security and testing
+                                    Udacity / FWD
                                 </span>
                                 <span className="font-medium">2022</span>
+                            </p>
+                            <p>
+                                <strong className="font-semibold text-ink print-cv-text-dark">Languages:</strong> Arabic (native), English (professional working proficiency)
                             </p>
                         </div>
                     </section>
 
                     <p className="hidden border-t border-gray-200 pt-4 text-center text-[10px] text-gray-500 print:block">
-                        Ahmed Hamdy · Senior Full Stack Engineer · ahmedhamdy.mh95@gmail.com · +20 114 164 0812
+                        Ahmed Hamdy · Full Stack Engineer · ahmedhamdy.mh95@gmail.com · +20 114 164 0812
                     </p>
                 </div>
             </div>
