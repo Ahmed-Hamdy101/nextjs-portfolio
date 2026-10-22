@@ -6,7 +6,7 @@ import SEOHead from "@/components/SEOHead";
 const DETAILS = [
     { label: "Email", value: "ahmedhamdy.mh95@gmail.com", href: "mailto:ahmedhamdy.mh95@gmail.com" },
     { label: "Phone", value: "+20 114 164 0812", href: "tel:+201141640812" },
-    { label: "Location", value: "6th of October, Giza, Egypt. Available remotely.", href: null },
+    { label: "Location", value: "Giza, Egypt. Open to full-time remote.", href: null },
 ];
 
 const SOCIALS = [
@@ -133,7 +133,7 @@ export default function ContactPage() {
                             </ul>
                         </div>
 
-                        <p className="notice notice-ok">Currently accepting new projects and collaborations.</p>
+                        <p className="notice notice-ok">Open to full-time remote roles and new projects.</p>
                     </aside>
                 </div>
             </div>
