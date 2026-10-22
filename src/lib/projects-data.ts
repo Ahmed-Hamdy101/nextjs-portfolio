@@ -3,7 +3,7 @@ import {
     HiMiniRocketLaunch, HiMiniCpuChip, HiMiniCube, HiMiniChartBar,
     HiMiniMap, HiMiniUsers, HiMiniWrenchScrewdriver,
     HiMiniGlobeAlt, HiMiniShoppingCart, HiMiniCommandLine, HiMiniSparkles,
-    HiMiniCloud,
+    HiMiniCloud, HiMiniShieldCheck,
 } from "react-icons/hi2";
 
 export type FilterType = "All" | "Live" | "In Progress (private)" | "Live -- Alkayan Nova in Progress" | "Graduation";
@@ -51,7 +51,7 @@ export interface Project {
 export const projects: Project[] = [
     {
         title: "Egypt Tour Guide",
-        description: "Bilingual PWA tourism platform. Next.js 15 App Router, Node.js REST API, Redis caching, GSAP animations, i18next. LCP under 2s. Lighthouse 100% SEO, 98% Accessibility.",
+        description: "Bilingual PWA tourism platform. Next.js 15 App Router, Node.js REST API, Redis caching, GSAP animations, i18next. LCP under 2.5s, Lighthouse SEO 100 and Accessibility 98. Online payment is being added to the booking flow.",
         tech: ["Next.js 15", "TypeScript", "Express", "PostgreSQL", "Drizzle ORM", "Redis", "GSAP", "i18next"],
         link: "https://www.egypt-tour-guide.com/",
         githubLink: "https://github.com/Ahmed-Hamdy101/et-gco-tours-showcase",
@@ -72,7 +72,7 @@ export const projects: Project[] = [
         slug: "egypt-tour-guide",
         caseStudy: {
             problem: "ET GCO Tours needed a bilingual (DE/EN) tourism booking platform that could compete on organic search, load instantly on mobile, and replace manual phone/email booking coordination with a structured, trackable workflow — without sacrificing design polish.",
-            responsibilities: "Sole full-stack developer: architected and built both the Next.js frontend and the Express/PostgreSQL API from scratch, owned the database schema, caching strategy, i18n, and the production deployment end-to-end.",
+            responsibilities: "Sole full-stack developer: architected and built both the Next.js frontend and the Express/PostgreSQL API from scratch, owned the database schema, caching strategy, i18n, and the production deployment end-to-end. Currently building online payment into the booking flow.",
             workflows: [
                 "Visitor browses destinations and tours, reads details, pricing, and reviews",
                 "Visitor submits a booking request — a unique booking code is generated and inventory is updated in real time — or submits a contact form",
@@ -86,11 +86,11 @@ export const projects: Project[] = [
                 "PWA layer (next-pwa) plus TanStack Query on the client for offline-friendly, low-refetch browsing",
             ],
             security: [
-                "Helmet, CORS allowlisting, express-rate-limit, and request sanitization on every API route",
+                "Helmet, CORS allowlisting, express-rate-limit, CSRF protection, SQL-injection prevention and request sanitization on every API route",
                 "Reverse-proxy-ready with SSL termination, static asset caching, and abuse protection at the edge",
                 "Deployed front-end on Vercel, back-end on a DigitalOcean Droplet (migrated off Oracle Cloud) with custom domains and strict SSL/TLS",
             ],
-            results: "Lighthouse scores of 100% SEO / 81% Performance / 98% Accessibility, with LCP held under 2.5s.",
+            results: "Lighthouse SEO 100 and Accessibility 98, with LCP held under 2.5s using Redis caching, SSR/SSG and Gzip.",
             diagrams: [
                 { label: "System Architecture", src: "/images/projects/et-gco-platform/diagrams/et-gco-architecture.svg" },
                 { label: "ER Diagram", src: "/images/projects/et-gco-platform/diagrams/et-gco-erDiagram.svg" },
@@ -101,7 +101,7 @@ export const projects: Project[] = [
     },
     {
         title: "Alkayan Construction Nova",
-        description: "Al Kayan's business site rebuilt on a custom PHP MVC framework (front-controller pattern) — an OOP layout component system, MDBootstrap + GSAP 3D cards, and a Three.js WebGL hero scene.",
+        description: "Al Kayan's v2.0 rebuild on a custom PHP MVC framework (front-controller pattern): routing, JSON APIs, a reusable PHP component system across 10+ templates, GSAP animations and a Three.js hero. Rebuild complete, deployment pending.",
         tech: ["PHP", "Custom MVC", "MDBootstrap", "Three.js", "GSAP", "WebGL"],
         link: "https://www.alkayan-co.com",
         githubLink: "https://github.com/Ahmed-Hamdy101/alkayan-nova-showcase",
@@ -145,6 +145,7 @@ export const projects: Project[] = [
                 "Fixed error-message leakage that could reveal internal paths or stack traces",
                 "Security hardening headers set at the front controller",
             ],
+            results: "Lighthouse performance raised from 50 to 80+ in the v2.0 rebuild (measured on staging) with strategic indexes and a file-based caching layer.",
             diagrams: [
                 { label: "System Architecture", src: "/images/projects/al-kayan-nova/diagrams/al-kayan-architecture.svg" },
                 { label: "Component Diagram", src: "/images/projects/al-kayan-nova/diagrams/alkayan-component-tb.svg" },
@@ -155,9 +156,24 @@ export const projects: Project[] = [
         },
     },
     {
+        title: "Al Kayan ERP VPN",
+        description: "Windows hub and client desktop apps (Rust, Tauri 2) that manage a WireGuard tunnel: hub setup, peer management, live status and firewall rules limiting access to Al Kayan's internal ERP stock system to the VPN subnet.",
+        tech: ["Rust", "Tauri 2", "WireGuard", "Windows"],
+        link: "#",
+        Icon: HiMiniShieldCheck,
+        color: "text-lime-400",
+        accent: "#a3e635",
+        accentRgb: "163,230,53",
+        status: "In Progress (private)",
+        previewImage: "",
+        year: "2026",
+        category: "Desktop · Networking",
+        images: [],
+    },
+    {
         title: "Portfolio — This Site",
-        description: "This portfolio — built with Next.js 15, Framer Motion, Tailwind CSS 4, and a custom particle canvas engine. Deployed on Vercel with perfect Lighthouse scores.",
-        tech: ["Next.js 15", "TypeScript", "Framer Motion", "Tailwind CSS 4", "Canvas API"],
+        description: "This portfolio, built with Next.js, Framer Motion and Tailwind CSS 4: parallax hero, scroll-driven sections, a magnifying dock and a section-dot navigation rail.",
+        tech: ["Next.js", "TypeScript", "Framer Motion", "Tailwind CSS 4"],
         link: "#",
         Icon: HiMiniUsers,
         color: "text-pink-400",
