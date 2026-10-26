@@ -122,7 +122,7 @@ export default function HomePage() {
                     items={heroItems}
                     header={
                         <div className="wrap relative z-10 grid gap-8 pb-10 pt-16 md:pt-24">
-                            <h1 className="display max-w-5xl">Full-stack engineer. Database to deploy.</h1>
+                            <h1 className="display max-w-5xl">One engineer. The whole product. Live in production.</h1>
                             <p className="lede">
                                 I&apos;m Ahmed Hamdy in Giza, Egypt. I ship production web platforms in TypeScript,
                                 Node.js, Next.js and PostgreSQL, and I&apos;m open to full-time remote roles.
