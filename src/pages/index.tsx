@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { FaGithub, FaLinkedinIn, FaStackOverflow, FaWhatsapp } from "react-icons/fa";
 import { HiMiniArrowDownTray, HiMiniArrowRight } from "react-icons/hi2";
 import { projects } from "@/lib/projects-data";
+import { getLanguage, getStage } from "@/lib/project-meta";
 import HeroParallax, { ParallaxItem } from "@/components/HeroParallax";
 import ParallaxScroll from "@/components/ParallaxScroll";
 import StickyLayers, { Layer } from "@/components/StickyLayers";
@@ -72,7 +73,7 @@ const toItem = (p: (typeof projects)[number]): ParallaxItem => ({
 });
 
 const heroItems: ParallaxItem[] = Array.from({ length: 15 }, (_, i) => toItem(withImage[i % withImage.length]));
-const workItems = withImage.slice(0, 9).map((p) => ({ ...toItem(p), note: `${p.category} · ${p.year}` }));
+const workItems = withImage.slice(0, 9).map((p) => ({ ...toItem(p), note: `${p.category} · ${getLanguage(p)} · ${getStage(p)}` }));
 
 const structuredData = {
     "@context": "https://schema.org",

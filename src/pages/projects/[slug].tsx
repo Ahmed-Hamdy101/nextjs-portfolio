@@ -7,7 +7,8 @@ import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import DiagramViewer from "@/components/DiagramViewer";
 import SectionDots, { DotSection } from "@/components/SectionDots";
 import SEOHead from "@/components/SEOHead";
-import { projects, statusConfig, Project } from "@/lib/projects-data";
+import { projects, Project } from "@/lib/projects-data";
+import { getLanguage, getStage } from "@/lib/project-meta";
 
 interface Props {
     slug: string;
@@ -54,7 +55,6 @@ export default function ProjectDetailPage({ slug }: Props) {
 
     if (!project || !caseStudy) return null;
 
-    const status = statusConfig[project.status];
     const isLiveLink = project.link !== "#" && !project.link.includes("github");
     const repoLink = project.githubLink ?? (project.link.includes("github") ? project.link : null);
     const otherProjects = projects.filter((p) => p.slug && p.slug !== project.slug).slice(0, 3);
@@ -87,7 +87,7 @@ export default function ProjectDetailPage({ slug }: Props) {
                     <header className="grid gap-5">
                         <h1 className="h1 max-w-4xl">{project.title}</h1>
                         <p className="lede">{project.description}</p>
-                        <p className="meta">{status.label} · {project.category} · {project.year}</p>
+                        <p className="meta">{getStage(project)} · {getLanguage(project)} · {project.category} · {project.year}</p>
                         <p className="font-medium">{project.tech.join(", ")}</p>
                         <div className="grid gap-3 sm:grid-flow-col sm:justify-start">
                             {isLiveLink && (
