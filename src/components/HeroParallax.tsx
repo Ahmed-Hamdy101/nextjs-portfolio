@@ -39,13 +39,19 @@ export default function HeroParallax({ items, header }: { items: ParallaxItem[];
     const translateX = useSpring(useTransform(scrollYProgress, [0, 1], [0, 1000]), SPRING);
     const translateXReverse = useSpring(useTransform(scrollYProgress, [0, 1], [0, -1000]), SPRING);
     const rotateX = useSpring(useTransform(scrollYProgress, [0, 0.2], [15, 0]), SPRING);
-    const opacity = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.2, 1]), SPRING);
+    const fadeIn = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.2, 1]), SPRING);
+    const fadeOut = useTransform(scrollYProgress, [0.7, 0.95], [1, 0]);
+    const opacity = useTransform([fadeIn, fadeOut], ([a, b]) => (a as number) * (b as number));
     const rotateZ = useSpring(useTransform(scrollYProgress, [0, 0.2], [20, 0]), SPRING);
     const translateY = useSpring(useTransform(scrollYProgress, [0, 0.2], [-700, 120]), SPRING);
 
     return (
         <div
             ref={ref}
+            style={{
+                maskImage: "linear-gradient(to bottom, #000 75%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, #000 75%, transparent 100%)",
+            }}
             className="relative grid h-[260vh] grid-cols-[minmax(0,1fr)] -mt-[var(--header-h)] content-start overflow-hidden pb-40 pt-[calc(var(--header-h)+2rem)] antialiased [perspective:1000px] [transform-style:preserve-3d]"
         >
             {header}
