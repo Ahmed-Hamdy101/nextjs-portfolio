@@ -11,6 +11,7 @@ import {
 } from "react-icons/hi2";
 import SEOHead from "@/components/SEOHead";
 import { projects, filters, statusConfig, Project, FilterType } from "@/lib/projects-data";
+import { getLanguage, getStage } from "@/lib/project-meta";
 
 // ─── Lightbox ──────────────────────────────────────────────────────────────
 export interface LightboxProps {
@@ -103,7 +104,7 @@ const ProjectCard = ({ project, onOpenLightbox }: CardProps) => {
     const hasImages = project.images.length > 0;
     const isLiveLink = project.link !== "#" && !project.link.includes("github");
     const isGithubLink = !isLiveLink && project.link.includes("github");
-    const isLive = project.status === "Live";
+    const stage = getStage(project);
     const Icon = project.Icon;
 
     const ref = useRef<HTMLElement>(null);
@@ -175,10 +176,11 @@ const ProjectCard = ({ project, onOpenLightbox }: CardProps) => {
             <div className="grid content-start gap-3 p-5" style={{ transform: "translateZ(28px)" }}>
                 <h3 className="h3">{project.title}</h3>
                 <p className="muted line-clamp-3">{project.description}</p>
-                <p className="meta grid grid-flow-col justify-start gap-2">
-                    {isLive && <span className="mt-[0.55rem] size-1.5 rounded-full bg-accent" aria-hidden="true" />}
-                    <span>{statusConfig[project.status].label} · {project.category} · {project.year} · {project.tech.slice(0, 4).join(", ")}</span>
-                </p>
+                <ul className="grid grid-flow-col justify-start gap-1.5" aria-label="Language and stage">
+                    <li className="tag tag-accent">{getLanguage(project)}</li>
+                    <li className={`tag ${stage === "Production" ? "tag-accent" : ""}`}>{stage}</li>
+                </ul>
+                <p className="meta">{project.category} · {project.year} · {project.tech.slice(0, 4).join(", ")}</p>
 
                 <div className="mt-1 grid grid-flow-col justify-start gap-5 border-t rule pt-4 text-[0.9375rem]">
                     {project.slug && <Link href={`/projects/${project.slug}`} className="link">Case study</Link>}
