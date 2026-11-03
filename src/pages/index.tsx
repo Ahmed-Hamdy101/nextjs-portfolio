@@ -199,7 +199,7 @@ export default function HomePage() {
                     <div className="grid gap-4 lg:grid-cols-6 lg:grid-rows-[auto_auto]">
                         <SpotlightCard className="p-8 lg:col-span-3 lg:row-span-2 lg:p-10">
                             <div className="grid content-between gap-10">
-                                <p className="text-[clamp(5rem,12vw,9rem)] font-bold leading-[0.85] tracking-[-0.05em] text-accent">100%</p>
+                                <p className="text-[clamp(5rem,12vw,9rem)] font-bold leading-[0.85] tracking--0.05em text-accent">100%</p>
                                 <div className="grid gap-2">
                                     <p className="text-2xl font-semibold tracking-tight">Lighthouse SEO 100, accessibility 98, LCP under 2.5 seconds</p>
                                     <p className="text-mute">ET GCO Tours: bilingual booking platform on Next.js 15 with Redis caching, SSR/SSG and Gzip.</p>
