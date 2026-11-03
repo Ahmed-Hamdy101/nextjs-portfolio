@@ -10,7 +10,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
     <div className="grid min-h-screen grid-cols-[minmax(0,1fr)] grid-rows-[1fr_auto] bg-paper text-ink">
         <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-deep"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-100 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-deep"
         >
             Skip to content
         </a>
