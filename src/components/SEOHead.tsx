@@ -34,7 +34,12 @@ export default function SEOHead({
             <title>{title}</title>
             <meta name="description" content={description} key="description" />
             <link rel="canonical" href={pageUrl} key="canonical" />
-            {noIndex && <meta name="robots" content="noindex,follow" key="robots" />}
+            <meta
+                name="robots"
+                content={noIndex ? "noindex,follow" : "index,follow,max-image-preview:large,max-snippet:-1"}
+                key="robots"
+            />
+            <meta name="author" content="Ahmed Hamdy (ahmedhamdy101)" key="author" />
 
             <meta property="og:type" content={type} key="og:type" />
             <meta property="og:site_name" content="Ahmed Hamdy" key="og:site_name" />
@@ -43,7 +48,7 @@ export default function SEOHead({
             <meta property="og:title" content={title} key="og:title" />
             <meta property="og:description" content={description} key="og:description" />
             <meta property="og:image" content={imageUrl} key="og:image" />
-            <meta property="og:image:alt" content={`${title} — Ahmed Hamdy`} key="og:image:alt" />
+            <meta property="og:image:alt" content="Ahmed Hamdy (ahmedhamdy101), full stack engineer in Giza, Egypt" key="og:image:alt" />
 
             <meta name="twitter:card" content="summary_large_image" key="twitter:card" />
             <meta name="twitter:url" content={pageUrl} key="twitter:url" />
