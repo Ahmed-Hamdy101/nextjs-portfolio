@@ -11,9 +11,14 @@ The source code for a responsive developer portfolio and resume site built with 
 
 ## Features
 
-- Responsive portfolio pages for projects, services, skills, work history, testimonials, and contact.
+- Responsive portfolio experience across projects, services, skills, work history, testimonials, contact, and booking flows.
+- Hero parallax landing section with layered project cards and scroll-linked motion effects.
+- Scroll-driven parallax project showcase with animated cards, staggered columns, and immersive storytelling sections.
+- Sticky scroll-reveal "How I build" section covering interface, API, data, and delivery layers.
+- Animated marquee technology rows for stack highlights and brand-style motion.
+- Section dot navigation and floating navigation patterns for smooth long-form browsing.
 - Project case studies with galleries, architecture diagrams, technology details, and GitHub links.
-- Resume modal with professional information and social profiles.
+- Resume modal with professional experience and social profiles.
 - Meeting scheduling form available at `/schedule`.
 - Google Calendar API integration using OAuth 2.0 refresh tokens.
 - Automatic Google Meet conference links and Google Calendar invitations.
