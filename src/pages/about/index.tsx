@@ -102,7 +102,7 @@ export default function AboutPage() {
                     </div>
 
                     <div className="lg:col-span-5">
-                        <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-lg border border-line">
+                        <div className="relative mx-auto aspect-4/5 w-full max-w-sm overflow-hidden rounded-lg border border-line">
                             <Avatar />
                         </div>
                     </div>
