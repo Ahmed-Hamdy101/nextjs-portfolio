@@ -4,6 +4,8 @@ import Layout from "@/components/Layout";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bricolage_Grotesque } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const grotesk = Bricolage_Grotesque({
     subsets: ["latin"],
@@ -30,6 +32,8 @@ export default function App({ Component, pageProps }: AppProps) {
                     </motion.div>
                 </AnimatePresence>
             </Layout>
+            <Analytics />
+            <SpeedInsights />
         </div>
     );
 }
