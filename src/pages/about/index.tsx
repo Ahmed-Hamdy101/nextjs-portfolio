@@ -65,7 +65,7 @@ export default function AboutPage() {
     return (
         <>
             <SEOHead
-                title="About | Ahmed Hamdy, Full-Stack Engineer"
+                title="About Ahmed Hamdy (ahmedhamdy101) | Full Stack Engineer"
                 description="Ahmed Hamdy is a full stack engineer in Giza, Egypt, shipping production web platforms with TypeScript, Node.js, Next.js and PostgreSQL. Open to full-time remote roles."
                 path="/about"
             />
