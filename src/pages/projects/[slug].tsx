@@ -6,7 +6,9 @@ import { HiMiniArrowLeft, HiMiniArrowTopRightOnSquare, HiMiniCodeBracket } from 
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import DiagramViewer from "@/components/DiagramViewer";
 import SectionDots, { DotSection } from "@/components/SectionDots";
-import SEOHead from "@/components/SEOHead";
+import SEOHead, { SITE_ORIGIN } from "@/components/SEOHead";
+import PerformanceBlock from "@/components/PerformanceBlock";
+import { getPerformance } from "@/lib/performance-results";
 import { projects, Project } from "@/lib/projects-data";
 import { getLanguage, getStage } from "@/lib/project-meta";
 
@@ -40,6 +42,8 @@ export default function ProjectDetailPage({ slug }: Props) {
     const project = projects.find((p) => p.slug === slug) as Project | undefined;
     const caseStudy = project?.caseStudy;
     const hasResults = Boolean(caseStudy?.results);
+    const performance = getPerformance(project?.slug);
+    const hasPerformance = performance.length > 0;
 
     const sections = useMemo<readonly DotSection[]>(
         () => [
@@ -49,8 +53,9 @@ export default function ProjectDetailPage({ slug }: Props) {
             { id: "architecture", label: "Architecture" },
             { id: "security", label: "Security and deployment" },
             ...(hasResults ? [{ id: "results", label: "Results" }] : []),
+            ...(hasPerformance ? [{ id: "performance", label: "Performance" }] : []),
         ],
-        [hasResults]
+        [hasResults, hasPerformance]
     );
 
     if (!project || !caseStudy) return null;
@@ -74,6 +79,22 @@ export default function ProjectDetailPage({ slug }: Props) {
                 path={`/projects/${project.slug}`}
                 image={project.previewImage || undefined}
                 type="article"
+                structuredData={{
+                    "@context": "https://schema.org",
+                    "@type": "CreativeWork",
+                    name: project.title,
+                    description: project.description,
+                    url: `${SITE_ORIGIN}/projects/${project.slug}`,
+                    keywords: project.tech.join(", "),
+                    programmingLanguage: getLanguage(project),
+                    dateCreated: project.year,
+                    author: {
+                        "@type": "Person",
+                        name: "Ahmed Hamdy",
+                        alternateName: "ahmedhamdy101",
+                        url: SITE_ORIGIN,
+                    },
+                }}
             />
             <SectionDots sections={sections} />
 
@@ -193,6 +214,17 @@ export default function ProjectDetailPage({ slug }: Props) {
                         <p className="max-w-3xl border-l-2 border-accent pl-5 text-xl font-medium leading-snug lg:col-span-8">
                             {caseStudy.results}
                         </p>
+                    </div>
+                </section>
+            )}
+
+            {hasPerformance && (
+                <section id="performance" data-section className="border-t border-line py-14 lg:grid lg:min-h-[45svh] lg:content-center">
+                    <div className="wrap grid gap-6 lg:grid-cols-12 lg:gap-10">
+                        <h2 className="h2 lg:col-span-4">Performance</h2>
+                        <div className="lg:col-span-8">
+                            <PerformanceBlock results={performance} />
+                        </div>
                     </div>
                 </section>
             )}
