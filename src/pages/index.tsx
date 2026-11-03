@@ -82,6 +82,7 @@ const structuredData = {
             "@type": "Person",
             "@id": `${SITE_ORIGIN}/#person`,
             name: "Ahmed Hamdy",
+            alternateName: ["ahmedhamdy101", "Ahmed-Hamdy101"],
             url: `${SITE_ORIGIN}/about`,
             jobTitle: "Full Stack Engineer",
             address: { "@type": "PostalAddress", addressLocality: "Giza", addressCountry: "EG" },
@@ -109,7 +110,7 @@ export default function HomePage() {
     return (
         <>
             <SEOHead
-                title="Ahmed Hamdy | Full-Stack Engineer"
+                title="Ahmed Hamdy (ahmedhamdy101) | Full Stack Engineer"
                 description="Ahmed Hamdy is a full stack engineer in Giza, Egypt, shipping production web platforms with TypeScript, Node.js, Next.js and PostgreSQL. Open to full-time remote roles."
                 path="/"
                 structuredData={structuredData}
@@ -132,7 +133,7 @@ export default function HomePage() {
                                 <Link href="/projects" className="btn btn-primary">See case studies</Link>
                                 <button type="button" className="btn btn-quiet" onClick={() => setIsResumeOpen(true)}>
                                     <HiMiniArrowDownTray aria-hidden="true" />
-                                    Download CV
+                                    View CV
                                 </button>
                             </div>
                             <ul className="grid grid-flow-col justify-start gap-2" aria-label="Profiles">
