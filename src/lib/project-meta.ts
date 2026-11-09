@@ -37,6 +37,14 @@ export function getLanguage(project: Pick<Project, "tech">): string {
     return "TypeScript";
 }
 
+/** "Nov 2026" from an ISO date, or null when missing or invalid. */
+export function formatUpdated(iso?: string): string | null {
+    if (!iso) return null;
+    const date = new Date(`${iso}T00:00:00Z`);
+    if (Number.isNaN(date.getTime())) return null;
+    return date.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+}
+
 export type Stage = "Production" | "Development";
 
 export function getStage(project: Pick<Project, "status">): Stage {
