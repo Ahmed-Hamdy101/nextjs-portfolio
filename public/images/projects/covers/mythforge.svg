@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Low-poly wireframe shield">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="55%">
+      <stop offset="0" stop-color="#a78bfa" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b0f14"/>
+  <rect width="1600" height="1000" fill="url(#p)"/>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+
+  <polygon points="800,240 1025,370 1025,630 800,760 575,630 575,370" fill="#a78bfa" fill-opacity=".06" stroke="#a78bfa" stroke-width="3"/>
+  <polygon points="800,370 912,435 912,565 800,630 688,565 688,435" fill="#a78bfa" fill-opacity=".12" stroke="#a78bfa" stroke-width="3"/>
+
+  <g stroke="#a78bfa" stroke-opacity=".7" stroke-width="2">
+    <line x1="800" y1="500" x2="800" y2="240"/>
+    <line x1="800" y1="500" x2="1025" y2="370"/>
+    <line x1="800" y1="500" x2="1025" y2="630"/>
+    <line x1="800" y1="500" x2="800" y2="760"/>
+    <line x1="800" y1="500" x2="575" y2="630"/>
+    <line x1="800" y1="500" x2="575" y2="370"/>
+    <line x1="800" y1="370" x2="1025" y2="370"/>
+    <line x1="912" y1="435" x2="1025" y2="630"/>
+    <line x1="800" y1="630" x2="575" y2="630"/>
+    <line x1="688" y1="565" x2="575" y2="370"/>
+  </g>
+
+  <polygon points="800,370 912,435 800,500" fill="#a78bfa" fill-opacity=".35"/>
+  <polygon points="800,630 688,565 800,500" fill="#a78bfa" fill-opacity=".28"/>
+  <polygon points="800,240 1025,370 800,370" fill="#a78bfa" fill-opacity=".2"/>
+
+  <g fill="#c4b5fd">
+    <circle cx="800" cy="240" r="7"/><circle cx="1025" cy="370" r="7"/><circle cx="1025" cy="630" r="7"/>
+    <circle cx="800" cy="760" r="7"/><circle cx="575" cy="630" r="7"/><circle cx="575" cy="370" r="7"/>
+    <circle cx="800" cy="500" r="9"/>
+  </g>
+</svg>
