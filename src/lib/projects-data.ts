@@ -45,6 +45,10 @@ export interface Project {
     previewImage: string;
     year: string;
     category: string;
+    /** Last meaningful change to the project, ISO date (YYYY-MM-DD) */
+    updated?: string;
+    /** Illustrative cover art for projects without screenshots. Not a product screenshot. */
+    cover?: string;
     /** Present only on the featured projects that get a dedicated /projects/[slug] case-study page */
     slug?: string;
     caseStudy?: CaseStudy;
@@ -171,6 +175,8 @@ export const projects: Project[] = [
         year: "2026",
         category: "AI · Voice Assistant",
         images: [],
+        updated: "2026-10-19",
+        cover: "/images/projects/covers/jexi-ai.svg",
         slug: "jexi-ai",
         caseStudy: {
             problem: "Cloud assistants send everything you say to a server and can act on your behalf without asking. Jexi is built to run on your own PC, remember what you tell it, coach you through goals and conversations, and keep every outgoing phone action behind a manual confirmation.",
@@ -211,6 +217,8 @@ export const projects: Project[] = [
         year: "2026",
         category: "AI · Machine Learning",
         images: [],
+        updated: "2026-10-19",
+        cover: "/images/projects/covers/ai-trading-desk.svg",
         slug: "ai-trading-desk",
         caseStudy: {
             problem: "Trading signals rarely show their calibration or what costs do to them. This tool turns price history into a probability-weighted decision (entry, stop, three targets or no trade) and keeps the evidence needed to check whether it works.",
@@ -248,6 +256,8 @@ export const projects: Project[] = [
         year: "2026",
         category: "AI · 3D Generation",
         images: [],
+        updated: "2026-11-07",
+        cover: "/images/projects/covers/mythforge.svg",
         slug: "mythforge-warrior-creator",
         caseStudy: {
             problem: "Making a game-ready character normally needs 3D modelling skills. Mythforge lets you describe or configure a fantasy warrior and get an exportable 3D model, all on your own machine.",
@@ -369,8 +379,8 @@ export const projects: Project[] = [
     },
     {
         title: "VidroTube",
-        description: "YouTube-style video platform built on Laravel and Livewire, with phased system-design documents for splitting out video processing services later.",
-        tech: ["Laravel", "Livewire", "PHP", "MySQL"],
+        description: "YouTube-style video platform on Laravel 13 and Livewire 4. Authentication and the channel model are scaffolded, PHPStan checks are in place, and phased system-design documents cover how video processing is split out later. Early stage: upload and playback are not built yet.",
+        tech: ["Laravel", "Livewire", "PHP", "SQLite", "Tailwind CSS"],
         link: "#",
         Icon: HiMiniVideoCamera,
         color: "text-fuchsia-400",
@@ -380,6 +390,8 @@ export const projects: Project[] = [
         previewImage: "",
         year: "2026",
         category: "Video · Platform",
+        updated: "2026-10-24",
+        cover: "/images/projects/covers/vidrotube.svg",
         images: [],
     },
     {
@@ -399,8 +411,8 @@ export const projects: Project[] = [
     },
     {
         title: "ERP Alkayan Cloud",
-        description: "Internal stock-management system for Al Kayan: receive, issue, transfer and adjust materials across warehouses with an audit-safe movement ledger. Laravel 13 and Filament 3 on MySQL with role-based permissions and activity logging, reachable only through the company WireGuard VPN. No payments and no invoicing.",
-        tech: ["PHP", "Laravel 13", "Filament 3", "MySQL", "Spatie Permission", "Pest", "Docker"],
+        description: "Internal stock-management system for Al Kayan, designed to receive, issue, transfer and adjust materials across warehouses with an audit-safe movement ledger, reachable only through the company WireGuard VPN. The baseline is done (Laravel 13, Filament 3 admin panel, role and activity-log packages, MySQL); the stock domain is the next stage. No payments and no invoicing.",
+        tech: ["PHP", "Laravel 13", "Filament 3", "MySQL", "Spatie Permission", "Pest"],
         link: "#",
         Icon: HiMiniCube,
         color: "text-sky-400",
@@ -410,6 +422,8 @@ export const projects: Project[] = [
         previewImage: "",
         year: "2026",
         category: "ERP · Inventory",
+        updated: "2026-11-08",
+        cover: "/images/projects/covers/erp-alkayan.svg",
         images: [],
     },
     {
@@ -463,6 +477,7 @@ export const projects: Project[] = [
             "/images/projects/logger-suite/gallery/dashboard_stock.png",
             "/images/projects/logger-suite/gallery/login.png",
         ],
+        updated: "2026-10-11",
         slug: "logger-suite-erp",
         caseStudy: {
             problem: "Growing operations teams needed a multi-tenant ERP that could handle inventory, stock tracking, and role-scoped dashboards for admins, editors, and guests — without every tenant needing separate infrastructure.",
@@ -575,6 +590,8 @@ export const projects: Project[] = [
         year: "2026",
         category: "Platform · Developer Tools",
         images: [],
+        updated: "2026-11-09",
+        cover: "/images/projects/covers/idp.svg",
         slug: "distributed-polyglot-idp",
         caseStudy: {
             problem: "Teams running many services lose track of what runs where, who owns it and what depends on what. Catalogs go stale because people update them by hand, and changes ship without anyone knowing the blast radius.",
