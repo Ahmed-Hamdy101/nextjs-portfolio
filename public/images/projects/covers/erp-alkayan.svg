@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Warehouse shelves and a movement ledger">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="55%">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b0f14"/>
+  <rect width="1600" height="1000" fill="url(#p)"/>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+
+  <g fill="#0f2a3a" stroke="#38bdf8" stroke-opacity=".7" stroke-width="2">
+    <rect x="230" y="280" width="110" height="90" rx="8"/><rect x="364" y="280" width="110" height="90" rx="8"/>
+    <rect x="498" y="280" width="110" height="90" rx="8"/><rect x="632" y="280" width="110" height="90" rx="8"/>
+    <rect x="230" y="394" width="110" height="90" rx="8"/><rect x="364" y="394" width="110" height="90" rx="8"/>
+    <rect x="498" y="394" width="110" height="90" rx="8"/><rect x="632" y="394" width="110" height="90" rx="8"/>
+    <rect x="230" y="508" width="110" height="90" rx="8"/><rect x="364" y="508" width="110" height="90" rx="8"/>
+    <rect x="498" y="508" width="110" height="90" rx="8"/><rect x="632" y="508" width="110" height="90" rx="8"/>
+  </g>
+  <g fill="#38bdf8" fill-opacity=".85">
+    <rect x="364" y="394" width="110" height="90" rx="8"/>
+    <rect x="632" y="508" width="110" height="90" rx="8"/>
+  </g>
+  <line x1="200" y1="640" x2="772" y2="640" stroke="#243342" stroke-width="4"/>
+  <line x1="200" y1="250" x2="772" y2="250" stroke="#243342" stroke-width="4"/>
+
+  <rect x="860" y="250" width="520" height="440" rx="20" fill="#121a22" stroke="#243342" stroke-width="2"/>
+  <g fill="#243342">
+    <rect x="890" y="290" width="150" height="14" rx="7"/>
+    <rect x="1180" y="290" width="170" height="14" rx="7"/>
+  </g>
+  <g stroke="#243342" stroke-width="2">
+    <line x1="890" y1="330" x2="1350" y2="330"/>
+    <line x1="890" y1="400" x2="1350" y2="400"/>
+    <line x1="890" y1="470" x2="1350" y2="470"/>
+    <line x1="890" y1="540" x2="1350" y2="540"/>
+    <line x1="890" y1="610" x2="1350" y2="610"/>
+  </g>
+  <g fill="#38bdf8">
+    <circle cx="900" cy="365" r="8"/><circle cx="900" cy="435" r="8" fill="#f87171"/>
+    <circle cx="900" cy="505" r="8"/><circle cx="900" cy="575" r="8" fill="#a3e635"/>
+    <circle cx="900" cy="645" r="8"/>
+  </g>
+  <g fill="#38bdf8" fill-opacity=".45">
+    <rect x="930" y="358" width="200" height="14" rx="7"/><rect x="930" y="428" width="160" height="14" rx="7"/>
+    <rect x="930" y="498" width="220" height="14" rx="7"/><rect x="930" y="568" width="180" height="14" rx="7"/>
+    <rect x="930" y="638" width="140" height="14" rx="7"/>
+  </g>
+</svg>
