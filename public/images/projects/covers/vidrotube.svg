@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Video player with timeline">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="45%" r="55%">
+      <stop offset="0" stop-color="#e879f9" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#e879f9" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#ffffff" stroke-opacity=".04"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b0f14"/>
+  <rect width="1600" height="1000" fill="url(#p)"/>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+
+  <rect x="380" y="230" width="840" height="472" rx="28" fill="#141a22" stroke="#e879f9" stroke-opacity=".6" stroke-width="3"/>
+  <circle cx="800" cy="466" r="78" fill="#e879f9" fill-opacity=".16" stroke="#e879f9" stroke-width="3"/>
+  <polygon points="775,425 775,507 845,466" fill="#e879f9"/>
+
+  <rect x="380" y="750" width="840" height="10" rx="5" fill="#243342"/>
+  <rect x="380" y="750" width="460" height="10" rx="5" fill="#e879f9"/>
+  <circle cx="840" cy="755" r="14" fill="#f5d0fe"/>
+
+  <g fill="#243342">
+    <rect x="380" y="800" width="240" height="90" rx="12"/>
+    <rect x="680" y="800" width="240" height="90" rx="12"/>
+    <rect x="980" y="800" width="240" height="90" rx="12"/>
+  </g>
+  <g fill="#e879f9" fill-opacity=".5">
+    <rect x="396" y="816" width="60" height="10" rx="5"/>
+    <rect x="696" y="816" width="60" height="10" rx="5"/>
+    <rect x="996" y="816" width="60" height="10" rx="5"/>
+  </g>
+</svg>
