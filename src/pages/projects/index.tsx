@@ -11,7 +11,7 @@ import {
 } from "react-icons/hi2";
 import SEOHead from "@/components/SEOHead";
 import { projects, filters, statusConfig, Project, FilterType } from "@/lib/projects-data";
-import { getLanguage, getStage } from "@/lib/project-meta";
+import { getLanguage, getStage, formatUpdated } from "@/lib/project-meta";
 
 // ─── Lightbox ──────────────────────────────────────────────────────────────
 export interface LightboxProps {
@@ -106,6 +106,8 @@ const ProjectCard = ({ project, onOpenLightbox }: CardProps) => {
     const isGithubLink = !isLiveLink && project.link.includes("github");
     const stage = getStage(project);
     const Icon = project.Icon;
+    const status = statusConfig[project.status];
+    const updatedLabel = formatUpdated(project.updated);
 
     const ref = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -139,11 +141,33 @@ const ProjectCard = ({ project, onOpenLightbox }: CardProps) => {
                         unoptimized
                     />
                 </motion.div>
+            ) : project.cover ? (
+                <Image
+                    src={project.cover}
+                    alt={`${project.title} cover`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    unoptimized
+                />
             ) : (
                 <div className="grid size-full place-items-center text-mute">
                     <Icon className="text-6xl opacity-40" aria-hidden="true" />
                 </div>
             )}
+            <div className="pointer-events-none absolute inset-x-3 top-3 z-10 flex items-start justify-between gap-2">
+                <span
+                    className={`inline-flex items-center gap-1.5 rounded-full border bg-black/60 px-2.5 py-1 text-xs font-medium backdrop-blur-md ${status.text} ${status.border}`}
+                >
+                    <span className={`size-1.5 rounded-full ${status.dot}`} aria-hidden="true" />
+                    {status.label}
+                </span>
+                {updatedLabel && (
+                    <span className="rounded-full border border-white/15 bg-black/60 px-2.5 py-1 text-xs text-white/80 backdrop-blur-md">
+                        Updated {updatedLabel}
+                    </span>
+                )}
+            </div>
         </div>
     );
 
