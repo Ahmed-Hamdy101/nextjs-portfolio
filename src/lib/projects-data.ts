@@ -162,7 +162,7 @@ export const projects: Project[] = [
         },
     },
     {
-        title: "Jexi AI",
+        title: "Jexa-S AI",
         description: "Local-first voice assistant and life coach. Wake-name listening, Whisper speech-to-text, persistent memory in Chroma, coaching playbooks and an Android companion. Runs on Ollama on your own PC; phone actions are drafts you confirm.",
         tech: ["Python", "Ollama", "Whisper", "ChromaDB", "SQLite", "WebSocket", "Kotlin"],
         link: "#",
@@ -176,10 +176,10 @@ export const projects: Project[] = [
         category: "AI · Voice Assistant",
         images: [],
         updated: "2026-10-19",
-        cover: "/images/projects/covers/jexi-ai.svg",
-        slug: "jexi-ai",
+        cover: "/images/projects/covers/Jexa-S-ai.svg",
+        slug: "Jexa-S-ai",
         caseStudy: {
-            problem: "Cloud assistants send everything you say to a server and can act on your behalf without asking. Jexi is built to run on your own PC, remember what you tell it, coach you through goals and conversations, and keep every outgoing phone action behind a manual confirmation.",
+            problem: "Cloud assistants send everything you say to a server and can act on your behalf without asking. Jexa-S is built to run on your own PC, remember what you tell it, coach you through goals and conversations, and keep every outgoing phone action behind a manual confirmation.",
             responsibilities: "Sole developer: the voice pipeline, memory layer, tool router, coaching playbooks, proactive check-ins, the Android companion and the evaluation harness.",
             workflows: [
                 "You say the wake name, and the follow-up window keeps the conversation open without repeating it",
@@ -192,7 +192,7 @@ export const projects: Project[] = [
                 "Python main loop with a router in front of the model: mic, VAD, Whisper, router, Ollama (with memory, playbooks and tools), then TTS",
                 "Local models through Ollama (llama3.2:1b for chat, nomic-embed-text for embeddings); a cloud model is optional and off by default",
                 "Persistent memory in Chroma with fact extraction, and SQLite for reminders, goals and people to stay in touch with",
-                "Kotlin Android companion connected over a WebSocket bridge for notifications, calls, SMS and share-to-Jexi",
+                "Kotlin Android companion connected over a WebSocket bridge for notifications, calls, SMS and share-to-Jexa-S",
             ],
             security: [
                 "Opening apps or links asks yes or no first, and only allowlisted apps can be opened",
