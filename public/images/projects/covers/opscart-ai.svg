@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Stock levels with a forecast">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#2dd4bf" stop-opacity=".2"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></radialGradient>
+    <pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#fff" stroke-opacity=".04"/></pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b0f14"/><rect width="1600" height="1000" fill="url(#p)"/><rect width="1600" height="1000" fill="url(#g)"/>
+  <line x1="280" y1="780" x2="1320" y2="780" stroke="#243342" stroke-width="3"/>
+  <g fill="#2dd4bf">
+    <rect x="330" y="640" width="80" height="140" rx="6" fill-opacity=".8"/>
+    <rect x="470" y="560" width="80" height="220" rx="6" fill-opacity=".85"/>
+    <rect x="610" y="590" width="80" height="190" rx="6" fill-opacity=".85"/>
+    <rect x="750" y="500" width="80" height="280" rx="6"/>
+  </g>
+  <g fill="#2dd4bf" fill-opacity=".12" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="12 9">
+    <rect x="890" y="530" width="80" height="250" rx="6"/>
+    <rect x="1030" y="440" width="80" height="340" rx="6"/>
+    <rect x="1170" y="400" width="80" height="380" rx="6"/>
+  </g>
+  <polyline points="370,620 510,540 650,570 790,480 930,510 1070,420 1210,380" fill="none" stroke="#99f6e4" stroke-width="4" stroke-linejoin="round"/>
+  <g fill="#99f6e4"><circle cx="370" cy="620" r="8"/><circle cx="510" cy="540" r="8"/><circle cx="650" cy="570" r="8"/><circle cx="790" cy="480" r="8"/><circle cx="930" cy="510" r="8"/><circle cx="1070" cy="420" r="8"/><circle cx="1210" cy="380" r="8"/></g>
+</svg>

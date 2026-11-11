@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Storefront product grid with a cart">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#2dd4bf" stop-opacity=".2"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></radialGradient>
+    <pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#fff" stroke-opacity=".04"/></pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b0f14"/><rect width="1600" height="1000" fill="url(#p)"/><rect width="1600" height="1000" fill="url(#g)"/>
+  <g fill="#141a22" stroke="#243342" stroke-width="2">
+    <rect x="360" y="260" width="240" height="280" rx="18"/><rect x="630" y="260" width="240" height="280" rx="18"/><rect x="900" y="260" width="240" height="280" rx="18"/>
+    <rect x="360" y="570" width="240" height="220" rx="18"/><rect x="630" y="570" width="240" height="220" rx="18"/><rect x="900" y="570" width="240" height="220" rx="18"/>
+  </g>
+  <g fill="#2dd4bf" fill-opacity=".28">
+    <rect x="380" y="280" width="200" height="170" rx="12"/><rect x="650" y="280" width="200" height="170" rx="12" fill-opacity=".45"/><rect x="920" y="280" width="200" height="170" rx="12"/>
+    <rect x="380" y="590" width="200" height="110" rx="12" fill-opacity=".45"/><rect x="650" y="590" width="200" height="110" rx="12"/><rect x="920" y="590" width="200" height="110" rx="12" fill-opacity=".45"/>
+  </g>
+  <g fill="#3a4757">
+    <rect x="380" y="475" width="140" height="12" rx="6"/><rect x="650" y="475" width="120" height="12" rx="6"/><rect x="920" y="475" width="150" height="12" rx="6"/>
+    <rect x="380" y="725" width="120" height="12" rx="6"/><rect x="650" y="725" width="150" height="12" rx="6"/><rect x="920" y="725" width="110" height="12" rx="6"/>
+  </g>
+  <g fill="#5eead4"><rect x="380" y="500" width="60" height="14" rx="7"/><rect x="650" y="500" width="60" height="14" rx="7"/><rect x="920" y="500" width="60" height="14" rx="7"/></g>
+  <g transform="translate(1240 360)" fill="none" stroke="#2dd4bf" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 0H44L70 120H210L236 40H56"/><circle cx="96" cy="170" r="16" fill="#2dd4bf"/><circle cx="184" cy="170" r="16" fill="#2dd4bf"/>
+  </g>
+</svg>

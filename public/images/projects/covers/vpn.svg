@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="A hub with four peers connected through encrypted tunnels">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#a3e635" stop-opacity=".2"/><stop offset="1" stop-color="#a3e635" stop-opacity="0"/></radialGradient>
+    <pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#fff" stroke-opacity=".04"/></pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b0f14"/><rect width="1600" height="1000" fill="url(#p)"/><rect width="1600" height="1000" fill="url(#g)"/>
+  <circle cx="800" cy="500" r="300" fill="none" stroke="#a3e635" stroke-opacity=".15" stroke-dasharray="6 10"/>
+  <g stroke="#a3e635" stroke-opacity=".8" stroke-width="3" stroke-dasharray="14 9">
+    <line x1="800" y1="500" x2="480" y2="320"/><line x1="800" y1="500" x2="1120" y2="320"/>
+    <line x1="800" y1="500" x2="480" y2="680"/><line x1="800" y1="500" x2="1120" y2="680"/>
+  </g>
+  <g fill="#1a2a0c" stroke="#a3e635" stroke-width="3">
+    <rect x="440" y="290" width="80" height="60" rx="10"/><rect x="1080" y="290" width="80" height="60" rx="10"/>
+    <rect x="440" y="650" width="80" height="60" rx="10"/><rect x="1080" y="650" width="80" height="60" rx="10"/>
+  </g>
+  <circle cx="800" cy="500" r="82" fill="#a3e635" fill-opacity=".14" stroke="#a3e635" stroke-width="3"/>
+  <path d="M800 450L842 466V510C842 536 824 556 800 566C776 556 758 536 758 510V466Z" fill="#a3e635"/>
+  <path d="M780 506L795 521L822 490" fill="none" stroke="#0b0f14" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

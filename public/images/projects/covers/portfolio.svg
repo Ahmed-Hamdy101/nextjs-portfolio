@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Browser window with a hero, project tiles and a dock">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#f472b6" stop-opacity=".2"/><stop offset="1" stop-color="#f472b6" stop-opacity="0"/></radialGradient>
+    <pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#fff" stroke-opacity=".04"/></pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b0f14"/><rect width="1600" height="1000" fill="url(#p)"/><rect width="1600" height="1000" fill="url(#g)"/>
+  <rect x="340" y="190" width="920" height="560" rx="22" fill="#141a22" stroke="#243342" stroke-width="2"/>
+  <path d="M340 212A22 22 0 0 1 362 190H1238A22 22 0 0 1 1260 212V250H340Z" fill="#1b232d"/>
+  <g fill="#f472b6"><circle cx="378" cy="220" r="8" fill-opacity=".9"/><circle cx="408" cy="220" r="8" fill-opacity=".6"/><circle cx="438" cy="220" r="8" fill-opacity=".35"/></g>
+  <rect x="380" y="290" width="420" height="40" rx="10" fill="#f472b6"/>
+  <g fill="#3a4757"><rect x="380" y="352" width="340" height="16" rx="8"/><rect x="380" y="384" width="280" height="16" rx="8"/></g>
+  <g fill="#243342"><rect x="380" y="450" width="250" height="230" rx="14"/><rect x="655" y="450" width="250" height="230" rx="14"/><rect x="930" y="450" width="290" height="230" rx="14"/></g>
+  <g fill="#f472b6" fill-opacity=".3"><rect x="396" y="466" width="218" height="130" rx="8"/><rect x="671" y="466" width="218" height="130" rx="8"/><rect x="946" y="466" width="258" height="130" rx="8"/></g>
+  <rect x="560" y="790" width="480" height="84" rx="42" fill="#141a22" stroke="#f472b6" stroke-opacity=".5" stroke-width="2"/>
+  <g fill="#f472b6"><circle cx="632" cy="832" r="22" fill-opacity=".4"/><circle cx="716" cy="832" r="22" fill-opacity=".55"/><circle cx="800" cy="832" r="30"/><circle cx="884" cy="832" r="22" fill-opacity=".55"/><circle cx="968" cy="832" r="22" fill-opacity=".4"/></g>
+</svg>

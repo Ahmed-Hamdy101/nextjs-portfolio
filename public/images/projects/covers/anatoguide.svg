@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Augmented reality viewfinder with a 3D object on a floor grid">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#fb7185" stop-opacity=".2"/><stop offset="1" stop-color="#fb7185" stop-opacity="0"/></radialGradient>
+    <pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#fff" stroke-opacity=".04"/></pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b0f14"/><rect width="1600" height="1000" fill="url(#p)"/><rect width="1600" height="1000" fill="url(#g)"/>
+  <g fill="none" stroke="#fb7185" stroke-width="5" stroke-linecap="round">
+    <path d="M340 260V190H410"/><path d="M1190 190H1260V260"/><path d="M340 740V810H410"/><path d="M1190 810H1260V740"/>
+  </g>
+  <ellipse cx="800" cy="690" rx="270" ry="70" fill="none" stroke="#fb7185" stroke-opacity=".6" stroke-width="3" stroke-dasharray="10 10"/>
+  <ellipse cx="800" cy="690" rx="150" ry="38" fill="#fb7185" fill-opacity=".1" stroke="#fb7185" stroke-opacity=".5" stroke-width="2"/>
+  <polygon points="800,330 930,405 800,480 670,405" fill="#fb7185" fill-opacity=".5" stroke="#fda4af" stroke-width="3"/>
+  <polygon points="670,405 800,480 800,640 670,565" fill="#fb7185" fill-opacity=".22" stroke="#fda4af" stroke-width="3"/>
+  <polygon points="930,405 800,480 800,640 930,565" fill="#fb7185" fill-opacity=".34" stroke="#fda4af" stroke-width="3"/>
+  <circle cx="800" cy="480" r="9" fill="#fff" fill-opacity=".9"/>
+</svg>

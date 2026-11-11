@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Dashed outline of a point-of-sale terminal and receipt">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#22d3ee" stop-opacity=".18"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+    <pattern id="p" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#fff" stroke-opacity=".04"/></pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b0f14"/><rect width="1600" height="1000" fill="url(#p)"/><rect width="1600" height="1000" fill="url(#g)"/>
+  <g fill="none" stroke="#22d3ee" stroke-width="3" stroke-dasharray="14 10" stroke-opacity=".8">
+    <rect x="360" y="230" width="640" height="400" rx="22"/>
+    <rect x="400" y="270" width="560" height="250" rx="12"/>
+    <rect x="360" y="660" width="640" height="130" rx="18"/>
+  </g>
+  <g fill="#22d3ee" fill-opacity=".35">
+    <rect x="430" y="310" width="300" height="14" rx="7"/><rect x="430" y="360" width="240" height="14" rx="7"/>
+    <rect x="430" y="410" width="280" height="14" rx="7"/><rect x="430" y="460" width="200" height="14" rx="7"/>
+    <rect x="800" y="310" width="130" height="14" rx="7"/><rect x="800" y="360" width="130" height="14" rx="7"/>
+    <rect x="800" y="410" width="130" height="14" rx="7"/><rect x="800" y="460" width="130" height="14" rx="7"/>
+  </g>
+  <g fill="none" stroke="#22d3ee" stroke-opacity=".6" stroke-width="2" stroke-dasharray="8 8">
+    <rect x="400" y="700" width="70" height="50" rx="8"/><rect x="490" y="700" width="70" height="50" rx="8"/><rect x="580" y="700" width="70" height="50" rx="8"/>
+    <rect x="670" y="700" width="70" height="50" rx="8"/><rect x="760" y="700" width="70" height="50" rx="8"/><rect x="850" y="700" width="70" height="50" rx="8"/>
+  </g>
+  <path d="M1110 250H1300V690L1270 670L1240 690L1210 670L1180 690L1150 670L1110 690Z" fill="none" stroke="#22d3ee" stroke-width="3" stroke-dasharray="14 10" stroke-opacity=".8"/>
+  <g fill="#22d3ee" fill-opacity=".35">
+    <rect x="1140" y="300" width="130" height="12" rx="6"/><rect x="1140" y="350" width="90" height="12" rx="6"/>
+    <rect x="1140" y="400" width="120" height="12" rx="6"/><rect x="1140" y="450" width="80" height="12" rx="6"/>
+  </g>
+</svg>
