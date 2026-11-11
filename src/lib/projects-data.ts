@@ -5,10 +5,10 @@ import {
     HiMiniGlobeAlt, HiMiniShoppingCart, HiMiniCommandLine, HiMiniSparkles,
     HiMiniCloud, HiMiniShieldCheck, HiMiniMicrophone, HiMiniPresentationChartLine,
     HiMiniMegaphone, HiMiniComputerDesktop, HiMiniVideoCamera, HiMiniShoppingBag,
-    HiMiniAcademicCap, HiMiniCog6Tooth,
+    HiMiniAcademicCap,
 } from "react-icons/hi2";
 
-export type FilterType = "All" | "Live" | "In Progress (private)" | "Live -- Alkayan Nova in Progress" | "Graduation";
+export type FilterType = "All" | "Live" | "In Progress (private)" | "Planned" | "Live -- Alkayan Nova in Progress" | "Graduation";
 
 export interface CaseStudy {
     /** 1. The business problem */
@@ -45,6 +45,10 @@ export interface Project {
     previewImage: string;
     year: string;
     category: string;
+    /** What this project is to the system around it; shown instead of the category on grouped cards */
+    role?: string;
+    /** Overrides the language detected from `tech` (for polyglot projects) */
+    language?: string;
     /** Last meaningful change to the project, ISO date (YYYY-MM-DD) */
     updated?: string;
     /** Illustrative cover art for projects without screenshots. Not a product screenshot. */
@@ -54,7 +58,7 @@ export interface Project {
     caseStudy?: CaseStudy;
 }
 
-export const projects: Project[] = [
+const catalog: Project[] = [
     {
         title: "Egypt Tour Guide",
         description: "Bilingual PWA tourism platform. Next.js 15 App Router, Node.js REST API, Redis caching, GSAP animations, i18next. LCP under 2.5s, Lighthouse SEO 100 and Accessibility 98. Online payment is being added to the booking flow.",
@@ -129,6 +133,7 @@ export const projects: Project[] = [
             "/images/projects/al-kayan-nova/gallery/07-project-clarity.png",
             "/images/projects/al-kayan-nova/gallery/08-build-your-legacy-footer.png",
         ],
+        role: "The public website",
         slug: "alkayan-nova",
         caseStudy: {
             problem: "Al Kayan Construction's business site needed a ground-up rebuild (Nova v2.0) with a distinctive visual identity and tighter security than the legacy codebase, without pulling in a full framework's overhead.",
@@ -294,6 +299,7 @@ export const projects: Project[] = [
         previewImage: "",
         year: "2026",
         category: "AI · Generative Copy",
+        cover: "/images/projects/covers/adforge.svg",
         images: [],
         slug: "adforge",
         caseStudy: {
@@ -318,21 +324,6 @@ export const projects: Project[] = [
         },
     },
     {
-        title: "AI Dev Agent Assistant",
-        description: "Full-stack developer assistant built around Llama: task management, code generation and analysis, project tracking and schema tooling in one workspace.",
-        tech: ["TypeScript", "Express", "React", "Vite", "Drizzle ORM", "SQLite", "Llama"],
-        link: "#",
-        Icon: HiMiniCog6Tooth,
-        color: "text-sky-400",
-        accent: "#38bdf8",
-        accentRgb: "56,189,248",
-        status: "In Progress (private)",
-        previewImage: "",
-        year: "2026",
-        category: "AI · Developer Tools",
-        images: [],
-    },
-    {
         title: "OpsCart AI",
         description: "Retail operations platform for products, inventory, orders and customers, with AI-assisted stock forecasting and sales summaries. Planned as a NestJS API, PostgreSQL and a Next.js dashboard. Currently in the design phase.",
         tech: ["NestJS", "Next.js", "PostgreSQL", "OpenAI API", "JWT"],
@@ -345,6 +336,7 @@ export const projects: Project[] = [
         previewImage: "",
         year: "2026",
         category: "AI · Retail SaaS",
+        cover: "/images/projects/covers/opscart-ai.svg",
         images: [],
     },
     {
@@ -360,21 +352,23 @@ export const projects: Project[] = [
         previewImage: "",
         year: "2026",
         category: "AR · Education",
+        cover: "/images/projects/covers/anatoguide.svg",
         images: [],
     },
     {
         title: "SoleStyle POS",
-        description: "Windows desktop point-of-sale app that installs as an .exe and runs offline: an Electron shell with an embedded SQLite database, a bundled Express API and a React interface.",
+        description: "Planned Windows desktop point-of-sale app that installs as an .exe and runs offline: an Electron shell with an embedded SQLite database, a bundled Express API and a React interface. Design stage; no build yet.",
         tech: ["Electron", "React", "Express", "SQLite", "electron-builder"],
         link: "#",
         Icon: HiMiniComputerDesktop,
         color: "text-cyan-400",
         accent: "#22d3ee",
         accentRgb: "34,211,238",
-        status: "In Progress (private)",
+        status: "Planned",
         previewImage: "",
         year: "2026",
         category: "Desktop · POS",
+        cover: "/images/projects/covers/solestyle-pos.svg",
         images: [],
     },
     {
@@ -407,6 +401,7 @@ export const projects: Project[] = [
         previewImage: "",
         year: "2026",
         category: "FinTech · Personal Finance",
+        cover: "/images/projects/covers/moneywise.svg",
         images: [],
     },
     {
@@ -423,22 +418,25 @@ export const projects: Project[] = [
         year: "2026",
         category: "ERP · Inventory",
         updated: "2026-11-08",
+        role: "The internal stock system",
         cover: "/images/projects/covers/erp-alkayan.svg",
         images: [],
     },
     {
         title: "Al Kayan ERP VPN",
-        description: "Windows hub and client desktop apps (Rust, Tauri 2) that manage a WireGuard tunnel: hub setup, peer management, live status and firewall rules limiting access to Al Kayan's internal ERP stock system to the VPN subnet.",
+        description: "Windows hub and client desktop apps (Rust, Tauri 2) that manage a WireGuard tunnel: hub setup, peer management, live status and firewall rules that limit access to Al Kayan's internal ERP to the VPN subnet. Server and client are finished and in production.",
         tech: ["Rust", "Tauri 2", "WireGuard", "Windows"],
         link: "#",
         Icon: HiMiniShieldCheck,
         color: "text-lime-400",
         accent: "#a3e635",
         accentRgb: "163,230,53",
-        status: "In Progress (private)",
+        status: "Live",
         previewImage: "",
         year: "2026",
         category: "Desktop · Networking",
+        role: "Keeps the ERP off the public internet",
+        cover: "/images/projects/covers/vpn.svg",
         images: [],
     },
     {
@@ -454,6 +452,7 @@ export const projects: Project[] = [
         previewImage: "",
         year: "2025",
         category: "Portfolio",
+        cover: "/images/projects/covers/portfolio.svg",
         images: [],
     },
     {
@@ -559,6 +558,7 @@ export const projects: Project[] = [
         previewImage: "",
         year: "2024",
         category: "Events · Platform",
+        cover: "/images/projects/covers/evento.svg",
         images: [],
     },
     {
@@ -592,6 +592,7 @@ export const projects: Project[] = [
         images: [],
         updated: "2026-11-09",
         cover: "/images/projects/covers/idp.svg",
+        language: "Polyglot",
         slug: "distributed-polyglot-idp",
         caseStudy: {
             problem: "Teams running many services lose track of what runs where, who owns it and what depends on what. Catalogs go stale because people update them by hand, and changes ship without anyone knowing the blast radius.",
@@ -707,21 +708,6 @@ export const projects: Project[] = [
         },
     },
     {
-        title: "Node.js Backend Suite",
-        description: "Three production services on AWS: Store Front API (Redis cart caching, 100% Jasmine coverage), Image Processing Microservice, and MERN app with CI/CD via CircleCI.",
-        tech: ["Node.js", "Express", "PostgreSQL", "Redis", "AWS EC2", "S3", "Jasmine"],
-        link: "https://github.com/Ahmed-Hamdy101/nodejs-store-front-api",
-        Icon: HiMiniCommandLine,
-        color: "text-cyan-400",
-        accent: "#22d3ee",
-        accentRgb: "34,211,238",
-        status: "Live",
-        previewImage: "/images/projects/nodejs-storefront-api/nodejs-storeforent-api.jpg",
-        year: "2023",
-        category: "Backend · API",
-        images: ["/images/projects/nodejs-storefront-api/nodejs-storeforent-api.jpg"],
-    },
-    {
         title: "AWS Fullstack Deployment",
         description: "Full-stack Node.js/Express/TypeScript app (Udagram) deployed on AWS with a complete automated pipeline — Elastic Beanstalk hosting, RDS PostgreSQL, S3 image storage, and CircleCI CI/CD end-to-end.",
         tech: ["Node.js", "Express", "TypeScript", "AWS Elastic Beanstalk", "AWS RDS", "AWS S3", "CircleCI"],
@@ -773,15 +759,99 @@ export const projects: Project[] = [
         previewImage: "",
         year: "2023",
         category: "E-Commerce",
+        cover: "/images/projects/covers/zed-store.svg",
         images: [],
     },
 ];
 
-export const filters: FilterType[] = ["All", "Live", "In Progress (private)", "Graduation", "Live -- Alkayan Nova in Progress"];
+export interface ProjectGroup {
+    id: string;
+    title: string;
+    summary: string;
+    /** Project titles in display order */
+    titles: string[];
+    /** Render the first project as a full-width feature */
+    featured?: boolean;
+}
+
+/** Display order of the Projects page. Edit this list to reorder or regroup. */
+export const projectGroups: ProjectGroup[] = [
+    {
+        id: "platform",
+        title: "Platform engineering",
+        summary: "The flagship build: a service catalog that learns from live traffic and predicts the impact of changes.",
+        titles: ["Distributed Polyglot IDP"],
+        featured: true,
+    },
+    {
+        id: "alkayan",
+        title: "Al Kayan",
+        summary: "One client, three systems: the public website, the internal stock ERP, and the VPN that keeps the ERP off the public internet.",
+        titles: ["ERP Alkayan Cloud", "Alkayan Construction Nova", "Al Kayan ERP VPN"],
+    },
+    {
+        id: "ai",
+        title: "AI projects",
+        summary: "Local-first assistants, generators and research tools, plus API services that wrap hosted models.",
+        titles: ["Jexa-S AI", "OpsCart AI", "Mythforge Warrior Creator", "AI Trading Desk", "AdForge", "TypeScript AI API"],
+    },
+    {
+        id: "products",
+        title: "Products and business software",
+        summary: "ERPs, finance, point of sale and platforms built for operations teams and customers.",
+        titles: ["Logger Suite ERP", "MoneyWise", "SoleStyle POS", "VidroTube", "AutoFix — Car Service", "Evento — Events", "AnatoGuide"],
+    },
+    {
+        id: "client",
+        title: "Client and web",
+        summary: "Production sites and storefronts, including the live tourism platform.",
+        titles: ["Egypt Tour Guide", "Zed Store", "Larafolio", "Portfolio — This Site"],
+    },
+    {
+        id: "cloud",
+        title: "Cloud and data",
+        summary: "An automated AWS deployment pipeline and a 3D mapping dashboard.",
+        titles: ["AWS Fullstack Deployment", "GIS Sinai Explorer"],
+    },
+];
+
+const displayRank = new Map(
+    projectGroups.flatMap((group) => group.titles).map((title, index): [string, number] => [title, index]),
+);
+
+export const projects: Project[] = [...catalog].sort(
+    (a, b) => (displayRank.get(a.title) ?? displayRank.size) - (displayRank.get(b.title) ?? displayRank.size),
+);
+
+export interface ResolvedProjectGroup extends Omit<ProjectGroup, "titles"> {
+    projects: Project[];
+}
+
+/** Groups with their projects resolved. Projects missing from every group land in a trailing "More" group. */
+export function getProjectGroups(): ResolvedProjectGroup[] {
+    const byTitle = new Map(projects.map((project): [string, Project] => [project.title, project]));
+    const listed = new Set(projectGroups.flatMap((group) => group.titles));
+    const groups: ResolvedProjectGroup[] = projectGroups.map(({ titles, ...group }) => ({
+        ...group,
+        projects: titles.flatMap((title) => byTitle.get(title) ?? []),
+    }));
+    const unlisted = projects.filter((project) => !listed.has(project.title));
+    if (unlisted.length > 0) groups.push({ id: "more", title: "More", summary: "Other projects.", projects: unlisted });
+    return groups.filter((group) => group.projects.length > 0);
+}
+
+export function matchesFilter(project: Project, filter: FilterType): boolean {
+    if (filter === "All") return true;
+    if (filter === "Live") return project.status === "Live" || project.status === "Live -- Alkayan Nova in Progress";
+    return project.status === filter;
+}
+
+export const filters: FilterType[] = ["All", "Live", "In Progress (private)", "Planned", "Graduation"];
 
 export const statusConfig: Record<FilterType, { label: string; dot: string; bg: string; text: string; border: string }> = {
     All: { label: "All", dot: "bg-white", bg: "bg-white/5", text: "text-white", border: "border-white/20" },
     Live: { label: "Live", dot: "bg-emerald-400", bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/25" },
+    Planned: { label: "Planned", dot: "bg-slate-400", bg: "bg-slate-500/10", text: "text-slate-300", border: "border-slate-500/30" },
     "In Progress (private)": { label: "In Progress", dot: "bg-amber-400", bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/25" },
     Graduation: { label: "Graduation", dot: "bg-violet-400", bg: "bg-violet-500/10", text: "text-violet-400", border: "border-violet-500/25" },
     "Live -- Alkayan Nova in Progress": { label: "Live ↗ WIP", dot: "bg-sky-400", bg: "bg-sky-500/10", text: "text-sky-400", border: "border-sky-500/25" },
