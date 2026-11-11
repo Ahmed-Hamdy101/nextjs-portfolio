@@ -30,7 +30,8 @@ const FRAMEWORKS: Record<string, string> = {
 const normalize = (tech: string) => tech.toLowerCase().replace(/\s+\d[\d.]*$/, "").trim();
 
 /** Main programming language: a named language in the tech list wins, otherwise the first framework that implies one. */
-export function getLanguage(project: Pick<Project, "tech">): string {
+export function getLanguage(project: Pick<Project, "tech" | "language">): string {
+    if (project.language) return project.language;
     const names = project.tech.map(normalize);
     for (const name of names) if (LANGUAGES[name]) return LANGUAGES[name];
     for (const name of names) if (FRAMEWORKS[name]) return FRAMEWORKS[name];
