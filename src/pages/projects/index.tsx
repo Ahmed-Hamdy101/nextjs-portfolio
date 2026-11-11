@@ -1,7 +1,7 @@
-import { motion, AnimatePresence, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useMemo } from "react";
 import {
     HiMiniArrowTopRightOnSquare,
     HiMiniXMark,
@@ -10,7 +10,7 @@ import {
     HiMiniCodeBracket,
 } from "react-icons/hi2";
 import SEOHead from "@/components/SEOHead";
-import { projects, filters, statusConfig, Project, FilterType } from "@/lib/projects-data";
+import { projects, filters, statusConfig, getProjectGroups, matchesFilter, Project, FilterType } from "@/lib/projects-data";
 import { getLanguage, getStage, formatUpdated } from "@/lib/project-meta";
 
 // ─── Lightbox ──────────────────────────────────────────────────────────────
@@ -98,9 +98,10 @@ export const Lightbox = ({ images, title, startIndex, onClose }: LightboxProps) 
 interface CardProps {
     project: Project;
     onOpenLightbox: (project: Project, i: number) => void;
+    featured?: boolean;
 }
 
-const ProjectCard = ({ project, onOpenLightbox }: CardProps) => {
+const ProjectCard = ({ project, onOpenLightbox, featured = false }: CardProps) => {
     const hasImages = project.images.length > 0;
     const isLiveLink = project.link !== "#" && !project.link.includes("github");
     const isGithubLink = !isLiveLink && project.link.includes("github");
@@ -109,38 +110,17 @@ const ProjectCard = ({ project, onOpenLightbox }: CardProps) => {
     const status = statusConfig[project.status];
     const updatedLabel = formatUpdated(project.updated);
 
-    const ref = useRef<HTMLElement>(null);
-    const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-    const imageY = useTransform(scrollYProgress, [0, 1], ["-9%", "9%"]);
-
-    const tiltX = useMotionValue(0);
-    const tiltY = useMotionValue(0);
-    const rotateX = useSpring(tiltX, { stiffness: 160, damping: 20 });
-    const rotateY = useSpring(tiltY, { stiffness: 160, damping: 20 });
-
-    const onMove = (e: React.MouseEvent<HTMLElement>) => {
-        const box = e.currentTarget.getBoundingClientRect();
-        tiltY.set(((e.clientX - box.left) / box.width - 0.5) * 9);
-        tiltX.set(-((e.clientY - box.top) / box.height - 0.5) * 9);
-    };
-    const onLeave = () => {
-        tiltX.set(0);
-        tiltY.set(0);
-    };
-
     const preview = (
-        <div className="relative aspect-[16/10] overflow-hidden bg-paper">
+        <div className={`cover-zoom relative overflow-hidden bg-paper ${featured ? "aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[22rem]" : "aspect-[16/10]"}`}>
             {hasImages ? (
-                <motion.div style={{ y: imageY, scale: 1.2 }} className="absolute inset-0">
-                    <Image
-                        src={project.previewImage}
-                        alt={`${project.title} preview`}
-                        fill
-                        className="object-cover object-top"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                        unoptimized
-                    />
-                </motion.div>
+                <Image
+                    src={project.previewImage}
+                    alt={`${project.title} preview`}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    unoptimized
+                />
             ) : project.cover ? (
                 <Image
                     src={project.cover}
@@ -178,14 +158,11 @@ const ProjectCard = ({ project, onOpenLightbox }: CardProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            style={{ perspective: 900 }}
+            className={featured ? "lg:col-span-full" : undefined}
         >
-        <motion.article
-            ref={ref}
-            onMouseMove={onMove}
-            onMouseLeave={onLeave}
-            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            className="panel grid grid-rows-[auto_1fr] overflow-hidden"
+        <article
+            style={{ ["--accent" as string]: project.accent }}
+            className={`panel overflow-hidden ${featured ? "beam grid lg:grid-cols-[1.15fr_1fr]" : "grid h-full grid-rows-[auto_1fr]"}`}
         >
             {project.slug ? (
                 <Link href={`/projects/${project.slug}`} aria-label={`${project.title} case study`}>{preview}</Link>
@@ -197,16 +174,19 @@ const ProjectCard = ({ project, onOpenLightbox }: CardProps) => {
                 preview
             )}
 
-            <div className="grid content-start gap-3 p-5" style={{ transform: "translateZ(28px)" }}>
-                <h3 className="h3">{project.title}</h3>
-                <p className="muted line-clamp-3">{project.description}</p>
-                <ul className="grid grid-flow-col justify-start gap-1.5" aria-label="Language and stage">
-                    <li className="tag tag-accent">{getLanguage(project)}</li>
-                    <li className={`tag ${stage === "Production" ? "tag-accent" : ""}`}>{stage}</li>
+            <div className={`grid content-start gap-3 ${featured ? "p-6 lg:p-8" : "p-5"}`}>
+                <p className="meta">{project.role ?? project.category}</p>
+                <h3 className={featured ? "h2" : "h3"}>{project.title}</h3>
+                <p className={`muted ${featured ? "" : "line-clamp-3"}`}>{project.description}</p>
+                <ul className="flex flex-wrap gap-1.5" aria-label="Language, stage and stack">
+                    <li className="tag tag-accent whitespace-nowrap">{getLanguage(project)}</li>
+                    <li className={`tag whitespace-nowrap ${stage === "Production" ? "tag-accent" : ""}`}>{stage}</li>
+                    {project.tech.slice(0, featured ? 6 : 3).map((t) => (
+                        <li key={t} className="tag whitespace-nowrap">{t}</li>
+                    ))}
                 </ul>
-                <p className="meta">{project.category} · {project.year} · {project.tech.slice(0, 4).join(", ")}</p>
 
-                <div className="mt-1 grid grid-flow-col justify-start gap-5 border-t rule pt-4 text-[0.9375rem]">
+                <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 border-t rule pt-4 text-[0.9375rem]">
                     {project.slug && <Link href={`/projects/${project.slug}`} className="link">Case study</Link>}
                     {isLiveLink && (
                         <a href={project.link} target="_blank" rel="noopener noreferrer" className="link icon-link">
@@ -228,7 +208,7 @@ const ProjectCard = ({ project, onOpenLightbox }: CardProps) => {
                     )}
                 </div>
             </div>
-        </motion.article>
+        </article>
         </motion.div>
     );
 };
@@ -238,7 +218,14 @@ const ProjectsPage = () => {
     const [activeFilter, setActiveFilter] = useState<FilterType>("All");
     const [lightbox, setLightbox] = useState<{ project: Project; index: number } | null>(null);
 
-    const filtered = activeFilter === "All" ? projects : projects.filter((p) => p.status === activeFilter);
+    const groups = useMemo(
+        () =>
+            getProjectGroups()
+                .map((group) => ({ ...group, projects: group.projects.filter((p) => matchesFilter(p, activeFilter)) }))
+                .filter((group) => group.projects.length > 0),
+        [activeFilter],
+    );
+    const total = groups.reduce((sum, group) => sum + group.projects.length, 0);
     const openLightbox = useCallback((project: Project, index = 0) => {
         if (project.images.length > 0) setLightbox({ project, index });
     }, []);
@@ -255,14 +242,14 @@ const ProjectsPage = () => {
                 <header className="grid gap-4">
                     <h1 className="h1">Projects</h1>
                     <p className="lede">
-                        {projects.length} systems shipped to production or in active development, built with Next.js,
-                        Laravel, Bun and AWS.
+                        {projects.length} systems across platform engineering, AI, business software and client work.
+                        Led by an internal developer platform and the three systems built for Al Kayan.
                     </p>
                 </header>
 
                 <div role="group" aria-label="Filter projects by status" className="flex flex-wrap gap-2">
                     {filters.map((filter) => {
-                        const count = filter === "All" ? projects.length : projects.filter((p) => p.status === filter).length;
+                        const count = projects.filter((p) => matchesFilter(p, filter)).length;
                         const selected = activeFilter === filter;
                         return (
                             <button
@@ -282,15 +269,32 @@ const ProjectsPage = () => {
                     })}
                 </div>
 
-                <motion.div layout className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                    <AnimatePresence mode="popLayout">
-                        {filtered.map((project) => (
-                            <ProjectCard key={project.title} project={project} onOpenLightbox={openLightbox} />
-                        ))}
-                    </AnimatePresence>
-                </motion.div>
+                <p role="status" className="meta">Showing {total} of {projects.length} projects</p>
 
-                {filtered.length === 0 && <p className="muted py-16 text-center">No projects match this filter.</p>}
+                <div className="grid gap-16">
+                    {groups.map((group) => (
+                        <section key={group.id} aria-labelledby={`group-${group.id}`} className="grid gap-6">
+                            <header className="grid gap-1">
+                                <h2 id={`group-${group.id}`} className="h2">{group.title}</h2>
+                                <p className="muted max-w-2xl">{group.summary}</p>
+                            </header>
+                            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                                <AnimatePresence mode="popLayout">
+                                    {group.projects.map((project, i) => (
+                                        <ProjectCard
+                                            key={project.title}
+                                            project={project}
+                                            onOpenLightbox={openLightbox}
+                                            featured={Boolean(group.featured) && i === 0}
+                                        />
+                                    ))}
+                                </AnimatePresence>
+                            </div>
+                        </section>
+                    ))}
+                </div>
+
+                {total === 0 && <p className="muted py-16 text-center">No projects match this filter.</p>}
             </div>
 
             <AnimatePresence>
