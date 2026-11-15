@@ -1,13 +1,16 @@
 import React, { ReactNode } from "react";
+import dynamic from "next/dynamic";
 import Dock from "./Dock";
 import Navbar from "./Navbar";
+
+const TrainStage = dynamic(() => import("./TrainStage"), { ssr: false, loading: () => null });
 
 interface LayoutProps {
     children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => (
-    <div className="grid min-h-screen grid-cols-[minmax(0,1fr)] grid-rows-[1fr_auto] bg-paper text-ink">
+    <div className="grid min-h-screen grid-cols-[minmax(0,1fr)] grid-rows-[1fr_auto] text-ink">
         <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-100 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-deep"
@@ -15,13 +18,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
             Skip to content
         </a>
 
+        <TrainStage />
         <Navbar />
 
-        <main id="main-content" className="min-w-0" style={{ paddingTop: "var(--header-h)" }}>
+        <main id="main-content" className="relative z-10 min-w-0" style={{ paddingTop: "var(--header-h)" }}>
             {children}
         </main>
 
-        <footer className="band-ink pb-28 md:pb-32">
+        <footer className="band-ink relative z-10 pb-28 md:pb-32">
             <div className="wrap grid gap-6 py-10 md:grid-cols-[1fr_auto_auto] md:items-center md:gap-10">
                 <p className="text-[0.9375rem]">
                     <span className="font-semibold">Ahmed Hamdy</span>
