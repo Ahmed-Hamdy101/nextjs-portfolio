@@ -22,9 +22,9 @@ const ResumeModal = dynamic(() => import("@/components/ResumeModal"), {
 
 const SECTIONS: readonly DotSection[] = [
     { id: "overview", label: "Overview" },
-    { id: "intro", label: "Introduction" },
-    { id: "work", label: "Selected work" },
-    { id: "stack", label: "How I build" },
+    { id: "intro", label: "Intro" },
+    { id: "work", label: "Work" },
+    { id: "stack", label: "Stack" },
     { id: "outcomes", label: "Outcomes" },
     { id: "contact", label: "Contact" },
 ];
