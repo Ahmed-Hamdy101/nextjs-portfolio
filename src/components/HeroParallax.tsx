@@ -19,7 +19,7 @@ function Tile({ item, translate }: { item: ParallaxItem; translate: MotionValue<
             transition={{ duration: 0.25 }}
             className="group relative h-72 w-[26rem] shrink-0 sm:h-80 sm:w-[30rem]"
         >
-            <Link href={item.href} className="block size-full overflow-hidden rounded-xl border border-line bg-sheet" aria-label={item.title}>
+            <Link href={item.href} className="relative block size-full overflow-hidden rounded-xl border border-line bg-sheet" aria-label={item.title}>
                 <Image src={item.image} alt={`${item.title} interface`} fill className="object-cover object-top" sizes="30rem" unoptimized />
                 <span className="absolute inset-0 bg-black/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <span className="absolute bottom-4 left-5 text-xl font-semibold opacity-0 transition-opacity duration-300 group-hover:opacity-100">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
-import { HiMiniBars3, HiMiniChevronDown, HiMiniXMark } from "react-icons/hi2";
+import { HiMiniArrowUpRight, HiMiniBars3, HiMiniChevronDown, HiMiniXMark } from "react-icons/hi2";
 import Logo from "./Logo";
 import { projects } from "@/lib/projects-data";
 
@@ -170,27 +170,19 @@ export default function Navbar() {
     const pathname = router?.pathname || "";
     const [menuOpen, setMenuOpen] = useState(false);
     const [mega, setMega] = useState(false);
-    const [hovered, setHovered] = useState<string | null>(null);
     const holder = useRef<HTMLDivElement>(null);
 
-    // Scroll-linked: 0 at the top (transparent bar), 1 after 90px (black floating pill)
     const { scrollY } = useScroll();
-    const progress = useSpring(useTransform(scrollY, [0, 90], [0, 1]), { stiffness: 220, damping: 32, mass: 0.4 });
-
-    const backgroundColor = useTransform(progress, [0, 1], ["rgba(0,0,0,0)", "rgba(0,0,0,0.92)"]);
-    const borderColor = useTransform(progress, [0, 1], ["rgba(255,255,255,0)", "rgba(255,255,255,0.14)"]);
-    const maxWidth = useTransform(progress, [0, 1], [1152, 980]);
-    const marginTop = useTransform(progress, [0, 1], [0, 12]);
-    const height = useTransform(progress, [0, 1], [68, 60]);
-    const backdropFilter = useTransform(progress, (v) => `blur(${(v * 14).toFixed(1)}px)`);
+    const progress = useSpring(useTransform(scrollY, [0, 120], [0, 1]), { stiffness: 220, damping: 32, mass: 0.4 });
+    const backgroundColor = useTransform(progress, [0, 1], ["rgba(8,10,14,0.62)", "rgba(8,10,14,0.88)"]);
 
     useEffect(() => {
         const close = () => {
             setMenuOpen(false);
             setMega(false);
         };
-        router.events.on("routeChangeComplete", close);
-        return () => router.events.off("routeChangeComplete", close);
+        router.events.on("routeChangeStart", close);
+        return () => router.events.off("routeChangeStart", close);
     }, [router.events]);
 
     useEffect(() => {
@@ -210,21 +202,17 @@ export default function Navbar() {
     const workActive = WORK_PATHS.some((p) => isActive(pathname, p));
     const desktopLinks = LINKS.filter((l) => l.href !== "/contact");
 
-    const pill = (id: string) =>
-        hovered === id && (
-            <motion.span
-                layoutId="nav-pill"
-                className="absolute inset-0 -z-10 rounded-full bg-white/10"
-                transition={{ duration: 0.25, ease: EASE }}
-            />
-        );
+    const itemClass = (on: boolean) =>
+        `relative isolate flex items-center gap-1.5 rounded-full px-4 py-2 text-[0.9375rem] font-medium transition-colors ${
+            on ? "text-white" : "text-white/70 hover:text-white"
+        }`;
 
-    const underline = (on: boolean) =>
+    const activePill = (on: boolean) =>
         on && (
             <motion.span
-                layoutId="nav-underline"
-                className="absolute inset-x-4 bottom-0.5 h-0.5 rounded-full bg-accent"
-                transition={{ duration: 0.3, ease: EASE }}
+                layoutId="nav-active"
+                className="absolute inset-0 -z-10 rounded-full bg-white/15 ring-1 ring-inset ring-white/20"
+                transition={{ duration: 0.35, ease: EASE }}
             />
         );
 
@@ -234,36 +222,19 @@ export default function Navbar() {
                 initial={{ y: -70, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: EASE }}
-                className="pointer-events-none fixed inset-x-0 top-0 z-50"
+                className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3"
             >
                 <motion.div
-                    style={{ backgroundColor, borderColor, maxWidth, marginTop, height, backdropFilter, WebkitBackdropFilter: backdropFilter }}
-                    className="pointer-events-auto relative mx-auto grid w-[calc(100%-1.5rem)] grid-cols-[auto_1fr_auto] items-center gap-6 rounded-[2rem] border px-3 sm:w-[calc(100%-2rem)] sm:px-5"
+                    style={{ backgroundColor }}
+                    className="pointer-events-auto mx-auto flex h-14 max-w-[72rem] items-center justify-between gap-3 rounded-full border border-white/15 py-2 pl-4 pr-2 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.55)]"
                 >
                     <Logo />
 
-                    <nav
-                        aria-label="Main navigation"
-                        className="hidden justify-self-start lg:grid lg:grid-flow-col lg:items-center lg:gap-1 lg:pl-4"
-                        onMouseLeave={() => setHovered(null)}
-                    >
-                        <motion.div
-                            ref={holder}
-                            initial={{ opacity: 0, y: -8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.35, duration: 0.5, ease: EASE }}
-                            className="relative"
-                            onMouseEnter={() => {
-                                setMega(true);
-                                setHovered("work");
-                            }}
-                            onMouseLeave={() => setMega(false)}
-                        >
+                    <nav aria-label="Main navigation" className="hidden items-center gap-0.5 rounded-full bg-white/[0.06] p-1 lg:flex">
+                        <div ref={holder} className="relative" onMouseEnter={() => setMega(true)} onMouseLeave={() => setMega(false)}>
                             <button
                                 type="button"
-                                className={`relative grid grid-flow-col items-center gap-1.5 px-4 py-2 text-[0.9375rem] font-medium transition-colors ${
-                                    workActive || mega ? "text-ink" : "text-mute"
-                                }`}
+                                className={itemClass(workActive || mega)}
                                 aria-expanded={mega}
                                 aria-haspopup="true"
                                 aria-controls="work-menu"
@@ -271,10 +242,9 @@ export default function Navbar() {
                                 onClick={() => setMega((v) => !v)}
                                 onFocus={() => setMega(true)}
                             >
-                                {pill("work")}
+                                {activePill(workActive)}
                                 Work
                                 <HiMiniChevronDown aria-hidden="true" className={`transition-transform duration-300 ${mega ? "rotate-180" : ""}`} />
-                                {underline(workActive)}
                             </button>
 
                             <AnimatePresence>
@@ -288,7 +258,7 @@ export default function Navbar() {
                                         style={{ transformOrigin: "top left" }}
                                         className="absolute left-0 top-full w-[34rem] pt-4"
                                     >
-                                        <ul className="grid gap-1 rounded-2xl border border-line bg-deep p-2">
+                                        <ul className="grid gap-1 rounded-3xl border border-white/15 bg-black/75 p-2 shadow-2xl backdrop-blur-2xl">
                                             {WORK_MENU.map(({ href, title, body }, i) => (
                                                 <motion.li
                                                     key={href}
@@ -298,11 +268,11 @@ export default function Navbar() {
                                                 >
                                                     <Link
                                                         href={href}
-                                                        className="grid gap-0.5 rounded-xl px-4 py-3 transition-colors hover:bg-white/10"
+                                                        className="grid gap-0.5 rounded-2xl px-4 py-3 transition-colors hover:bg-white/10"
                                                         onClick={() => setMega(false)}
                                                     >
-                                                        <span className="font-semibold">{title}</span>
-                                                        <span className="text-sm text-mute">{body}</span>
+                                                        <span className="font-semibold text-white">{title}</span>
+                                                        <span className="text-sm text-white/65">{body}</span>
                                                     </Link>
                                                 </motion.li>
                                             ))}
@@ -310,46 +280,30 @@ export default function Navbar() {
                                     </motion.div>
                                 )}
                             </AnimatePresence>
-                        </motion.div>
+                        </div>
 
-                        {desktopLinks.map(({ href, label }, i) => {
+                        {desktopLinks.map(({ href, label }) => {
                             const active = isActive(pathname, href);
                             return (
-                                <motion.div
-                                    key={href}
-                                    initial={{ opacity: 0, y: -8 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.42 + i * 0.07, duration: 0.5, ease: EASE }}
-                                    onMouseEnter={() => setHovered(href)}
-                                >
-                                    <Link
-                                        href={href}
-                                        aria-current={active ? "page" : undefined}
-                                        className={`relative block px-4 py-2 text-[0.9375rem] font-medium transition-colors ${
-                                            active || hovered === href ? "text-ink" : "text-mute"
-                                        }`}
-                                    >
-                                        {pill(href)}
-                                        {label}
-                                        {underline(active)}
-                                    </Link>
-                                </motion.div>
+                                <Link key={href} href={href} aria-current={active ? "page" : undefined} className={itemClass(active)}>
+                                    {activePill(active)}
+                                    {label}
+                                </Link>
                             );
                         })}
                     </nav>
 
-                    <motion.div
-                        initial={{ opacity: 0, x: 16 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5, duration: 0.6, ease: EASE }}
-                        className="col-start-3 grid grid-flow-col items-center gap-2 justify-self-end"
-                    >
-                        <Link href="/contact" className="btn btn-primary hidden rounded-full transition-transform hover:scale-[1.04] active:scale-95 sm:inline-grid">
+                    <div className="flex items-center gap-2">
+                        <Link
+                            href="/contact"
+                            className="group hidden h-10 items-center gap-1.5 rounded-full bg-accent px-5 text-[0.9375rem] font-semibold text-deep transition-transform hover:scale-[1.03] active:scale-95 sm:inline-flex"
+                        >
                             Get in touch
+                            <HiMiniArrowUpRight aria-hidden="true" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                         </Link>
                         <button
                             type="button"
-                            className="grid size-11 place-items-center rounded-full border border-line transition-colors hover:border-accent hover:text-accent lg:hidden"
+                            className="grid size-10 place-items-center rounded-full border border-white/20 text-white transition-colors hover:border-accent hover:text-accent lg:hidden"
                             aria-expanded={menuOpen}
                             aria-controls="mobile-menu"
                             aria-label="Open menu"
@@ -357,7 +311,7 @@ export default function Navbar() {
                         >
                             <HiMiniBars3 className="text-2xl" />
                         </button>
-                    </motion.div>
+                    </div>
                 </motion.div>
             </motion.header>
 

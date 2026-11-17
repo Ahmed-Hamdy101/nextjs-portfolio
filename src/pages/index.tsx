@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { FaGithub, FaLinkedinIn, FaStackOverflow, FaWhatsapp } from "react-icons/fa";
-import { HiMiniArrowDownTray, HiMiniArrowRight } from "react-icons/hi2";
+import { HiMiniArrowDownTray, HiMiniArrowRight, HiMiniChevronLeft, HiMiniChevronRight, HiMiniPlay } from "react-icons/hi2";
 import { projects } from "@/lib/projects-data";
 import { getLanguage, getStage } from "@/lib/project-meta";
-import HeroParallax, { ParallaxItem } from "@/components/HeroParallax";
-import ParallaxScroll from "@/components/ParallaxScroll";
+import type { ParallaxItem } from "@/components/HeroParallax";
+import HeroCarousel from "@/components/HeroCarousel";
+import ProjectTrain from "@/components/ProjectTrain";
 import StickyLayers, { Layer } from "@/components/StickyLayers";
+import TrainReveal from "@/components/TrainReveal";
+import PlanStudy from "@/components/PlanStudy";
 import TextReveal from "@/components/TextReveal";
 import Marquee from "@/components/Marquee";
 import SpotlightCard from "@/components/SpotlightCard";
@@ -25,15 +27,10 @@ const SECTIONS: readonly DotSection[] = [
     { id: "intro", label: "Intro" },
     { id: "work", label: "Work" },
     { id: "stack", label: "Stack" },
+    { id: "reveal", label: "Reveal" },
+    { id: "design", label: "Plan" },
     { id: "outcomes", label: "Outcomes" },
     { id: "contact", label: "Contact" },
-];
-
-const SOCIALS = [
-    { label: "GitHub", href: "https://github.com/Ahmed-Hamdy101", Icon: FaGithub },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/ahmed-hamdy-ah/", Icon: FaLinkedinIn },
-    { label: "Stack Overflow", href: "https://stackoverflow.com/users/19638490/ahmed-hamdy", Icon: FaStackOverflow },
-    { label: "WhatsApp", href: "https://wa.me/201141640812", Icon: FaWhatsapp },
 ];
 
 const STATEMENT =
@@ -72,8 +69,8 @@ const toItem = (p: (typeof projects)[number]): ParallaxItem => ({
     image: p.previewImage,
 });
 
-const heroItems: ParallaxItem[] = Array.from({ length: 15 }, (_, i) => toItem(withImage[i % withImage.length]));
 const workItems = withImage.slice(0, 9).map((p) => ({ ...toItem(p), note: `${p.category} · ${getLanguage(p)} · ${getStage(p)}` }));
+const heroCards = withImage.slice(0, 5).map((p) => ({ ...toItem(p), label: String(p.category) }));
 
 const structuredData = {
     "@context": "https://schema.org",
@@ -118,46 +115,55 @@ export default function HomePage() {
 
             <SectionDots sections={SECTIONS} />
 
-            {/* Overview: parallax hero */}
-            <section id="overview" data-section data-free>
-                <HeroParallax
-                    items={heroItems}
-                    header={
-                        <div className="wrap relative z-10 grid gap-8 pb-10 pt-16 md:pt-24">
-                            <h1 className="display max-w-5xl">One engineer. The whole product. Live in production.</h1>
-                            <p className="lede">
-                                I&apos;m Ahmed Hamdy in Giza, Egypt. I ship production web platforms in TypeScript,
-                                Node.js, Next.js and PostgreSQL, and I&apos;m open to full-time remote roles.
-                            </p>
-                            <div className="grid gap-3 sm:grid-flow-col sm:justify-start">
-                                <Link href="/projects" className="btn btn-primary">See case studies</Link>
-                                <button type="button" className="btn btn-quiet" onClick={() => setIsResumeOpen(true)}>
-                                    <HiMiniArrowDownTray aria-hidden="true" />
-                                    View CV
-                                </button>
-                            </div>
-                            <ul className="grid grid-flow-col justify-start gap-2" aria-label="Profiles">
-                                {SOCIALS.map(({ label, href, Icon }) => (
-                                    <li key={label}>
-                                        <a
-                                            href={href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={label}
-                                            className="grid size-11 place-items-center rounded-full border border-line text-mute transition-colors hover:border-accent hover:text-accent"
-                                        >
-                                            <Icon />
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    }
-                />
+            {/* Overview: full-bleed 3D station, train arrives and departs */}
+            <section id="overview" data-section data-free className="relative min-h-[calc(100svh-var(--header-h))]">
+                <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-60 bg-gradient-to-b from-black/50 to-transparent" />
+
+                <div className="wrap relative z-10 grid justify-items-center gap-4 pt-10 text-center md:pt-16">
+                    <h1 className="max-w-4xl text-[clamp(2rem,5.2vw,4.5rem)] font-extrabold uppercase leading-[1.02] tracking-[-0.01em] text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.5)]">
+                        One engineer. The whole product.
+                        <span className="mt-2 block text-[0.6em] tracking-[0.06em]">Live in production.</span>
+                    </h1>
+                </div>
+
+                <div className="absolute bottom-28 left-0 z-10 grid max-w-md gap-4 px-6 md:left-8 md:px-0">
+                    <p className="text-[0.9375rem] leading-snug text-white/90 [text-shadow:0_1px_14px_rgba(0,0,0,0.6)]">
+                        I&apos;m Ahmed Hamdy in Giza, Egypt. I ship production web platforms in TypeScript, Node.js, Next.js and PostgreSQL, and
+                        I&apos;m open to full-time remote roles.
+                    </p>
+                    <div className="grid gap-2 sm:grid-flow-col sm:justify-start">
+                        <Link href="/projects" className="btn btn-primary">See case studies</Link>
+                        <button
+                            type="button"
+                            className="btn btn-quiet bg-black/55"
+                            onClick={() => window.dispatchEvent(new CustomEvent("cinema", { detail: true }))}
+                        >
+                            <HiMiniPlay aria-hidden="true" />
+                            Watch the reel
+                        </button>
+                        <button type="button" className="btn btn-quiet bg-black/55" onClick={() => setIsResumeOpen(true)}>
+                            <HiMiniArrowDownTray aria-hidden="true" />
+                            View CV
+                        </button>
+                    </div>
+                </div>
+
+                <a
+                    href="#work"
+                    className="absolute inset-x-0 bottom-28 z-10 mx-auto hidden w-max items-center gap-3 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-white md:flex [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]"
+                >
+                    <HiMiniChevronLeft aria-hidden="true" className="text-[#8fe8ff]" />
+                    Scroll for projects
+                    <HiMiniChevronRight aria-hidden="true" className="text-[#8fe8ff]" />
+                </a>
+
+                <div className="absolute bottom-28 right-28 z-10 hidden lg:block">
+                    <HeroCarousel items={heroCards} />
+                </div>
             </section>
 
             {/* Introduction: scroll-driven statement + stack ticker */}
-            <section id="intro" data-section data-free className="border-t border-line">
+            <section id="intro" data-section data-free className="border-t border-line bg-deep/80">
                 <TextReveal text={STATEMENT} />
                 <div className="grid gap-6 pb-24">
                     <Marquee
@@ -174,23 +180,16 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Selected work: parallax scroll columns */}
-            <section id="work" data-section data-free className="overflow-hidden border-t border-line py-24">
-                <div className="wrap grid gap-14">
-                    <header className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
-                        <h2 className="h2">Selected work</h2>
-                        <Link href="/projects" className="link">All projects</Link>
-                    </header>
-                    <div className="pb-32">
-                        <ParallaxScroll items={workItems} />
-                    </div>
-                </div>
-            </section>
+            {/* Selected work: projects as carriages that roll past as you scroll */}
+            <ProjectTrain projects={workItems} />
 
             {/* How I build: sticky scroll reveal */}
             <section id="stack" data-section data-free className="border-t border-line">
                 <StickyLayers layers={LAYERS} />
             </section>
+
+            <TrainReveal />
+            <PlanStudy />
 
             {/* Outcomes: bento */}
             <section id="outcomes" data-section className="section border-t border-line">
