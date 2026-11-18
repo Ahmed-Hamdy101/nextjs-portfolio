@@ -3,13 +3,14 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { HiMiniArrowLeft, HiMiniArrowTopRightOnSquare, HiMiniCodeBracket } from "react-icons/hi2";
-import ArchitectureDiagram from "@/components/ArchitectureDiagram";
-import DiagramViewer from "@/components/DiagramViewer";
-import SectionDots, { DotSection } from "@/components/SectionDots";
-import SEOHead, { SITE_ORIGIN } from "@/components/SEOHead";
-import PerformanceBlock from "@/components/PerformanceBlock";
-import { getPerformance } from "@/lib/performance-results";
-import { projects, Project } from "@/lib/projects-data";
+import ArchitectureDiagram from "@/components/visuals/ArchitectureDiagram";
+import DiagramViewer from "@/components/visuals/DiagramViewer";
+import SectionDots, { DotSection } from "@/components/layout/SectionDots";
+import SEOHead, { SITE_ORIGIN } from "@/components/seo/SEOHead";
+import PerformanceBlock from "@/components/sections/PerformanceBlock";
+import { getPerformance } from "@/data/performance-results";
+import { projects } from "@/data/projects";
+import type { Project } from "@/types/project";
 import { getLanguage, getStage } from "@/lib/project-meta";
 
 interface Props {

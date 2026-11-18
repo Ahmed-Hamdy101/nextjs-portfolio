@@ -9,8 +9,9 @@ import {
     HiMiniChevronRight,
     HiMiniCodeBracket,
 } from "react-icons/hi2";
-import SEOHead from "@/components/SEOHead";
-import { projects, filters, statusConfig, getProjectGroups, matchesFilter, Project, FilterType } from "@/lib/projects-data";
+import SEOHead from "@/components/seo/SEOHead";
+import { projects, filters, statusConfig, getProjectGroups, matchesFilter } from "@/data/projects";
+import type { FilterType, Project } from "@/types/project";
 import { getLanguage, getStage, formatUpdated } from "@/lib/project-meta";
 
 // ─── Lightbox ──────────────────────────────────────────────────────────────
