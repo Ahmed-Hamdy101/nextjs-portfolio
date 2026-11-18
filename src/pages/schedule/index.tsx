@@ -1,5 +1,5 @@
-import ScheduleForm from "@/components/ScheduleForm";
-import SEOHead from "@/components/SEOHead";
+import ScheduleForm from "@/components/forms/ScheduleForm";
+import SEOHead from "@/components/seo/SEOHead";
 
 export default function SchedulePage() {
     return (
