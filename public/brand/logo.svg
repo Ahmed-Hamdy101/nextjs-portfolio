@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" width="280" height="48" fill="none" role="img" aria-label="Ahmed Hamdy — Full-stack engineer">
-  <g transform="translate(4 8)">
-    <path d="M6.5 25.5 16 5.5l9.5 20" stroke="#eef1f5" stroke-width="2.4" stroke-linejoin="miter"/>
-    <path d="M11.1 18.6h9.8" stroke="#d9a441" stroke-width="2.4"/>
-    <path d="M3.5 25.5h25" stroke="#eef1f5" stroke-width="2.4"/>
-  </g>
-  <text x="48" y="24" fill="#eef1f5" font-family="'Segoe UI', system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" letter-spacing="-0.2">Ahmed Hamdy</text>
-  <text x="48" y="40" fill="#98a2ae" font-family="'Segoe UI', system-ui, -apple-system, sans-serif" font-size="9.5" letter-spacing="2.3">FULL-STACK ENGINEER</text>
-</svg>
