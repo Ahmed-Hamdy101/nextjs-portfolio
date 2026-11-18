@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { HiMiniArrowTopRightOnSquare, HiMiniPaperAirplane } from "react-icons/hi2";
-import SEOHead from "@/components/SEOHead";
+import SEOHead from "@/components/seo/SEOHead";
+import { errorMessage } from "@/lib/http";
+import { contactService } from "@/services/contact.service";
+import type { ContactPayload } from "@/types/content";
 
 const DETAILS = [
     { label: "Email", value: "ahmedhamdy.mh95@gmail.com", href: "mailto:ahmedhamdy.mh95@gmail.com" },
@@ -17,36 +21,25 @@ const SOCIALS = [
 type Status = { type: "success" | "error"; text: string } | null;
 
 export default function ContactPage() {
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [status, setStatus] = useState<Status>(null);
+    const formRef = useRef<HTMLFormElement>(null);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formEl = e.currentTarget;
-        setIsSubmitting(true);
+    const contact = useMutation({
+        mutationFn: (payload: ContactPayload) => contactService.send(payload),
+        onSuccess: () => {
+            setStatus({ type: "success", text: "Message sent. I'll be in touch." });
+            formRef.current?.reset();
+        },
+        onError: (error) => setStatus({ type: "error", text: errorMessage(error) }),
+    });
+
+    const isSubmitting = contact.isPending;
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         setStatus(null);
-
-        const data = Object.fromEntries(new FormData(formEl).entries());
-
-        try {
-            const response = await fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
-            const result = await response.json();
-
-            if (result.success) {
-                setStatus({ type: "success", text: "Message sent. I'll be in touch." });
-                formEl.reset();
-            } else {
-                setStatus({ type: "error", text: result.error || "Something went wrong." });
-            }
-        } catch {
-            setStatus({ type: "error", text: "Could not reach the server. Please try again." });
-        } finally {
-            setIsSubmitting(false);
-        }
+        const payload = Object.fromEntries(new FormData(event.currentTarget).entries()) as unknown as ContactPayload;
+        contact.mutate(payload);
     };
 
     return (
@@ -64,7 +57,7 @@ export default function ContactPage() {
                 </header>
 
                 <div className="grid gap-10 lg:grid-cols-12">
-                    <form className="panel grid content-start gap-5 p-6 sm:p-8 lg:col-span-7" onSubmit={handleSubmit}>
+                    <form ref={formRef} className="panel grid content-start gap-5 p-6 sm:p-8 lg:col-span-7" onSubmit={handleSubmit}>
                         {status && (
                             <p
                                 role={status.type === "error" ? "alert" : "status"}
