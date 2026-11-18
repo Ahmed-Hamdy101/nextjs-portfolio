@@ -1,5 +1,5 @@
-import SectionDots, { DotSection } from "@/components/SectionDots";
-import SEOHead from "@/components/SEOHead";
+import SectionDots, { DotSection } from "@/components/layout/SectionDots";
+import SEOHead from "@/components/seo/SEOHead";
 
 interface Job {
     id: string;
