@@ -1,19 +1,26 @@
 # Ahmed Hamdy Portfolio
 
-![Portfolio preview](./public/portfolio.webp)
+<p align="center">
+  <img src="./public/brand/logo.png" alt="Ahmed Hamdy logo" width="180" />
+</p>
+
+![Portfolio preview](./public/brand/portfolio.webp)
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Bun](https://img.shields.io/badge/Bun-runtime-black?logo=bun)](https://bun.sh/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-The source code for a responsive developer portfolio and resume site built with Next.js, React, TypeScript, and Tailwind CSS. It presents projects as case studies, includes resume and experience views, and provides a contact and meeting-booking workflow.
+> I shape and ship reliable products. From system design to production.
+
+The source code for Ahmed Hamdy's full-stack engineering portfolio, built with Next.js, React, TypeScript, and Tailwind CSS. It presents production projects and outcomes, with an interactive 3D subway scene, resume and experience views, and a contact and meeting-booking workflow.
 
 ## Features
 
 - Responsive portfolio experience across projects, services, skills, work history, testimonials, contact, and booking flows.
-- Hero parallax landing section with layered project cards and scroll-linked motion effects.
-- Scroll-driven parallax project showcase with animated cards, staggered columns, and immersive storytelling sections.
+- Full-screen 3D station and R46 subway hero, with sliding doors and a procedural station/train fallback while GLB models load.
+- Project train showcase and a scroll-driven train reveal with Outline, Material, Light, and Finish stages.
+- Service overview for full-stack platforms, APIs, infrastructure, CI/CD, and interactive experiences.
 - Sticky scroll-reveal "How I build" section covering interface, API, data, and delivery layers.
 - Animated marquee technology rows for stack highlights and brand-style motion.
 - Section dot navigation and floating navigation patterns for smooth long-form browsing.
