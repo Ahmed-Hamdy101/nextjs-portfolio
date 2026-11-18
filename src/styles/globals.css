@@ -96,7 +96,7 @@ html.snap { scroll-snap-type: y proximity; }
     min-height: 2.75rem;
     padding: 0 1.15rem;
     border: 1px solid transparent;
-    border-radius: 0.375rem;
+    border-radius: 2px;
     font-size: 0.9375rem;
     font-weight: 600;
     line-height: 1;
@@ -116,7 +116,7 @@ html.snap { scroll-snap-type: y proximity; }
   .panel {
     background: var(--sheet);
     border: 1px solid var(--line);
-    border-radius: 0.75rem;
+    border-radius: 4px;
     transition: border-color 0.2s;
   }
   .panel:hover { border-color: #324052; }
@@ -126,7 +126,7 @@ html.snap { scroll-snap-type: y proximity; }
     display: inline-block;
     padding: 0.15rem 0.55rem;
     border: 1px solid var(--line);
-    border-radius: 0.25rem;
+    border-radius: 2px;
     font-size: 0.8125rem;
     color: var(--mute);
     background: transparent;
@@ -141,7 +141,7 @@ html.snap { scroll-snap-type: y proximity; }
     padding: 0.6rem 0.8rem;
     background: var(--sheet);
     border: 1px solid var(--line);
-    border-radius: 0.375rem;
+    border-radius: 2px;
     color: var(--ink);
     font: inherit;
     font-size: 0.9375rem;
@@ -150,7 +150,7 @@ html.snap { scroll-snap-type: y proximity; }
   .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
   textarea.input { resize: vertical; line-height: 1.55; }
 
-  .notice { padding: 0.75rem 1rem; border-radius: 0.375rem; font-size: 0.9375rem; border: 1px solid var(--line); background: var(--sheet); }
+  .notice { padding: 0.75rem 1rem; border-radius: 2px; font-size: 0.9375rem; border: 1px solid var(--line); background: var(--sheet); }
   .notice-error { border-color: var(--ink); }
   .notice-ok { border-color: var(--accent); background: var(--accent-wash); color: var(--accent-deep); }
 
@@ -230,7 +230,7 @@ html.snap { scroll-snap-type: y proximity; }
     background: var(--accent);
     border-color: var(--accent);
     color: var(--deep);
-    box-shadow: 0 0 0 5px var(--accent-wash), 0 10px 30px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 0 0 3px var(--accent-wash);
   }
   .dot-step {
     display: grid;
@@ -317,7 +317,7 @@ html.snap { scroll-snap-type: y proximity; }
 .grain {
   position: fixed;
   inset: -8%;
-  z-index: 60;
+  z-index: 45; /* below the navbar (z-50) so the header stays clean */
   pointer-events: none;
   opacity: 0.07;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
