@@ -1,6 +1,6 @@
 import Link from "next/link";
-import SectionDots, { DotSection } from "@/components/SectionDots";
-import SEOHead from "@/components/SEOHead";
+import SectionDots, { DotSection } from "@/components/layout/SectionDots";
+import SEOHead from "@/components/seo/SEOHead";
 
 const SERVICES = [
     {
