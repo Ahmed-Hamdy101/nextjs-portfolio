@@ -122,8 +122,8 @@ export default function HomePage() {
 
                 <div className="wrap relative z-10 grid justify-items-center gap-4 pt-10 text-center md:pt-16">
                     <h1 className="max-w-4xl text-[clamp(2rem,5.2vw,4.5rem)] font-extrabold uppercase leading-[1.02] tracking-[-0.01em] text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.5)]">
-                        One engineer. The whole product.
-                        <span className="mt-2 block text-[0.6em] tracking-[0.06em]">Live in production.</span>
+                        I shape and ship reliable products.
+                        <span className="mt-2 block text-[0.6em] tracking-[0.06em]">From system design to production.</span>
                     </h1>
                 </div>
 
