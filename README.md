@@ -32,6 +32,7 @@ The source code for a responsive developer portfolio and resume site built with 
 - React 19 and TypeScript
 - Tailwind CSS 4
 - Framer Motion and React Icons
+- TanStack Query for form mutations and server state
 - `googleapis` for Google Calendar and Meet conference creation
 - Nodemailer for transactional email
 - Bun or npm for dependency management
@@ -112,15 +113,30 @@ Set the same server-side environment variables in the deployment platform. Do no
 
 ## Project structure
 
-```text
-src/pages/             Next.js pages and API routes
-src/components/        Shared UI and forms
-src/lib/projects-data.ts
-                       Project and case-study content
-public/                 Images, icons, sitemap, and manifest
-get-token.mjs           Local Google OAuth refresh-token helper
-```
+Layers run from contracts to screens; each layer imports only from the ones above it:
+`types -> config -> data -> lib -> services -> hooks -> components -> pages`.
 
+```text
+src/types/                 Domain contracts: project, content, API payloads (no runtime code)
+src/config/                Site identity, navigation, station config, Query client
+src/data/                  Static content: project catalog, performance results
+src/lib/                   Pure helpers: http, formatting, motion variants, 3D metadata
+src/services/              Data boundaries: projects, contact, schedule
+src/hooks/                 Reusable client hooks
+src/components/ui/         Presentational primitives
+src/components/layout/     Navbar, logo, footer shell, dock, section rail
+src/components/forms/      Form islands built on TanStack Query mutations
+src/components/sections/   Page sections and home-page set pieces
+src/components/visuals/    3D station, train transitions, diagrams
+src/styles/                Design tokens and global CSS
+src/pages/                 Next.js routes and API handlers
+public/brand/              Logo, favicons, OG image, web manifest
+public/media/              Project screenshots, galleries, diagrams, avatar
+public/3d/                 GLB models used by the station scene
+public/audio/              Ambience loop
+public/                    Root-served robots.txt, sitemap.xml, verification file
+scripts/                   Node tooling: OAuth helper, model prep, performance harness
+```
 ## Contributing
 
 Issues and pull requests are welcome. Keep changes focused, test the affected page or API route locally, and update the README when adding a user-facing integration or required environment variable.
