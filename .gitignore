@@ -58,5 +58,12 @@ _portfolio.zip
 .claude/skills/fullstack-app-engineering/SKILL.md
 .claude/skills/modern-frontend/SKILL.md
 .claude/skills/performance-optimization/SKILL.md
+# local-only task artifacts, temporary test apps and generated deliverables
+/.work/
+/outputs/
+
 .claude/skills/project-ops-release-qa/SKILL.md
 .claude/skills/security-audit/SKILL.md
+.vscode/extensions.json
+.vscode/extensions.json
+.vscode/extensions.json
