@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useState } from "react";
 import { HiMiniArrowDownTray } from "react-icons/hi2";
-import Avatar from "@/components/Avatar";
-import ResumeModal from "@/components/ResumeModal";
-import SectionDots, { DotSection } from "@/components/SectionDots";
-import SEOHead from "@/components/SEOHead";
+import Avatar from "@/components/ui/Avatar";
+import ResumeModal from "@/components/sections/ResumeModal";
+import SectionDots, { DotSection } from "@/components/layout/SectionDots";
+import SEOHead from "@/components/seo/SEOHead";
 
 const SECTIONS: readonly DotSection[] = [
     { id: "intro", label: "Introduction" },
