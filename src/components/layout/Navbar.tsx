@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import { HiMiniArrowUpRight, HiMiniBars3, HiMiniChevronDown, HiMiniXMark } from "react-icons/hi2";
-import Logo from "./Logo";
-import { projects } from "@/lib/projects-data";
+import Logo from "@/components/layout/Logo";
+import { projects } from "@/data/projects";
 
 const WORK_MENU = [
     {
@@ -41,6 +41,24 @@ const SOCIALS = [
 
 const WORK_PATHS = ["/projects", "/work", "/skills"];
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+/** Hero state before any scrolling: the bar floats on the scene with no chrome. */
+const TRANSPARENT = {
+    backgroundColor: "rgba(8,10,14,0)",
+    borderColor: "rgba(255,255,255,0)",
+    borderRadius: "0px",
+    boxShadow: "0 0 0 0 rgba(0,0,0,0)",
+    backdropFilter: "blur(0px)",
+};
+
+/** Previous design once the page moves: rounded, dark and blurred. */
+const ROUNDED = {
+    backgroundColor: "rgba(8,10,14,0.86)",
+    borderColor: "rgba(255,255,255,0.15)",
+    borderRadius: "999px",
+    boxShadow: "0 10px 40px -10px rgba(0,0,0,0.55)",
+    backdropFilter: "blur(18px)",
+};
 
 const isActive = (pathname: string, href: string) => pathname === href || pathname.startsWith(href + "/");
 
@@ -170,11 +188,15 @@ export default function Navbar() {
     const pathname = router?.pathname || "";
     const [menuOpen, setMenuOpen] = useState(false);
     const [mega, setMega] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const holder = useRef<HTMLDivElement>(null);
 
     const { scrollY } = useScroll();
-    const progress = useSpring(useTransform(scrollY, [0, 120], [0, 1]), { stiffness: 220, damping: 32, mass: 0.4 });
-    const backgroundColor = useTransform(progress, [0, 1], ["rgba(8,10,14,0.62)", "rgba(8,10,14,0.88)"]);
+
+    useMotionValueEvent(scrollY, "change", (value) => {
+        const next = value > 24;
+        if (next !== scrolled) setScrolled(next);
+    });
 
     useEffect(() => {
         const close = () => {
@@ -225,8 +247,10 @@ export default function Navbar() {
                 className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3"
             >
                 <motion.div
-                    style={{ backgroundColor }}
-                    className="pointer-events-auto mx-auto flex h-14 max-w-[72rem] items-center justify-between gap-3 rounded-full border border-white/15 py-2 pl-4 pr-2 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.55)]"
+                    initial={false}
+                    animate={scrolled ? ROUNDED : TRANSPARENT}
+                    transition={{ duration: 0.45, ease: EASE }}
+                    className="pointer-events-auto mx-auto flex h-14 max-w-[72rem] items-center justify-between gap-3 border py-2 pl-4 pr-2"
                 >
                     <Logo />
 
@@ -299,7 +323,7 @@ export default function Navbar() {
                             className="group hidden h-10 items-center gap-1.5 rounded-full bg-accent px-5 text-[0.9375rem] font-semibold text-deep transition-transform hover:scale-[1.03] active:scale-95 sm:inline-flex"
                         >
                             Get in touch
-                            <HiMiniArrowUpRight aria-hidden="true" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                            <HiMiniArrowUpRight aria-hidden="true" className="shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                         </Link>
                         <button
                             type="button"

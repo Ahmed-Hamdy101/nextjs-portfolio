@@ -1,10 +1,14 @@
 import { useState, useMemo } from "react";
+import { useMutation } from "@tanstack/react-query";
 import {
     HiMiniCalendarDays,
     HiMiniClock,
     HiMiniVideoCamera,
     HiMiniArrowTopRightOnSquare,
 } from "react-icons/hi2";
+import { errorMessage } from "@/lib/http";
+import { browserTimezone, scheduleService } from "@/services/schedule.service";
+import type { SchedulePayload } from "@/types/content";
 
 const todayStr = () => new Date().toISOString().split("T")[0];
 
@@ -57,10 +61,26 @@ const EMPTY: FormState = { name: "", email: "", date: "", time: "", duration: "3
 
 export default function ScheduleForm() {
     const [step, setStep] = useState<Step>("form");
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState<string | null>(null);
     const [successData, setSuccessData] = useState<SuccessState | null>(null);
     const [form, setForm] = useState<FormState>(EMPTY);
+
+    const booking = useMutation({
+        mutationFn: (payload: SchedulePayload) => scheduleService.create(payload),
+        onSuccess: (result, payload) => {
+            setSuccessData({
+                meetLink: result.meetLink,
+                calendarLink: result.calendarLink,
+                name: payload.name,
+                date: payload.date,
+                time: payload.time,
+                duration: payload.duration,
+            });
+            setStep("success");
+        },
+    });
+
+    const isSubmitting = booking.isPending;
+    const error = booking.isError ? errorMessage(booking.error) : null;
 
     const set =
         (field: keyof FormState) =>
@@ -85,40 +105,9 @@ export default function ScheduleForm() {
         });
     }, [form.time]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        setError(null);
-
-        try {
-            const res = await fetch("/api/schedule", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    ...form,
-                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                }),
-            });
-            const data = await res.json();
-
-            if (!res.ok || !data.success) {
-                throw new Error(data.error || "Scheduling failed.");
-            }
-
-            setSuccessData({
-                meetLink: data.meetLink,
-                calendarLink: data.calendarLink,
-                name: form.name,
-                date: form.date,
-                time: form.time,
-                duration: form.duration,
-            });
-            setStep("success");
-        } catch (err: unknown) {
-            setError(err instanceof Error ? err.message : "Scheduling failed.");
-        } finally {
-            setIsSubmitting(false);
-        }
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        booking.mutate({ ...form, timezone: browserTimezone() });
     };
 
     if (step === "success" && successData) {
@@ -162,6 +151,7 @@ export default function ScheduleForm() {
                             setStep("form");
                             setForm(EMPTY);
                             setSuccessData(null);
+                            booking.reset();
                         }}
                     >
                         Schedule another

@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import Router from "next/router";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { sound } from "@/lib/sound";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-const DEPART_MS = 1200;
-const MIN_CLOSED_MS = 900;
-const OPEN_MS = 1100;
+const DEPART_MS = 480;
+const MIN_CLOSED_MS = 180;
+const OPEN_MS = 620;
 
 const NAMES: Record<string, string> = {
     "/": "Home",
@@ -47,7 +48,7 @@ function Door({ side, open, still }: { side: "left" | "right"; open: boolean; st
         <motion.div
             initial={{ x: hidden }}
             animate={{ x: open ? hidden : "0%" }}
-            transition={{ duration: open ? 0.95 : 0.6, ease: EASE, delay: open ? 0.55 : 0 }}
+            transition={{ duration: open ? 0.55 : 0.42, ease: EASE, delay: open ? 0.08 : 0 }}
             className={`absolute inset-y-0 w-1/2 bg-gradient-to-b from-[#252c36] via-[#181d25] to-[#0c0f14] ${side === "left" ? "left-0" : "right-0"}`}
         >
             <div className="absolute inset-x-[16%] top-[13%] h-[54%] overflow-hidden rounded-[2.5rem] border-[3px] border-[#3b4553] bg-gradient-to-b from-[#7fb1d6] via-[#cfe0e6] to-[#f2c58a] shadow-[inset_0_0_40px_rgba(0,0,0,0.35)]">
@@ -78,7 +79,7 @@ function Door({ side, open, still }: { side: "left" | "right"; open: boolean; st
 }
 
 export default function TrainTransition() {
-    const prefersReduced = useReducedMotion();
+    const prefersReduced = usePrefersReducedMotion();
     const [hydrated, setHydrated] = useState(false);
     useEffect(() => setHydrated(true), []);
     const reduced = hydrated && Boolean(prefersReduced);
@@ -207,7 +208,7 @@ export default function TrainTransition() {
                                 key={phase}
                                 initial={{ opacity: 0, y: 14 }}
                                 animate={phase === "arrive" ? { opacity: [1, 1, 0], y: 0 } : { opacity: 1, y: 0 }}
-                                transition={phase === "arrive" ? { duration: 1.3, times: [0, 0.55, 1] } : { duration: 0.45, ease: EASE, delay: 0.25 }}
+                                transition={phase === "arrive" ? { duration: 0.72, times: [0, 0.55, 1] } : { duration: 0.34, ease: EASE, delay: 0.1 }}
                                 className="grid justify-items-center gap-3 rounded-2xl bg-black/55 px-10 py-7 text-center text-white shadow-2xl backdrop-blur-md"
                             >
                                 <span className="text-[0.75rem] font-semibold uppercase tracking-[0.35em] text-accent">

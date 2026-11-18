@@ -3,7 +3,7 @@ import Image from "next/image";
 const Avatar = () => (
     <div className="relative size-full bg-paper">
         <Image
-            src="/images/avater/avater.png"
+            src="/media/avatar/avatar.png"
             alt="Ahmed Hamdy"
             fill
             priority

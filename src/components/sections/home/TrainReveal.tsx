@@ -1,21 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useMotionValue, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { sound } from "@/lib/sound";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
-const Canvas3D = dynamic(() => import("./TrainRevealCanvas"), { ssr: false, loading: () => null });
+const Canvas3D = dynamic(() => import("@/components/visuals/TrainRevealCanvas"), { ssr: false, loading: () => null });
 
 const STAGES = ["Outline", "Material", "Light", "Finish"] as const;
 
 const SERVICES = [
     { name: "Full-stack platforms", body: "Interfaces, APIs and data shipped as one coherent product." },
-    { name: "APIs & infrastructure", body: "Typed services, queues and pipelines that stay quiet in production." },
+    { name: "APIs & infrastructure", body: "Typed APIs, queues, infrastructure and CI/CD pipelines that keep production systems reliable." },
     { name: "Interactive experiences", body: "Real-time 3D and motion, used where it earns its place." },
 ];
 
 export default function TrainReveal() {
     const ref = useRef<HTMLElement>(null);
-    const prefersReduced = useReducedMotion();
+    const prefersReduced = usePrefersReducedMotion();
     const [hydrated, setHydrated] = useState(false);
     useEffect(() => setHydrated(true), []);
     const reduced = hydrated && Boolean(prefersReduced);
@@ -45,12 +46,13 @@ export default function TrainReveal() {
         };
     }, []);
 
+    const lastStage = useRef(0);
     useMotionValueEvent(progress, "change", (v) => {
         const next = Math.min(3, Math.floor(v * 4));
-        setStage((prev) => {
-            if (prev !== next) sound.tone(520 + next * 110);
-            return next;
-        });
+        if (next === lastStage.current) return;
+        lastStage.current = next;
+        sound.tone(520 + next * 110);
+        setStage(next);
     });
 
     return (

@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { HiMiniChevronLeft, HiMiniChevronRight, HiMiniPause, HiMiniPlay } from "react-icons/hi2";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
 export interface HeroCard {
     title: string;
@@ -23,7 +24,7 @@ export default function HeroCarousel({ items }: { items: HeroCard[] }) {
     const [active, setActive] = useState(0);
     const [hold, setHold] = useState(false);
     const [playing, setPlaying] = useState(true);
-    const prefersReduced = useReducedMotion();
+    const prefersReduced = usePrefersReducedMotion();
     const [hydrated, setHydrated] = useState(false);
     useEffect(() => setHydrated(true), []);
     const reduced = hydrated && Boolean(prefersReduced);
@@ -31,10 +32,10 @@ export default function HeroCarousel({ items }: { items: HeroCard[] }) {
     const go = useCallback((n: number) => setActive(((n % count) + count) % count), [count]);
 
     useEffect(() => {
-        if (!playing || hold || count < 2) return;
+        if (!playing || hold || count < 2 || reduced) return;
         const id = window.setInterval(() => setActive((v) => (v + 1) % count), INTERVAL);
         return () => window.clearInterval(id);
-    }, [playing, hold, count, active]);
+    }, [playing, hold, count, active, reduced]);
 
     if (!count) return null;
 
@@ -57,7 +58,7 @@ export default function HeroCarousel({ items }: { items: HeroCard[] }) {
                     const body = (
                         <>
                             <span className="relative block h-28 w-full overflow-hidden">
-                                <Image src={card.image} alt="" fill sizes="208px" className="object-cover" />
+                                <Image src={card.image} alt="" fill sizes="208px" priority={front} className="object-cover" />
                             </span>
                             <span className="grid gap-1.5 p-3 text-left">
                                 <span className="text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-[#8fe8ff]">{card.label}</span>

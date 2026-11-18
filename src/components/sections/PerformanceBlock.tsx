@@ -1,4 +1,4 @@
-import type { PerformanceResult } from "@/lib/performance-results";
+import type { PerformanceResult } from "@/data/performance-results";
 
 const LABELS: [keyof PerformanceResult["scores"], string][] = [
     ["performance", "Performance"],

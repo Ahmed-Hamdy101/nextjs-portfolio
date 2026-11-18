@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { STATION_DEFAULT, STATION_KEY, stationCal, type StationCal } from "@/lib/station-config";
+import { STATION_DEFAULT, STATION_KEY, stationCal, type StationCal } from "@/config/station";
 
 const FIELDS: { key: Exclude<keyof StationCal, "ghost">; label: string; min: number; max: number; step: number }[] = [
     { key: "scale", label: "Station scale", min: 0.05, max: 6, step: 0.01 },

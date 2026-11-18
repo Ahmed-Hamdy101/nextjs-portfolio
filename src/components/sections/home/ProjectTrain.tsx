@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
 export interface TrainProject {
     title: string;
@@ -59,7 +60,7 @@ function Car({ project, index }: { project: TrainProject; index: number }) {
 export default function ProjectTrain({ projects }: { projects: TrainProject[] }) {
     const ref = useRef<HTMLElement>(null);
     const track = useRef<HTMLUListElement>(null);
-    const prefersReduced = useReducedMotion();
+    const prefersReduced = usePrefersReducedMotion();
     const [hydrated, setHydrated] = useState(false);
     useEffect(() => setHydrated(true), []);
     const still = hydrated && Boolean(prefersReduced);

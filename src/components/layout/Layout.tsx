@@ -2,25 +2,18 @@ import React, { ReactNode } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { HiMiniArrowUp } from "react-icons/hi2";
-import Dock from "./Dock";
-import Navbar from "./Navbar";
-import SoundToggle from "./SoundToggle";
-import TrainTransition from "./TrainTransition";
+import Dock from "@/components/layout/Dock";
+import Navbar from "@/components/layout/Navbar";
+import SoundToggle from "@/components/layout/SoundToggle";
+import TrainTransition from "@/components/visuals/TrainTransition";
+import { FOOTER_LINKS } from "@/config/navigation";
+import { site } from "@/config/site";
 
-const TrainStage = dynamic(() => import("./TrainStage"), { ssr: false, loading: () => null });
+const TrainStage = dynamic(() => import("@/components/visuals/TrainStage"), { ssr: false, loading: () => null });
 
 interface LayoutProps {
     children: ReactNode;
 }
-
-const FOOTER_LINKS = [
-    { label: "Work", href: "/projects" },
-    { label: "Services", href: "/services" },
-    { label: "About", href: "/about" },
-    { label: "Outcomes", href: "/testimonials" },
-    { label: "Schedule", href: "/schedule" },
-    { label: "Contact", href: "/contact" },
-];
 
 const Layout: React.FC<LayoutProps> = ({ children }) => (
     <div className="grid min-h-screen grid-cols-[minmax(0,1fr)] grid-rows-[1fr_auto] text-ink">
@@ -48,7 +41,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
             <div className="wrap grid gap-14 py-16">
                 <div className="grid gap-6">
                     <p className="meta uppercase tracking-[0.3em] text-accent">Contact</p>
-                    <h2 className="display max-w-4xl">Let&apos;s Shape Your Next Vision</h2>
+                    <h2 className="display max-w-4xl">Tell me what you&apos;re building.</h2>
                     <div className="grid gap-3 sm:grid-flow-col sm:justify-start">
                         <Link href="/contact" className="btn btn-primary">Send a message</Link>
                         <Link href="/schedule" className="btn btn-quiet">Book a call</Link>
@@ -56,7 +49,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
                 </div>
 
                 <div className="grid gap-8 border-t border-line pt-8 md:grid-cols-[auto_1fr_auto] md:items-start md:gap-12">
-                    <p className="text-[1.75rem] font-bold leading-none tracking-[-0.04em]">Ahmed Hamdy</p>
+                    <p className="text-[1.75rem] font-bold leading-none tracking-[-0.04em]">{site.name}</p>
 
                     <div className="grid gap-6 sm:grid-cols-2">
                         <nav aria-label="Footer navigation" className="grid gap-2 text-[0.9375rem]">
@@ -89,17 +82,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
                         © {new Date().getFullYear()} Ahmed Hamdy · Full stack engineer · Giza, Egypt
                     </p>
                     <p className="meta">
-                        3D model:{" "}
+                        3D station and R46 subway:{" "}
                         <a
                             className="link"
-                            href="https://sketchfab.com/3d-models/tangara-sydney-trains-t-set-07d7a69ffb544ec48442ae3448ee6f1f"
+                            href="https://sketchfab.com/3d-models/free-subway-station-r46-subway-ae5aadde1c6f48a19b32b309417a669b"
                             target="_blank"
-                            rel="noopener noreferrer"
+                            rel="noreferrer"
                         >
-                            Tangara Sydney Trains T set
+                            FREE // Subway Station &amp; R46 Subway
                         </a>{" "}
-                        by PolyDucky, licensed{" "}
-                        <a className="link" href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
+                        by Alex Murias (Xlay3D), licensed{" "}
+                        <a className="link" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
                             CC BY 4.0
                         </a>
                         .

@@ -1,6 +1,7 @@
 import Head from "next/head";
+import { SITE_ORIGIN, site } from "@/config/site";
 
-export const SITE_ORIGIN = "https://ahmedhamdy101.is-a.dev";
+export { SITE_ORIGIN };
 
 type JsonLd = Record<string, unknown> | Record<string, unknown>[];
 
@@ -18,7 +19,7 @@ export default function SEOHead({
     title,
     description,
     path,
-    image = "/og-image-portfolio.jpg",
+    image = site.ogImage,
     type = "website",
     noIndex = false,
     structuredData,
@@ -39,16 +40,16 @@ export default function SEOHead({
                 content={noIndex ? "noindex,follow" : "index,follow,max-image-preview:large,max-snippet:-1"}
                 key="robots"
             />
-            <meta name="author" content="Ahmed Hamdy (ahmedhamdy101)" key="author" />
+            <meta name="author" content={`${site.name} (ahmedhamdy101)`} key="author" />
 
             <meta property="og:type" content={type} key="og:type" />
-            <meta property="og:site_name" content="Ahmed Hamdy" key="og:site_name" />
+            <meta property="og:site_name" content={site.name} key="og:site_name" />
             <meta property="og:locale" content="en_US" key="og:locale" />
             <meta property="og:url" content={pageUrl} key="og:url" />
             <meta property="og:title" content={title} key="og:title" />
             <meta property="og:description" content={description} key="og:description" />
             <meta property="og:image" content={imageUrl} key="og:image" />
-            <meta property="og:image:alt" content="Ahmed Hamdy (ahmedhamdy101), full stack engineer in Giza, Egypt" key="og:image:alt" />
+            <meta property="og:image:alt" content={`${site.name}, ${site.role} in ${site.location.label}`} key="og:image:alt" />
 
             <meta name="twitter:card" content="summary_large_image" key="twitter:card" />
             <meta name="twitter:url" content={pageUrl} key="twitter:url" />
