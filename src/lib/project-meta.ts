@@ -1,4 +1,4 @@
-import type { Project } from "./projects-data";
+import type { Project } from "@/types/project";
 
 const LANGUAGES: Record<string, string> = {
     typescript: "TypeScript",
