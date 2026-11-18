@@ -810,7 +810,7 @@ export default function TrainStage() {
     const [ready, setReady] = useState(false);
     const [small, setSmall] = useState(false);
     const [cinema, setCinema] = useState(false);
-    const [station, setStation] = useState<string | null | undefined>(undefined);
+    const [station, setStation] = useState<string | null>(null);
     const [stationReady, setStationReady] = useState(false);
     const [trainReady, setTrainReady] = useState(false);
     const [timedOut, setTimedOut] = useState(false);
@@ -921,7 +921,7 @@ export default function TrainStage() {
     const shadows = false;
     const onStationReady = () => setStationReady(true);
     const onTrainReady = () => setTrainReady(true);
-    const shown = timedOut || ((station === null || stationReady) && trainReady);
+    const shown = timedOut || trainReady;
     const moved = (child: ReactNode) => (
         <Mover train={train} routeRef={routeRef} cinemaRef={cinemaRef} departRef={departRef}>
             {child}
@@ -947,29 +947,22 @@ export default function TrainStage() {
                     <fog attach="fog" args={["#e3c79e", 45, 230]} />
                     <Atmosphere />
                     <Lights shadows={shadows} />
-                    {station === null && <Suspense fallback={null}><ProceduralStation shadows={shadows} /></Suspense>}
+                    <mesh position={[0, -0.05, 0]} rotation-x={-Math.PI / 2}>
+                        <planeGeometry args={[600, 600]} />
+                        <meshStandardMaterial color="#4f483f" roughness={1} />
+                    </mesh>
+                    {(station === null || !stationReady) && (
+                        <Suspense fallback={null}>
+                            <ProceduralStation shadows={shadows} />
+                        </Suspense>
+                    )}
                     {station && (
-                        <>
-                            <mesh position={[0, -0.05, 0]} rotation-x={-Math.PI / 2}>
-                                <planeGeometry args={[600, 600]} />
-                                <meshStandardMaterial color="#4f483f" roughness={1} />
-                            </mesh>
-                            <Boundary
-                                fallback={
-                                    <>
-                                        <Suspense fallback={null}>
-                                            <ProceduralStation shadows={shadows} />
-                                        </Suspense>
-                                        <Ready onReady={onStationReady} />
-                                    </>
-                                }
-                            >
-                                <Suspense fallback={null}>
-                                    <StationModel url={station} />
-                                    <Ready onReady={onStationReady} />
-                                </Suspense>
-                            </Boundary>
-                        </>
+                        <Boundary fallback={null}>
+                            <Suspense fallback={null}>
+                                <StationModel url={station} />
+                                <Ready onReady={onStationReady} />
+                            </Suspense>
+                        </Boundary>
                     )}
                     <Ghost />
                     <Boundary
