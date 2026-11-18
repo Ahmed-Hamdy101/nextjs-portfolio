@@ -1,8 +1,9 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import Layout from "@/components/Layout";
+import Layout from "@/components/layout/Layout";
+import AppProviders from "@/components/providers/AppProviders";
 import { useRouter } from "next/router";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { Bricolage_Grotesque } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -18,22 +19,26 @@ export default function App({ Component, pageProps }: AppProps) {
     const router = useRouter();
 
     return (
-        <div className={`${grotesk.variable} font-sans`}>
-            <Layout>
-                <AnimatePresence mode="popLayout" initial={false}>
-                    <motion.div
-                        key={router.route}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.12, ease: "linear" }}
-                    >
-                        <Component {...pageProps} />
-                    </motion.div>
-                </AnimatePresence>
-            </Layout>
-            <Analytics />
-            <SpeedInsights />
-        </div>
+        <MotionConfig reducedMotion="user">
+            <AppProviders>
+                <div className={`${grotesk.variable} font-sans`}>
+                    <Layout>
+                        <AnimatePresence mode="popLayout" initial={false}>
+                            <motion.div
+                                key={router.route}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.12, ease: "linear" }}
+                            >
+                                <Component {...pageProps} />
+                            </motion.div>
+                        </AnimatePresence>
+                    </Layout>
+                    <Analytics />
+                    <SpeedInsights />
+                </div>
+            </AppProviders>
+        </MotionConfig>
     );
 }

@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { HiMiniArrowDownTray, HiMiniArrowRight, HiMiniChevronLeft, HiMiniChevronRight, HiMiniPlay } from "react-icons/hi2";
-import { projects } from "@/lib/projects-data";
+import { projects } from "@/data/projects";
 import { getLanguage, getStage } from "@/lib/project-meta";
-import type { ParallaxItem } from "@/components/HeroParallax";
-import HeroCarousel from "@/components/HeroCarousel";
-import ProjectTrain from "@/components/ProjectTrain";
-import StickyLayers, { Layer } from "@/components/StickyLayers";
-import TrainReveal from "@/components/TrainReveal";
-import PlanStudy from "@/components/PlanStudy";
-import TextReveal from "@/components/TextReveal";
-import Marquee from "@/components/Marquee";
-import SpotlightCard from "@/components/SpotlightCard";
-import ScheduleForm from "@/components/ScheduleForm";
-import SectionDots, { DotSection } from "@/components/SectionDots";
-import SEOHead, { SITE_ORIGIN } from "@/components/SEOHead";
+import type { ParallaxItem } from "@/components/sections/home/HeroParallax";
+import HeroCarousel from "@/components/sections/home/HeroCarousel";
+import ProjectTrain from "@/components/sections/home/ProjectTrain";
+import StickyLayers, { Layer } from "@/components/sections/home/StickyLayers";
+import TrainReveal from "@/components/sections/home/TrainReveal";
+import TextReveal from "@/components/ui/TextReveal";
+import Marquee from "@/components/ui/Marquee";
+import SpotlightCard from "@/components/ui/SpotlightCard";
+import ScheduleForm from "@/components/forms/ScheduleForm";
+import SectionDots, { DotSection } from "@/components/layout/SectionDots";
+import SEOHead, { SITE_ORIGIN } from "@/components/seo/SEOHead";
 
-const ResumeModal = dynamic(() => import("@/components/ResumeModal"), {
+const ResumeModal = dynamic(() => import("@/components/sections/ResumeModal"), {
     ssr: false,
     loading: () => null,
 });
@@ -28,7 +27,6 @@ const SECTIONS: readonly DotSection[] = [
     { id: "work", label: "Work" },
     { id: "stack", label: "Stack" },
     { id: "reveal", label: "Reveal" },
-    { id: "design", label: "Plan" },
     { id: "outcomes", label: "Outcomes" },
     { id: "contact", label: "Contact" },
 ];
@@ -117,7 +115,10 @@ export default function HomePage() {
 
             {/* Overview: full-bleed 3D station, train arrives and departs */}
             <section id="overview" data-section data-free className="relative min-h-[calc(100svh-var(--header-h))]">
-                <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-60 bg-gradient-to-b from-black/50 to-transparent" />
+                <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(180deg,transparent_0%,transparent_50%,rgba(5,7,11,0.42)_100%)]"
+                />
 
                 <div className="wrap relative z-10 grid justify-items-center gap-4 pt-10 text-center md:pt-16">
                     <h1 className="max-w-4xl text-[clamp(2rem,5.2vw,4.5rem)] font-extrabold uppercase leading-[1.02] tracking-[-0.01em] text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.5)]">
@@ -189,7 +190,6 @@ export default function HomePage() {
             </section>
 
             <TrainReveal />
-            <PlanStudy />
 
             {/* Outcomes: bento */}
             <section id="outcomes" data-section className="section border-t border-line">
